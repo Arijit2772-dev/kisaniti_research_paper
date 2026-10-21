@@ -1,0 +1,6 @@
+policy,net_rs,quantity_q,transport_rs,waiting_rs,avg_km,limit_violations,runs_with_violation,excess_q,split_lots,net_rs_per_q,transport_rs_per_q,gain_vs_P1_rs_per_q,gain_vs_P1_rs_per_q_sd
+"P1 Nearest mandi, first free day",6630394.773,2815.0,85585.227,9052.5,15.165,0.0,0.0,0.0,6.675,2355.38,30.403,0.0,0.0
+P2 Independent best choice,6641481.191,2815.0,83553.809,0.0,14.81,2.0,1.0,2017.0,0.0,2359.318,29.682,3.916,1.252
+P3 KisanNiti cooperative (MSP-rule price),6632657.639,2815.0,84645.111,7706.0,15.0,0.0,0.0,0.0,6.2,2356.184,30.069,0.79,1.049
+P3b KisanNiti cooperative (A3T-GCN price),6632664.566,2815.0,84631.434,7739.0,14.997,0.0,0.0,0.0,6.119,2356.186,30.064,0.792,1.046
+P4 Perfect-foresight bound,6632676.62,2815.0,84633.505,7724.875,14.998,0.0,0.0,0.0,6.212,2356.191,30.065,0.796,1.045

@@ -1,0 +1,21 @@
+market_name,query,lat,lon,osm_display_name,note
+Bhikhi APMC,"Bhikhi, Mansa, Punjab, India",30.0591052,75.5346778,"Bhikhi, Mansa Tehsil, Mansa, Punjab, 151504, India",
+Boha APMC,"Boha, Mansa, Punjab, India",29.835637,75.5238819,"Boha, Budhlada Tahsil, Mansa, Punjab, 151503, India",
+Amargarh APMC,"Amargarh, Malerkotla, Punjab, India",30.4634148,76.0115571,"Amargarh, Malerkotla Tahsil, Malerkotla, Punjab, 148022, India",
+Abohar APMC,"Abohar, Fazilka, Punjab, India",30.1450543,74.1956597,"Abohar, Abohar Tahsil, Fazilka, Punjab, 152116, India",
+Sangat APMC,"Sangat, Bathinda, Punjab",30.090642,74.835434,"Sangat (railway station), Machhana, Bathinda Tahsil, Bathinda, Punjab, India",railway station point (town node not found)
+Sahnewal APMC,"Sahnewal, Ludhiana, Punjab, India",30.8402061,75.983601,"Sahnewal, Ludhiana (East) Tahsil, Ludhiana, Punjab, 141120, India",
+Jalalabad APMC,"Jalalabad, Fazilka, Punjab, India",30.6065977,74.2581087,"Jalalabad, Jalalabad Tahsil, Fazilka, Punjab, 152024, India",
+Jalandhar City APMC,"Jalandhar, Punjab, India",31.2922312,75.5678878,"Jalandhar, Punjab, India",city centroid
+Rayya APMC,"Rayya, Amritsar, Punjab, India",31.5400094,75.2320334,"Rayya, Baba Bakala Tahsil, Amritsar, Punjab, 143202, India",
+Bhawanigarh APMC,"Bhawanigarh, Sangrur, Punjab, India",30.2623648,76.041332,"Bhawanigarh, Bhawanigarh Tahsil, Sangrur, Punjab, 148026, India",
+Jaitu APMC,"Jaitu, Faridkot, Punjab, India",30.469224,74.8919685,"Jaitu Tahsil, Faridkot, Punjab, India",tehsil centroid returned by Nominatim
+Sadiq APMC,"Sadiq, Faridkot, Punjab, India",30.7122762,74.580524,"Sadiq, Faridkot Tahsil, Faridkot, Punjab, 151212, India",
+Talwandi Bhai APMC,"Talwandi Bhai, Firozpur, Punjab, India",30.8582701,74.9300835,"Talwandi Bhai, Firozpur Tahsil, Firozpur, Punjab, India",
+Chanarthal APMC,"Chanarthal Kalan, Fatehgarh Sahib, Punjab, India",30.5179807,76.3465261,"Chanarthal Kalan, Fatehgarh Sahib Tahsil, Fatehgarh Sahib, Punjab, 147104, India",
+Jalandhar City(Kartar Pur Dana mandi) APMC,"Kartarpur, Jalandhar, Punjab, India",31.4397157,75.4989077,"Kartarpur, Jalandhar II Tahsil, Jalandhar, Punjab, 144801, India",
+Kahnuwan APMC,"Kahnuwan, Gurdaspur, Punjab, India",31.9076836,75.4501301,"Kahnuwan, Gurdaspur Tahsil, Gurdaspur, Punjab, 143528, India",
+Patran APMC,"Patran, Patiala, Punjab, India",29.9554252,76.0516968,"Patran, Patran Tahsil, Patiala, Punjab, 147105, India",
+Jalandhar Cantt. APMC,"Jalandhar Cantonment, Jalandhar, Punjab, India",31.2909358,75.6212238,"Jalandhar Cantonment, Sansarpur, Jalandhar I Tahsil, Jalandhar, Punjab, India",
+Patiala(New Anaj Mandi) APMC,"Patiala, Punjab, India",30.2092778,76.3397231,"Patiala, Punjab, India",city centroid
+Dhilwan APMC,"Dhilwan, Kapurthala, Punjab, India",31.514313,75.3446674,"Dhilwan, Kapurthala Tahsil, Kapurthala, Punjab, 144804, India",

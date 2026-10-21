@@ -1,0 +1,18 @@
+origins: 16 candidate mandis: ['Patiala(New Anaj Mandi) APMC', 'Patran APMC', 'Bhawanigarh APMC', 'Chanarthal APMC', 'Amargarh APMC']
+                                               net_rs  quantity_q  transport_rs  waiting_rs  avg_km  limit_violations  runs_with_violation  excess_q  split_lots  net_rs_per_q  transport_rs_per_q  gain_vs_P1_rs_per_q  gain_vs_P1_rs_per_q_sd
+policy                                                                                                                                                                                                                                         
+P1 Nearest mandi, first free day           6630394.77      2815.0      85585.23     9052.50   15.16               0.0                  0.0       0.0        6.68       2355.38               30.40                 0.00                    0.00
+P2 Independent best choice                 6641481.19      2815.0      83553.81        0.00   14.81               2.0                  1.0    2017.0        0.00       2359.32               29.68                 3.92                    1.25
+P3 KisanNiti cooperative (MSP-rule price)  6632657.64      2815.0      84645.11     7706.00   15.00               0.0                  0.0       0.0        6.20       2356.18               30.07                 0.79                    1.05
+P3b KisanNiti cooperative (A3T-GCN price)  6632664.57      2815.0      84631.43     7739.00   15.00               0.0                  0.0       0.0        6.12       2356.19               30.06                 0.79                    1.05
+P4 Perfect-foresight bound                 6632676.62      2815.0      84633.50     7724.88   15.00               0.0                  0.0       0.0        6.21       2356.19               30.07                 0.80                    1.04
+ rate_rs_per_q_km  cap_q_per_mandi_day  P1_net_rs_per_q  P3_net_rs_per_q  gain_rs_per_q  P1_avg_km  P3_avg_km  P2_runs_with_violation
+              1.0                  200          2365.96          2369.45           3.49      19.93      16.58                     1.0
+              1.0                  300          2370.65          2371.34           0.69      15.15      15.22                     1.0
+              1.0                  500          2372.53          2372.68           0.15      14.81      15.04                     1.0
+              2.0                  200          2346.03          2352.97           6.94      19.93      16.45                     1.0
+              2.0                  300          2355.50          2356.26           0.77      15.15      15.00                     1.0
+              2.0                  500          2357.72          2357.77           0.05      14.81      14.85                     1.0
+              4.0                  200          2306.17          2320.08          13.91      19.93      16.44                     1.0
+              4.0                  300          2325.20          2326.42           1.23      15.15      14.90                     1.0
+              4.0                  500          2328.10          2328.12           0.03      14.81      14.82                     1.0
