@@ -3,7 +3,7 @@
 **Research question:** Can a manager review, edit and approve a plan safely, with stock reserved exactly once even under concurrent requests?
 
 **Build:**
-- A research prototype dashboard (Streamlit, decision D3) over a small SQLite or PostgreSQL store. Screens:
+- The **product Next.js manager app** with its FastAPI + PostgreSQL backend (CHAT-30), developed in `../kisaniti_implementation`; this card covers the research checks and screenshots. Screens:
   - proposal list;
   - proposal detail with fairness and costs explained;
   - edit;

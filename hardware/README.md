@@ -2,7 +2,7 @@
 
 **Goal for Paper 1:** a clear hardware architecture plus a working **Wokwi** simulation that sends real MQTT messages into the KisanNiti pipeline. A physical bench test is optional for Paper 1 and required for Paper 2.
 
-**Architecture (decision D1 pending; recommended):**
+**Architecture (decided: CHAT-29 — real ESP32 + SHT30 build plus a Wokwi twin with the same firmware; the firmware lives in `../kisaniti_implementation/firmware/`):**
 
 ```text
 SHT30 probe in grain ─I²C (SDA GPIO21, SCL GPIO22, 4.7 kΩ pull-ups)─► ESP32-WROOM-32

@@ -1,6 +1,6 @@
 # KisanNiti research plan — research paper first
 
-21 October 2026 • Master plan for the research track. The user's main goal now is a **Springer research paper** backed by real data, real model runs, fair comparisons and a working prototype of every layer. The full product comes later.
+21 October 2026 • Research-track plan. **The overall plan (paper + software + hardware) is the [master plan](../kisaniti/docs/MASTER_PLAN.md)**; this file details the research side. The user's main goal now is a **Springer research paper** backed by real data, real model runs, fair comparisons and a working prototype of every layer. The full product comes later.
 
 | Folder | Role |
 |---|---|
@@ -107,14 +107,16 @@ Different phases may run in separate sessions; two sessions never edit the same 
 | 4 | R9 integration; full paper v3 draft; reference and number checks |
 | 5 | Guide review, fixes, template, declarations, submission |
 
-## 7. Decisions needed from the user
+## 7. Decisions (resolved 21 Oct 2026)
 
-| # | Decision | Recommendation |
+| # | Decision | Result |
 |---|---|---|
-| D1 | Hardware story for paper v3 | **ESP32 + SHT30** (matches the design; one probe gives temperature and humidity, so a second probe is not needed). Use Wokwi with SHT3x support if available, otherwise a custom Wokwi chip, otherwise DHT22 as a clearly stated simulation stand-in. The current DHT22 + DS18B20 circuit stays only if the guide prefers it, and then the design docs must be updated |
-| D2 | Paper 1 venue | A Springer LNNS/LNCS conference like ICDPN; confirm the name, page limit and template with the guide |
-| D3 | Dashboard technology for the paper prototype | **Streamlit** (Python, fast, looks clean, easy screenshots); the Next.js product app comes later in `kisaniti_implementation` |
-| D4 | Manuscript format | **LaTeX with the Springer template** (better numbering and references), or keep the v2 Word builder if the guide or venue wants Word |
+| D1 | Hardware story | **ESP32 + SHT30 in grain, real build + Wokwi twin** (CHAT-29); the DHT22 + DS18B20 circuit is retired |
+| D2 | Paper 1 venue | Springer LNNS/LNCS conference, still to be named with the guide |
+| D3 | Dashboard | **Product Next.js app** for screenshots (CHAT-30); no Streamlit |
+| D4 | Manuscript format | **LaTeX Springer template** unless the venue or guide needs Word (CHAT-31) |
+
+Algorithms used in experiments come from the shared `core/` package in `../kisaniti_implementation` (CHAT-28), so the paper and the product run the same code.
 
 ## 8. What only the user can do (research track)
 

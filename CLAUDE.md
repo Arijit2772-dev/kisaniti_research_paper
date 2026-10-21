@@ -27,6 +27,8 @@ You need no earlier chat context.
 
 ## 3. Rules
 
+- **Shared core (CHAT-28):** algorithms live in `../kisaniti_implementation/core/` and are imported here (`pip install -e`). Put training, plotting and experiment scripts here; do not fork algorithm copies. Overall plan: [`../kisaniti/docs/MASTER_PLAN.md`](../kisaniti/docs/MASTER_PLAN.md).
+
 **Research prototypes**
 - Research code is allowed here (decision CHAT-27).
 - The product gate for `../kisaniti_implementation` is unchanged. Do not copy research code there without review.
