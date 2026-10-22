@@ -44,6 +44,7 @@ def apply() -> None:
         "pdf.fonttype": 42,          # embed TrueType so the PDF text stays editable
         "ps.fonttype": 42,
         "svg.fonttype": "none",      # keep SVG text as text for editing
+        "svg.hashsalt": "kisanniti", # stable SVG ids, so re-runs give identical files
         "axes.prop_cycle": mpl.cycler(color=list(PALETTE.values())),
         "savefig.dpi": 600,
     })
