@@ -1,0 +1,15 @@
+# Research environment for kisaniti_research_paper (Python 3.13).
+# The shared algorithm package is installed separately with:
+#   pip install -e ../kisaniti_implementation/core
+# v2 baseline versions kept where wheels exist: torch 2.9.1, scipy 1.15.2.
+numpy==2.2.6
+pandas==2.2.3
+scipy==1.15.2
+torch==2.9.1
+matplotlib==3.10.1
+highspy==1.11.0
+pyscipopt==5.6.0
+ortools==9.14.6206
+jsonschema==4.25.1
+pytest==8.4.2
+hypothesis==6.140.2
