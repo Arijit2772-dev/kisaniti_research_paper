@@ -10,7 +10,7 @@ Updated 22 Oct 2026.
 | R2 | L1 Data | IN PROGRESS | Ingest script + manifests working; wheat Apr–May 2025 dense, off-season Punjab wheat nearly empty (2–5 rows/month); basmati Oct 2025 dense (429 rows, 39 mandis, ₹2,389–3,765) → basmati is the main market-priced crop |
 | R3 | L2 Cleaning | NOT STARTED | — |
 | R4 | L3a Forecasting | NOT STARTED | v2 paddy results exist |
-| R5 | L3b Storage + hardware | NOT STARTED | Hardware decided: ESP32 + SHT30 + Wokwi twin (CHAT-29) |
+| R5 | L3b Storage + hardware | SIMULATION DONE (22 Oct); real node WAITING ON USER (kit) | Rule STORAGE-DEMO-0.1 in shared core; 6 simulated basmati scenarios x 20 seeds vs 3 simpler rules (`layers/L3b_storage_iot/`, `results/L3b_storage/`); Fig. 3 + storage figure + Table; Sections 3.4/4.2 drafted; firmware + Wokwi twin + ingestion in the implementation repo |
 | R6 | L3c Hold-or-sell | NOT STARTED | Needs R4 |
 | R7 | L3d Allocation + fairness | NOT STARTED | v2 allocation results exist |
 | R8 | L4 + L5 | NOT STARTED | Needs WhatsApp test number; UI = product Next.js app (CHAT-30) |
