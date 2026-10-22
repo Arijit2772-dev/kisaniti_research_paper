@@ -8,7 +8,8 @@ Writes paper/figures/fig1_architecture[_draft].{pdf,svg,png}.
 STATUS below is the single place that says what exists. Update it as layers are built
 (see STATUS.md and the master plan); the final export greys out everything not "built".
 Status as of 22 Oct 2026: built = v2 research runs (paddy prices, cleaning, forecasting
-comparison, cooperative allocation MILP on a synthetic FPO).
+comparison, cooperative allocation MILP on a synthetic FPO); storage risk = STORAGE-DEMO-0.1
+rule in kisaniti_implementation core/storage (31 tests), run on simulated scenarios only.
 """
 from __future__ import annotations
 
@@ -23,7 +24,7 @@ STATUS = {
     "agmarknet": "built", "fpo_records": "built", "mandi_locations": "built",
     "grain_sensor": "planned", "co2_sensor": "future",
     "dedup": "built", "daily_panel": "built", "quality_rules": "planned", "readiness": "planned",
-    "forecast": "built", "storage_risk": "planned", "hold_sell": "planned", "allocation": "built",
+    "forecast": "built", "storage_risk": "built", "hold_sell": "planned", "allocation": "built",
     "review": "planned", "edit": "planned", "approve": "planned",
     "whatsapp": "planned", "sale_entry": "planned", "stock_update": "planned",
     "feedback": "planned",
