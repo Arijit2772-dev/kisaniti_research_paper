@@ -1,0 +1,4 @@
+python: Python 3.13.1
+numpy 2.2.6 pandas 2.2.3 scipy 1.15.2 torch 2.9.1
+Darwin GodM2-3.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:40:51 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T8112 arm64
+2026-10-22T11:00:19Z

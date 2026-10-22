@@ -1,0 +1,223 @@
+file,row,column,v2,reproduced,abs_diff,match_at_paper_rounding
+forecast_results.json:description,records_in_selected_mandis,,4634.0,4634.0,0.0,True
+forecast_results.json:description,trading_dates,,382.0,382.0,0.0,True
+forecast_results.json:description,dates_per_season,2020,70.0,70.0,0.0,True
+forecast_results.json:description,dates_per_season,2021,55.0,55.0,0.0,True
+forecast_results.json:description,dates_per_season,2022,60.0,60.0,0.0,True
+forecast_results.json:description,dates_per_season,2023,70.0,70.0,0.0,True
+forecast_results.json:description,dates_per_season,2024,66.0,66.0,0.0,True
+forecast_results.json:description,dates_per_season,2025,61.0,61.0,0.0,True
+forecast_results.json:description,observed_share,,0.6054973821989529,0.6054973821989529,0.0,True
+forecast_results.json:description,observed_mandi_days,,4626.0,4626.0,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2020,0.9833333333333333,0.9833333333333333,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2021,0.9912280701754386,0.9912280701754386,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2022,0.9845916795069337,0.9845916795069337,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2023,0.9606741573033708,0.9606741573033708,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2024,0.9881376037959668,0.9881376037959668,0.0,True
+forecast_results.json:description,share_exactly_at_msp_by_season,2025,0.9902777777777778,0.9902777777777778,0.0,True
+forecast_results.json:description,share_within_1pct_of_msp_all_seasons,,0.9915693904020753,0.9915693904020753,0.0,True
+forecast_results.json:description,price_std_by_season,2020,44.333812590573004,44.333812590573004,0.0,True
+forecast_results.json:description,price_std_by_season,2021,80.4764735249148,80.4764735249148,0.0,True
+forecast_results.json:description,price_std_by_season,2022,16.536924386755178,16.536924386755178,0.0,True
+forecast_results.json:description,price_std_by_season,2023,45.479338652946005,45.479338652946005,0.0,True
+forecast_results.json:description,price_std_by_season,2024,29.503773253350126,29.503773253350126,0.0,True
+forecast_results.json:description,price_std_by_season,2025,21.606239199526502,21.606239199526502,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2020,7.061801751033077,7.061801751033077,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2021,29.626196543948137,29.626196543948137,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2022,0.8218893981388062,0.8218893981388062,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2023,12.75001986740153,12.75001986740153,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2024,0.35961528764589085,0.35961528764589085,0.0,True
+forecast_results.json:description,cross_mandi_daily_std_mean_by_season,2025,3.0472177849891544,3.0472177849891544,0.0,True
+forecast_table.csv,Naive (last price),MAE 2023,3.46,3.46,0.0,True
+forecast_table.csv,Naive (last price),MAE 2024,0.25,0.25,0.0,True
+forecast_table.csv,Naive (last price),MAE 2025,1.59,1.59,0.0,True
+forecast_table.csv,Naive (last price),MAE mean,1.77,1.77,0.0,True
+forecast_table.csv,Naive (last price),MAE h=1 mean,1.92,1.92,0.0,True
+forecast_table.csv,Naive (last price),MAE h=7 mean,2.26,2.26,0.0,True
+forecast_table.csv,Naive (last price),RMSE mean,29.65,29.65,0.0,True
+forecast_table.csv,Naive (last price),MAPE % mean,0.067,0.067,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE 2023,3.98,3.98,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE 2024,3.32,3.32,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE 2025,2.09,2.09,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE mean,3.13,3.13,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE h=1 mean,2.27,2.27,0.0,True
+forecast_table.csv,Moving average (7 dates),MAE h=7 mean,3.91,3.91,0.0,True
+forecast_table.csv,Moving average (7 dates),RMSE mean,30.08,30.08,0.0,True
+forecast_table.csv,Moving average (7 dates),MAPE % mean,0.125,0.125,0.0,True
+forecast_table.csv,MSP rule,MAE 2023,2.68,2.68,0.0,True
+forecast_table.csv,MSP rule,MAE 2024,0.17,0.17,0.0,True
+forecast_table.csv,MSP rule,MAE 2025,0.94,0.94,0.0,True
+forecast_table.csv,MSP rule,MAE mean,1.26,1.26,0.0,True
+forecast_table.csv,MSP rule,MAE h=1 mean,1.34,1.34,0.0,True
+forecast_table.csv,MSP rule,MAE h=7 mean,1.36,1.36,0.0,True
+forecast_table.csv,MSP rule,RMSE mean,24.67,24.67,0.0,True
+forecast_table.csv,MSP rule,MAPE % mean,0.044,0.044,0.0,True
+forecast_table.csv,Ridge regression,MAE 2023,6.54,6.54,0.0,True
+forecast_table.csv,Ridge regression,MAE 2024,2.39,2.39,0.0,True
+forecast_table.csv,Ridge regression,MAE 2025,3.33,3.33,0.0,True
+forecast_table.csv,Ridge regression,MAE mean,4.09,4.09,0.0,True
+forecast_table.csv,Ridge regression,MAE h=1 mean,3.99,3.99,0.0,True
+forecast_table.csv,Ridge regression,MAE h=7 mean,4.95,4.95,0.0,True
+forecast_table.csv,Ridge regression,RMSE mean,29.73,29.73,0.0,True
+forecast_table.csv,Ridge regression,MAPE % mean,0.168,0.168,0.0,True
+forecast_table.csv,GRU (no graph),MAE 2023,4.12,4.12,0.0,True
+forecast_table.csv,GRU (no graph),MAE 2024,1.0,1.0,0.0,True
+forecast_table.csv,GRU (no graph),MAE 2025,2.42,2.42,0.0,True
+forecast_table.csv,GRU (no graph),MAE mean,2.51,2.51,0.0,True
+forecast_table.csv,GRU (no graph),MAE h=1 mean,2.7,2.7,0.0,True
+forecast_table.csv,GRU (no graph),MAE h=7 mean,2.88,2.88,0.0,True
+forecast_table.csv,GRU (no graph),RMSE mean,29.6,29.6,0.0,True
+forecast_table.csv,GRU (no graph),MAPE % mean,0.099,0.099,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE 2023,4.29,4.29,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE 2024,0.99,0.99,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE 2025,2.33,2.33,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE mean,2.54,2.54,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE h=1 mean,2.83,2.83,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAE h=7 mean,3.07,3.07,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",RMSE mean,29.68,29.68,0.0,True
+forecast_table.csv,"T-GCN (graph, no attention)",MAPE % mean,0.1,0.1,0.0,True
+forecast_table.csv,A3T-GCN,MAE 2023,4.1,4.1,0.0,True
+forecast_table.csv,A3T-GCN,MAE 2024,0.81,0.81,0.0,True
+forecast_table.csv,A3T-GCN,MAE 2025,2.16,2.16,0.0,True
+forecast_table.csv,A3T-GCN,MAE mean,2.36,2.36,0.0,True
+forecast_table.csv,A3T-GCN,MAE h=1 mean,2.42,2.42,0.0,True
+forecast_table.csv,A3T-GCN,MAE h=7 mean,2.71,2.71,0.0,True
+forecast_table.csv,A3T-GCN,RMSE mean,29.68,29.68,0.0,True
+forecast_table.csv,A3T-GCN,MAPE % mean,0.092,0.092,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",net_rs,6630394.773,6630394.773,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",quantity_q,2815.0,2815.0,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",transport_rs,85585.227,85585.227,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",waiting_rs,9052.5,9052.5,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",avg_km,15.165,15.165,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",limit_violations,0.0,0.0,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",runs_with_violation,0.0,0.0,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",excess_q,0.0,0.0,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",split_lots,6.675,6.675,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",net_rs_per_q,2355.38,2355.38,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",transport_rs_per_q,30.403,30.403,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",gain_vs_P1_rs_per_q,0.0,0.0,0.0,True
+allocation_summary_base.csv,"P1 Nearest mandi, first free day",gain_vs_P1_rs_per_q_sd,0.0,0.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,net_rs,6641481.191,6641481.191,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,quantity_q,2815.0,2815.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,transport_rs,83553.809,83553.809,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,waiting_rs,0.0,0.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,avg_km,14.81,14.81,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,limit_violations,2.0,2.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,runs_with_violation,1.0,1.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,excess_q,2017.0,2017.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,split_lots,0.0,0.0,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,net_rs_per_q,2359.318,2359.318,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,transport_rs_per_q,29.682,29.682,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,gain_vs_P1_rs_per_q,3.916,3.916,0.0,True
+allocation_summary_base.csv,P2 Independent best choice,gain_vs_P1_rs_per_q_sd,1.252,1.252,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),net_rs,6632657.639,6632657.639,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),quantity_q,2815.0,2815.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),transport_rs,84645.111,84645.111,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),waiting_rs,7706.0,7706.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),avg_km,15.0,15.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),limit_violations,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),runs_with_violation,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),excess_q,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),split_lots,6.2,6.2,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),net_rs_per_q,2356.184,2356.184,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),transport_rs_per_q,30.069,30.069,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),gain_vs_P1_rs_per_q,0.79,0.79,0.0,True
+allocation_summary_base.csv,P3 KisanNiti cooperative (MSP-rule price),gain_vs_P1_rs_per_q_sd,1.049,1.049,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),net_rs,6632664.566,6632664.566,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),quantity_q,2815.0,2815.0,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),transport_rs,84631.434,84631.434,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),waiting_rs,7739.0,7739.0,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),avg_km,14.997,14.997,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),limit_violations,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),runs_with_violation,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),excess_q,0.0,0.0,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),split_lots,6.119,6.119,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),net_rs_per_q,2356.186,2356.186,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),transport_rs_per_q,30.064,30.064,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),gain_vs_P1_rs_per_q,0.792,0.792,0.0,True
+allocation_summary_base.csv,P3b KisanNiti cooperative (A3T-GCN price),gain_vs_P1_rs_per_q_sd,1.046,1.046,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,net_rs,6632676.62,6632676.62,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,quantity_q,2815.0,2815.0,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,transport_rs,84633.505,84633.505,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,waiting_rs,7724.875,7724.875,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,avg_km,14.998,14.998,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,limit_violations,0.0,0.0,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,runs_with_violation,0.0,0.0,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,excess_q,0.0,0.0,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,split_lots,6.212,6.212,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,net_rs_per_q,2356.191,2356.191,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,transport_rs_per_q,30.065,30.065,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,gain_vs_P1_rs_per_q,0.796,0.796,0.0,True
+allocation_summary_base.csv,P4 Perfect-foresight bound,gain_vs_P1_rs_per_q_sd,1.045,1.045,0.0,True
+allocation_sensitivity.csv,1.0/200,rate_rs_per_q_km,1.0,1.0,0.0,True
+allocation_sensitivity.csv,1.0/200,cap_q_per_mandi_day,200.0,200.0,0.0,True
+allocation_sensitivity.csv,1.0/200,P1_net_rs_per_q,2365.961,2365.961,0.0,True
+allocation_sensitivity.csv,1.0/200,P3_net_rs_per_q,2369.453,2369.453,0.0,True
+allocation_sensitivity.csv,1.0/200,gain_rs_per_q,3.492,3.492,0.0,True
+allocation_sensitivity.csv,1.0/200,P1_avg_km,19.929,19.929,0.0,True
+allocation_sensitivity.csv,1.0/200,P3_avg_km,16.581,16.581,0.0,True
+allocation_sensitivity.csv,1.0/200,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,1.0/300,rate_rs_per_q_km,1.0,1.0,0.0,True
+allocation_sensitivity.csv,1.0/300,cap_q_per_mandi_day,300.0,300.0,0.0,True
+allocation_sensitivity.csv,1.0/300,P1_net_rs_per_q,2370.647,2370.647,0.0,True
+allocation_sensitivity.csv,1.0/300,P3_net_rs_per_q,2371.338,2371.338,0.0,True
+allocation_sensitivity.csv,1.0/300,gain_rs_per_q,0.691,0.691,0.0,True
+allocation_sensitivity.csv,1.0/300,P1_avg_km,15.15,15.15,0.0,True
+allocation_sensitivity.csv,1.0/300,P3_avg_km,15.219,15.219,0.0,True
+allocation_sensitivity.csv,1.0/300,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,1.0/500,rate_rs_per_q_km,1.0,1.0,0.0,True
+allocation_sensitivity.csv,1.0/500,cap_q_per_mandi_day,500.0,500.0,0.0,True
+allocation_sensitivity.csv,1.0/500,P1_net_rs_per_q,2372.527,2372.527,0.0,True
+allocation_sensitivity.csv,1.0/500,P3_net_rs_per_q,2372.677,2372.677,0.0,True
+allocation_sensitivity.csv,1.0/500,gain_rs_per_q,0.15,0.15,0.0,True
+allocation_sensitivity.csv,1.0/500,P1_avg_km,14.81,14.81,0.0,True
+allocation_sensitivity.csv,1.0/500,P3_avg_km,15.037,15.037,0.0,True
+allocation_sensitivity.csv,1.0/500,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,2.0/200,rate_rs_per_q_km,2.0,2.0,0.0,True
+allocation_sensitivity.csv,2.0/200,cap_q_per_mandi_day,200.0,200.0,0.0,True
+allocation_sensitivity.csv,2.0/200,P1_net_rs_per_q,2346.032,2346.032,0.0,True
+allocation_sensitivity.csv,2.0/200,P3_net_rs_per_q,2352.973,2352.973,0.0,True
+allocation_sensitivity.csv,2.0/200,gain_rs_per_q,6.941,6.941,0.0,True
+allocation_sensitivity.csv,2.0/200,P1_avg_km,19.929,19.929,0.0,True
+allocation_sensitivity.csv,2.0/200,P3_avg_km,16.447,16.447,0.0,True
+allocation_sensitivity.csv,2.0/200,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,2.0/300,rate_rs_per_q_km,2.0,2.0,0.0,True
+allocation_sensitivity.csv,2.0/300,cap_q_per_mandi_day,300.0,300.0,0.0,True
+allocation_sensitivity.csv,2.0/300,P1_net_rs_per_q,2355.497,2355.497,0.0,True
+allocation_sensitivity.csv,2.0/300,P3_net_rs_per_q,2356.262,2356.262,0.0,True
+allocation_sensitivity.csv,2.0/300,gain_rs_per_q,0.766,0.766,0.0,True
+allocation_sensitivity.csv,2.0/300,P1_avg_km,15.15,15.15,0.0,True
+allocation_sensitivity.csv,2.0/300,P3_avg_km,15.0,15.0,0.0,True
+allocation_sensitivity.csv,2.0/300,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,2.0/500,rate_rs_per_q_km,2.0,2.0,0.0,True
+allocation_sensitivity.csv,2.0/500,cap_q_per_mandi_day,500.0,500.0,0.0,True
+allocation_sensitivity.csv,2.0/500,P1_net_rs_per_q,2357.717,2357.717,0.0,True
+allocation_sensitivity.csv,2.0/500,P3_net_rs_per_q,2357.768,2357.768,0.0,True
+allocation_sensitivity.csv,2.0/500,gain_rs_per_q,0.051,0.051,0.0,True
+allocation_sensitivity.csv,2.0/500,P1_avg_km,14.81,14.81,0.0,True
+allocation_sensitivity.csv,2.0/500,P3_avg_km,14.847,14.847,0.0,True
+allocation_sensitivity.csv,2.0/500,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,4.0/200,rate_rs_per_q_km,4.0,4.0,0.0,True
+allocation_sensitivity.csv,4.0/200,cap_q_per_mandi_day,200.0,200.0,0.0,True
+allocation_sensitivity.csv,4.0/200,P1_net_rs_per_q,2306.173,2306.173,0.0,True
+allocation_sensitivity.csv,4.0/200,P3_net_rs_per_q,2320.085,2320.085,0.0,True
+allocation_sensitivity.csv,4.0/200,gain_rs_per_q,13.912,13.912,0.0,True
+allocation_sensitivity.csv,4.0/200,P1_avg_km,19.929,19.929,0.0,True
+allocation_sensitivity.csv,4.0/200,P3_avg_km,16.442,16.442,0.0,True
+allocation_sensitivity.csv,4.0/200,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,4.0/300,rate_rs_per_q_km,4.0,4.0,0.0,True
+allocation_sensitivity.csv,4.0/300,cap_q_per_mandi_day,300.0,300.0,0.0,True
+allocation_sensitivity.csv,4.0/300,P1_net_rs_per_q,2325.196,2325.196,0.0,True
+allocation_sensitivity.csv,4.0/300,P3_net_rs_per_q,2326.423,2326.423,0.0,True
+allocation_sensitivity.csv,4.0/300,gain_rs_per_q,1.227,1.227,0.0,True
+allocation_sensitivity.csv,4.0/300,P1_avg_km,15.15,15.15,0.0,True
+allocation_sensitivity.csv,4.0/300,P3_avg_km,14.901,14.901,0.0,True
+allocation_sensitivity.csv,4.0/300,P2_runs_with_violation,1.0,1.0,0.0,True
+allocation_sensitivity.csv,4.0/500,rate_rs_per_q_km,4.0,4.0,0.0,True
+allocation_sensitivity.csv,4.0/500,cap_q_per_mandi_day,500.0,500.0,0.0,True
+allocation_sensitivity.csv,4.0/500,P1_net_rs_per_q,2328.097,2328.097,0.0,True
+allocation_sensitivity.csv,4.0/500,P3_net_rs_per_q,2328.122,2328.122,0.0,True
+allocation_sensitivity.csv,4.0/500,gain_rs_per_q,0.026,0.026,0.0,True
+allocation_sensitivity.csv,4.0/500,P1_avg_km,14.81,14.81,0.0,True
+allocation_sensitivity.csv,4.0/500,P3_avg_km,14.816,14.816,0.0,True
+allocation_sensitivity.csv,4.0/500,P2_runs_with_violation,1.0,1.0,0.0,True
