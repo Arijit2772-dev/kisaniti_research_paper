@@ -7,7 +7,7 @@ Updated 21 Oct 2026.
 | Baseline | — | DONE (15 Oct) | Paper v2 + forecasting and allocation runs on real paddy data, in `legacy/v2_from_rp_kisan/` |
 | R0 | Setup | NOT STARTED | Pin env, data manifests, reproduce v2 numbers |
 | R1 | Literature | NOT STARTED | — |
-| R2 | L1 Data | WAITING ON USER for wheat/basmati downloads | Paddy (Common) data available |
+| R2 | L1 Data | IN PROGRESS | Ingest script + manifests working; wheat Apr–May 2025 dense, off-season Punjab wheat nearly empty (2–5 rows/month); checking basmati next |
 | R3 | L2 Cleaning | NOT STARTED | — |
 | R4 | L3a Forecasting | NOT STARTED | v2 paddy results exist |
 | R5 | L3b Storage + hardware | NOT STARTED | Hardware decided: ESP32 + SHT30 + Wokwi twin (CHAT-29) |

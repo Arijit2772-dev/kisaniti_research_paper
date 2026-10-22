@@ -32,4 +32,15 @@ Most useful months come first, so the forecasting work can start before everythi
 | 4 | Paddy(Basmati) | 2021-09 → 2025-03 seasons (Sep–Mar) | Earlier basmati seasons | 28 |
 | 5 | Wheat and basmati | 2026-04 → 2026-09; basmati Apr–Aug months | Completes the series; off-season basmati may be sparse | ~16 |
 
-Total about 110 CAPTCHAs. Progress is tracked in [download_log.csv](download_log.csv). Done so far: Wheat 2025-04.
+Total about 110 CAPTCHAs.
+
+## Finding (22 Oct 2026): off-season Punjab wheat is almost unreported
+
+| Month | Rows | Mandis |
+|---|---|---|
+| 2025-04 (procurement) | 1,081 | 98 |
+| 2025-05 (procurement) | 759 | 83 |
+| 2025-06 | 2 | 2 |
+| 2026-01 | 5 | 3 |
+
+Outside April–May, Punjab mandis report almost no wheat trade. A few prices were above MSP (₹2,440–2,585 in Jan 2026, against MSP ₹2,425), but 2–5 rows a month cannot support a forecasting model. **The wheat priority rows above are paused.** Options under review: (a) use wheat series from states that trade wheat all year (e.g. Madhya Pradesh, Uttar Pradesh, Rajasthan) as the open-market signal for Punjab held wheat; (b) make basmati the main market-priced crop. Next check: Paddy(Basmati), Punjab, October 2025. Progress is tracked in [download_log.csv](download_log.csv). Done so far: see the log.
