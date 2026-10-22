@@ -1,5 +1,7 @@
 # AGMARKNET download checklist (Punjab)
 
+> To continue downloading, follow [DOWNLOAD_RUNBOOK.md](DOWNLOAD_RUNBOOK.md).
+
 Started 22 October 2026. Source: agmarknet.gov.in → Reports → Price & Arrival Reports → **Date Wise Prices for Specified Commodity**. Each download covers one month, one commodity and one state, needs one CAPTCHA (typed by the user), and is exported as CSV.
 
 **What we learned:**

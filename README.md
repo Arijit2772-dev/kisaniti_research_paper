@@ -1,6 +1,6 @@
 # KisanNiti — research paper workspace
 
-Research-first workspace (created 21 Oct 2026). It holds research prototypes of every layer, real-data experiments, results, figures and the paper text. Start with the [research plan](RESEARCH_PLAN.md); progress is tracked in [STATUS.md](STATUS.md). Agents start with [CLAUDE.md](CLAUDE.md).
+Research-first workspace (created 21 Oct 2026). It holds research prototypes of every layer, real-data experiments, results, figures and the paper text. **New agent? Read [AGENT_HANDOFF.md](AGENT_HANDOFF.md) first.** Start with the [research plan](RESEARCH_PLAN.md); progress is tracked in [STATUS.md](STATUS.md). Agents start with [CLAUDE.md](CLAUDE.md).
 
 | Folder | What is inside |
 |---|---|

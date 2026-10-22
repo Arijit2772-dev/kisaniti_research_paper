@@ -13,6 +13,8 @@ You need no earlier chat context.
 
 ## 2. Read first
 
+0. [AGENT_HANDOFF.md](AGENT_HANDOFF.md) — current state and next steps. Data downloads: [layers/L1_data/DOWNLOAD_RUNBOOK.md](layers/L1_data/DOWNLOAD_RUNBOOK.md).
+
 1. [RESEARCH_PLAN.md](RESEARCH_PLAN.md) and [STATUS.md](STATUS.md).
 2. The research card for your phase in `layers/`, `hardware/`, `integration/`, `literature/` or `paper/`.
 3. Design source of truth: [`../kisaniti/CLAUDE.md`](../kisaniti/CLAUDE.md). The most relevant parts:
