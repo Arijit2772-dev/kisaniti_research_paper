@@ -27,10 +27,14 @@ daily arrivals and the minimum, maximum and modal prices reported by each mandi~
 For paddy and wheat, the government also announces a minimum support price (MSP) before each
 marketing season~\cite{msp1,msp2}. For Paddy (Common) in Punjab, the mandi prices hardly
 differ from it. Across the \kn{mandis} mandis we studied, at least \kn{msp_share_min}\% of the reported prices
-in every season from \kn{season_first} to \kn{season_last} were exactly the Grade-A MSP. Basmati
-is not covered by the MSP, and wheat that farmers hold after the procurement window is sold at
-market prices, so for these crops the timing of a sale can change what a farmer earns.
-\authornote{Cite a source for the wheat procurement window and basmati pricing.}
+in every season from \kn{season_first} to \kn{season_last} were exactly the Grade-A MSP. Basmati paddy
+has no MSP and is sold at market prices that differ by variety, so for basmati the choice of
+mandi and the day of sale can change what a farmer earns. It is the crop we use to test price
+forecasting and the hold-or-sell advice. Wheat is also bought at the MSP during procurement.
+After that window, Punjab mandis report very few wheat prices, too few to forecast held wheat
+from mandi data, so held wheat is left out of this study (Sect.~\ref{sec:conclusion}).
+\authornote{Cite a source for basmati pricing. Give the off-season wheat row counts from the
+L1 download manifests as \textbackslash kn\{\} macros, not typed by hand (decision CHAT-32).}
 
 KisanNiti is the decision-support system we are building for FPO staff in the Patiala area.
 It reads AGMARKNET prices, the FPO's records of member lots and readings from a grain-storage
@@ -38,7 +42,7 @@ sensor, and proposes a selling plan that a manager reviews before farmers are to
 (Fig.~\ref{fig:architecture}).
 \authornote{Contributions paragraph: write it when the v3 results exist. Name each result
 with its section, e.g.\ the paddy forecasting comparison (Sect.~\ref{sec:results-msp}), the
-wheat and basmati comparison, the storage-risk rule, and the fair allocation model. Avoid a
+basmati comparison by variety, the storage-risk rule, and the fair allocation model. Avoid a
 ``First \ldots\ Second \ldots\ Third'' list.}
 
 Section~\ref{sec:related} reviews related work. Section~\ref{sec:system} describes the system

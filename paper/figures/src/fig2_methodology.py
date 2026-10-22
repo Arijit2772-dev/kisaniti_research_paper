@@ -9,8 +9,9 @@ Writes paper/figures/fig2_methodology[_draft].{pdf,svg,png}.
 The split grid is read from FOLDS in the forecasting script, so the figure cannot drift
 from the experiment. Status as of 22 Oct 2026: built = the v2 paddy comparison
 (legacy/v2_from_rp_kisan/experiments/forecast_experiment.py); planned = the Paper 1
-additions in the master plan (wheat and basmati, price ranges, significance tests,
-coverage, per-crop model selection).
+additions in the master plan (basmati paddy by variety per CHAT-32, price ranges,
+significance tests, coverage, per-variety model selection). Held wheat is not forecast
+(CHAT-32: too few off-season Punjab mandi rows) and is not drawn.
 """
 from __future__ import annotations
 
@@ -27,7 +28,7 @@ C = style.PALETTE
 ROOT = Path(__file__).resolve().parents[3]
 FORECAST_SCRIPT = ROOT / "legacy" / "v2_from_rp_kisan" / "experiments" / "forecast_experiment.py"
 STATUS = {
-    "agmarknet": "built", "wheat_basmati": "planned", "cleaning": "built", "graph": "built",
+    "agmarknet": "built", "basmati": "planned", "cleaning": "built", "graph": "built",
     "split": "built",
     "naive": "built", "moving_avg": "built", "msp_rule": "built",
     "ridge": "built", "gru": "built", "tgcn": "built", "a3tgcn": "built",
@@ -103,7 +104,7 @@ def main() -> None:
     fl.panel(ax, xa, py, wa, ph, "Data and split", C["data"], 1)
     rows = [
         ("world-download", "AGMARKNET", "Paddy (Common),\nPunjab, Sep–Dec", "agmarknet"),
-        ("wheat", "Wheat, basmati", "held after harvest", "wheat_basmati"),
+        ("wheat", "Basmati paddy", "by variety", "basmati"),
         ("eraser", "Cleaning", "one price per\nmandi-day", "cleaning"),
         ("topology-star-3", "Mandi graph", "k nearest mandis", "graph"),
     ]
@@ -167,7 +168,7 @@ def main() -> None:
         ("checks", "Paired check", "date by date\nvs naive", "paired"),
         ("chart-dots", "Significance", "Diebold–Mariano", "dm_test"),
         ("gauge", "Coverage", "of price ranges", "coverage"),
-        ("trophy", "Selection", "best on validation,\nper crop, horizon", "selection"),
+        ("trophy", "Selection", "best on validation,\nper variety, horizon", "selection"),
     ]
     yy = top - 4.8
     for ic, lab, note, key in rows:
