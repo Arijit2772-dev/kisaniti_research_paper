@@ -15,8 +15,8 @@ python3 ../numbers.py --tex >/dev/null
 # references.bib links to literature/references.bib (owned by the literature phase).
 # Until that file exists, fall back to the unverified v2 placeholder.
 if [ -e references.bib ]; then
-  # l3b_storage.bib: storage-sensing references checked by the M5 session (to be merged into literature/references.bib)
-  echo '\bibliography{references,l3b_storage}' > bibfiles.tex
+  # l3b_storage.bib entries were merged into literature/references.bib (R1, 22 Oct)
+  echo '\bibliography{references}' > bibfiles.tex
 else
   echo "warning: literature/references.bib not found, using paper/references/v2_placeholder.bib" >&2
   cp ../references/v2_placeholder.bib v2_placeholder.bib

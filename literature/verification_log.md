@@ -92,3 +92,16 @@ Dropped because the abstract could not be read: Avinash et al. 2024 (10.1016/j.a
 | Crop-loan rate | **7%** p.a. on KCC short-term loans up to Rs 3 lakh; lenders get 1.5% subvention; prompt repayment incentive up to 3% → **4%** effective. FY 2025-26 | pmindia2025miss (28 May 2025) | Found |
 | | Small and marginal farmers can get the same rate for up to **6 months after harvest** against negotiable warehouse receipts in WDRA-accredited warehouses | rbi2022miss (RBI/2022-23/35, FY 2021-22) | Found (2021-22 circular; later years seen only in search snippets) |
 | | FY 2026-27 continuation; Budget 2025-26 limit rise to Rs 5 lakh | news only, not opened | **NOT VERIFIED** |
+
+## 4. Storage-sensing references (added by the M5 hardware session, re-checked by R1)
+
+First checked by the hardware session (layers/L3b_storage_iot/README.md, "References checked"); re-opened by R1 on 22 Oct 2026 and merged into `references.bib`.
+
+| Key | Opened | Claim | Found | Verdict |
+|---|---|---|---|---|
+| greenspan1977 | Crossref (J. Res. NBS 81A(1), 89–96, 1977) + NIST PDF | NaCl saturated solution 75.47 ± 0.14 / 75.29 ± 0.12 / 75.09 ± 0.11 %RH at 20 / 25 / 30 °C | Table values match | OK |
+| gwinner1996 | fao.org/4/x5065e, contents + ch. 6 (x5065E0c.htm) | storage fungi need RH ≥ 65%; grow at 10–40 °C | both sentences in ch. 6; GTZ Post-Harvest Project, Eschborn 1996, preface to 2nd ed. | OK |
+| delucia1994 | fao.org/4/t0522e, contents + T0522E09.htm | below 65–70% RH many degradation processes slow; safe moisture paddy 14%, wheat 13% (hot regions) | both on T0522E09; FAO Agric. Services Bulletin 93 | OK |
+| sht3x | Sensirion PDF, December 2022 – Version 7 | SHT30 ±2 %RH, ±0.2 °C typical; command 0x2400 | ±2 %RH holds only in the mid range (±3–4 %RH near 90–100 %RH, Fig. 2); 0x24/0x00 = high repeatability, no clock stretching | OK; say "typical, mid-range" in the paper |
+
+Still missing (hardware session): a direct IMD 1991–2020 climate-normals citation for Patiala.
