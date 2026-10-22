@@ -1,5 +1,7 @@
 # Paper (phase R10, continuous)
 
+**Guides:** [WRITING_GUIDE](WRITING_GUIDE.md), [FIGURE_GUIDE](FIGURE_GUIDE.md).
+
 **Folders:**
 - `sections/`: one draft per section, written as each phase finishes.
 - `figures/`, `tables/`: produced only by scripts.

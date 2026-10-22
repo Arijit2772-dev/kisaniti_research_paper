@@ -38,7 +38,7 @@ You need no earlier chat context.
 - Results files are written only by scripts. Paper numbers come from `paper/numbers.py`, never typed by hand.
 - Fair comparisons: same targets, time-ordered splits, no future data, baselines always included, significance tests, negative results reported.
 
-**Writing**
+**Writing and figures** — follow [paper/WRITING_GUIDE.md](paper/WRITING_GUIDE.md) (from the college checker's AI/similarity report; Springer AI-disclosure rule) and [paper/FIGURE_GUIDE.md](paper/FIGURE_GUIDE.md) (illustrated icon-style diagrams the supervisor asked for).
 - Every reference verified: open the DOI and check the claim; never invent a citation; log what was checked.
 - Plain, human first-person prose ("we"); short sentences; no AI-sounding phrases; use the humanizer skill before finalising.
 
