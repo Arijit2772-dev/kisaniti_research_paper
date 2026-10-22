@@ -6,7 +6,7 @@ Updated 22 Oct 2026.
 |---|---|---|---|
 | Baseline | — | DONE (15 Oct) | Paper v2 + forecasting and allocation runs on real paddy data, in `legacy/v2_from_rp_kisan/` |
 | R0 | Setup | NOT STARTED | Pin env, data manifests, reproduce v2 numbers |
-| R1 | Literature | NOT STARTED | — |
+| R1 | Literature | IN PROGRESS (22 Oct) | `literature/references.bib` (25 v2 + 33 new, all opened) and `verification_log.md` done; v2 flags: anoop claim wrong, icrier author name, ds18b20 publisher, shams issue, urra partial. Parameters: storage loss 0–0.5% total (no per-month figure), holding cost not found (current), KCC 7%/4%. LITERATURE_REVIEW.md and Section 2 draft still to do |
 | R2 | L1 Data | IN PROGRESS | Ingest script + manifests working; wheat Apr–May 2025 dense, off-season Punjab wheat nearly empty (2–5 rows/month); basmati Oct 2025 dense (429 rows, 39 mandis, ₹2,389–3,765) → basmati is the main market-priced crop |
 | R3 | L2 Cleaning | NOT STARTED | — |
 | R4 | L3a Forecasting | NOT STARTED | v2 paddy results exist |
