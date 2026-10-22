@@ -43,4 +43,8 @@ Total about 110 CAPTCHAs.
 | 2025-06 | 2 | 2 |
 | 2026-01 | 5 | 3 |
 
-Outside April–May, Punjab mandis report almost no wheat trade. A few prices were above MSP (₹2,440–2,585 in Jan 2026, against MSP ₹2,425), but 2–5 rows a month cannot support a forecasting model. **The wheat priority rows above are paused.** Options under review: (a) use wheat series from states that trade wheat all year (e.g. Madhya Pradesh, Uttar Pradesh, Rajasthan) as the open-market signal for Punjab held wheat; (b) make basmati the main market-priced crop. Next check: Paddy(Basmati), Punjab, October 2025. Progress is tracked in [download_log.csv](download_log.csv). Done so far: see the log.
+Outside April–May, Punjab mandis report almost no wheat trade. A few prices were above MSP (₹2,440–2,585 in Jan 2026, against MSP ₹2,425), but 2–5 rows a month cannot support a forecasting model. **The wheat priority rows above are paused.** Options under review: (a) use wheat series from states that trade wheat all year (e.g. Madhya Pradesh, Uttar Pradesh, Rajasthan) as the open-market signal for Punjab held wheat; (b) make basmati the main market-priced crop. Next check: Paddy(Basmati), Punjab, October 2025.
+
+## Finding (22 Oct 2026): basmati is dense and its price moves
+
+Paddy(Basmati), Punjab, October 2025: 429 rows (+13 blank-date) from 39 mandis, every day of the month. Varieties: Basmati 1509 (238 rows) and 1121 (191 rows). Modal prices ranged from ₹2,389 to ₹3,765 per quintal (median ₹2,990), a real spread across mandis, varieties and days, unlike MSP crops. **Basmati is usable for forecasting and mandi choice.** Plan: download the basmati season months (Sep–Feb) for 2021–2026 first, and test one off-season month for sparsity. Progress is tracked in [download_log.csv](download_log.csv). Done so far: see the log.
