@@ -102,6 +102,7 @@ def l3b_storage() -> dict[str, str]:
         f = [float(r["flips_per_week_mean"]) for r in base_rows if r["rule"] == rule]
         out[f"stor_{code}_flips_min"], out[f"stor_{code}_flips_max"] = f"{min(f):.1f}", f"{max(f):.1f}"
     out["stor_s4_lost_samples"] = str(traces["S4_outages"]["lost_samples"])
+    out["stor_s1_grain_aw_max"] = f"{max(traces['S1_winter_dry']['grain_aw']):.3f}"
     return out
 
 
@@ -142,7 +143,7 @@ def main() -> int:
     numbers, status = collect()
     for name, fn in LOADERS:
         print(f"== {name}: {status[name]}")
-        prefix = {"R0 reproduction of v2": "r0_"}.get(name, "alloc_")
+        prefix = {"R0 reproduction of v2": "r0_", "3.4 / 4.2 storage rules (simulated)": "stor_"}.get(name, "alloc_")
         for k in sorted(k for k in numbers if k.startswith(prefix)):
             print(f"   {k:48s} {numbers[k]}")
     if "--tex" in sys.argv:
