@@ -12,8 +12,10 @@ Basmati paddy is stored on the farm in jute bags until it is sold, often for mon
 signal about storage conditions, we place one probe inside a bag and read the air between the kernels.
 Figure~\ref{fig:hardware} shows the path from that probe to the planner.
 
-\paragraph{Node.} The probe is a protected SHT30 humidity and temperature sensor whose typical tolerance is
-$\pm2$\,\%RH and $\pm0.2$\,$^\circ$C~\cite{sht3x}. It is connected over I$^2$C (GPIO~21 and 22, 4.7\,k$\Omega$
+\paragraph{Node.} The probe is a protected SHT30 humidity and temperature sensor. Its typical tolerance is
+$\pm2$\,\%RH between 20 and 80\,\%RH, widening to $\pm3$--4\,\%RH near the ends of the range, and
+$\pm0.2$\,$^\circ$C from 0 to 65\,$^\circ$C~\cite{sht3x}; the limits used below (65 and 70\,\%RH) lie in the
+$\pm2$\,\%RH band. It is connected over I$^2$C (GPIO~21 and 22, 4.7\,k$\Omega$
 pull-ups) to an ESP32-WROOM-32 board~\cite{esp32} that stays outside the bag. Every 5 minutes the firmware takes one
 single-shot, high-repeatability reading and checks the CRC byte that the sensor sends with each value. A failed read
 is sent as an empty value with its error code, never as zero. Each message carries the device identifier, a random

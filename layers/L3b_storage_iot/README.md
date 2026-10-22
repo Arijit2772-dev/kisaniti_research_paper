@@ -49,45 +49,52 @@ Spec: [Patiala research Part B](../../../kisaniti/docs/research/2026-10-15_Patia
 `paper/figures/fig_storage_scenarios.*`; table `paper/tables/table_storage_rules.tex`; numbers via `paper/numbers.py`
 (keys `stor_*`).
 
-**Design:** six basmati scenarios on a Patiala farm built from IMD 1991–2020 normals (`scenarios.py`; S1 dry Nov–Feb,
-S2 monsoon hold, S3 fresh then sun-dried, S4 outages, S5 probe in shed air, S6 grain near a_w 0.65); 5-minute
-samples, hourly assessments; 20 noise seeds; sensor bias 0 and ±2 %RH / ±0.3 °C (SHT30 typical tolerance).
-Rules: STORAGE-DEMO-0.1 from `kisaniti_core.storage` (the product code, unchanged), an instantaneous ablation (no
-median/hysteresis), shed-air RH only, temperature only. Each is scored against the *intended* category (the same
-FAO-based bands applied to the noise-free in-grain values), which tests robustness, not biological validity.
+**Design:** six basmati scenarios on a Patiala farm (`scenarios.py`; S1 stored dry, held Nov–Feb; S2 monsoon hold;
+S3 fresh, sun-dried on day 8; S4 monsoon hold with outages; S5 probe in shed air; S6 grain near a_w 0.65). Climate
+from IMD *Climatological Tables 1991–2020*, Patiala (42101), p. 300: monthly mean daily max/min temperature and RH at
+08:30 and 17:30 IST; shed RH is a daily cycle fitted through both RH observations (shed air assumed equal to outdoor
+air). 5-minute samples, hourly assessments; 20 noise seeds; sensor bias 0 and ±2 %RH / ±0.3 °C (SHT30 typical
+tolerance in the 20–80 %RH mid range). Rules: STORAGE-DEMO-0.1 from `kisaniti_core.storage` (the product code,
+unchanged), an instantaneous ablation (no median/hysteresis), shed-air RH only, temperature only. Each is scored
+against the *intended* category (the same FAO-based bands applied to the noise-free in-grain values), which tests
+robustness, not biological validity.
 
-**What we saw (no bias):**
-- STORAGE-DEMO-0.1 changed category at most 0.2 times per week. The instantaneous version changed up to 19 times per
-  week and the shed-air rule 20–28 times per week, mostly from the daily humidity swing.
-- Shed-air RH agreed with the in-grain condition on only 11–60% of hours; in the dry winter scenario it called 41% of
-  hours HIGH while the grain stayed below a_w 0.66. Temperature only marked the whole monsoon hold HIGH (it reacts to
-  insects' temperature range, not to moisture).
-- With the probe in shed air, STORAGE-DEMO-0.1 returned UNKNOWN for every hour, by design (placement check).
-- Costs: the first ~24 h after insertion are UNKNOWN (6 h settling + 75% coverage), so the wet fresh lot (S3) was
-  flagged HIGH 23 h after the intended category; the 24 h median delayed HIGH by about 12 h in S2. After the outages in
-  S4 the rule was UNKNOWN 7% of the time (144 samples lost: 72 to buffer overflow, 72 to the power cut).
-- Near the 0.65 limit (S6) hysteresis held MEDIUM: 0 changes but only 49% agreement, against 92% agreement with 19
-  changes per week for the instantaneous rule. The rule leans to the cautious side.
+**Re-run note (22 Oct, same day):** the first run drove the scenarios with the 17:30 RH only, taken as the daily mean
+(read from a secondary table). Using IMD's own table with both observation times makes the shed air 10–20 points more
+humid, so stored grain drifts wetter (S1 reaches a_w 0.79 by February). All numbers below and in the paper are from the
+re-run.
 
-**Sensor bias matters as much as the rule:** a +2 %RH bias kept STORAGE-DEMO-0.1 at MEDIUM for weeks after the S3
-lot was dried (agreement 25%), because the 2-point de-escalation margin equals the sensor tolerance. A −2 %RH bias
-missed 21% of the HIGH hours in S2 (the instantaneous rule missed the same share). The salt calibration in
-`../kisaniti_implementation/firmware/BUILD_GUIDE.md` is therefore required before real readings are interpreted.
+**What we saw (no bias; values via `paper/numbers.py`, keys `stor_*`):**
+- STORAGE-DEMO-0.1 agreed with the intended category on 88–100 % of known hours in S1–S4 and changed category at most
+  0.7 times per week. The latest-reading ablation agreed about as often (92–99 %) but changed 1.4–19 times per week,
+  most when the grain sat near a limit.
+- Shed-air RH was a poor stand-in for the grain: 19–61 % agreement and 14–27 changes per week, following the daily
+  humidity cycle. Temperature only marked the whole monsoon hold HIGH and never HIGH in the humid winter (13 %
+  agreement in S1).
+- With the probe in shed air, STORAGE-DEMO-0.1 returned UNKNOWN for every hour, by design.
+- Costs: HIGH reported ~12 h after the intended category (24 h median); the fresh wet lot flagged 23 h late (first
+  day UNKNOWN) and kept HIGH ~2 days after drying (9 % false-HIGH hours); outages gave 7 % UNKNOWN (144 samples lost:
+  72 to buffer overflow, 72 to the power cut); near a_w 0.65 hysteresis holds MEDIUM (49 % agreement, 0 changes, vs
+  92 % and 19 changes/week for the ablation).
 
-**Limits:** every stream is simulated (grain moisture exchange and temperature damping are assumptions listed in
-`scenarios.py`); the IMD figures come from a secondary table; no rule here detects spoilage. Real-node results
-(calibration offset, settling time, data loss) belong to Paper 2 or to Sections 3.4/4.2 once measured.
+**Sensor bias matters as much as the rule:** +2 %RH cut agreement in S1–S4 to 66–96 % (up to 29 % false-HIGH hours),
+−2 %RH to 60–85 % (up to 15 % missed-HIGH hours); the ablation was hit the same way, so the median does not protect
+against bias. The salt calibration in `../kisaniti_implementation/firmware/BUILD_GUIDE.md` is therefore required
+before real readings are interpreted.
+
+**Limits:** every stream is simulated (shed = outdoor air, grain moisture exchange and temperature damping are
+assumptions listed in `scenarios.py`); no rule here detects spoilage. Real-node results (calibration offset, settling
+time, data loss) belong to Paper 2 or to Sections 3.4/4.2 once measured.
 
 ## References checked (22 Oct 2026, for Sections 3.4 / 4.2)
 
-Entries in `paper/template/l3b_storage.bib` (to be merged into `literature/references.bib` by the literature phase):
+Entries merged into `literature/references.bib` by the literature phase (commit 549b093, re-checked there):
 
 | Key | Opened | Claim it supports |
 |---|---|---|
 | `greenspan1977` | DOI 10.6028/jres.081A.011 resolves to the NBS PDF; Table 2, NaCl column | 75.47 ± 0.14 / 75.29 ± 0.12 / 75.09 ± 0.11 %RH at 20 / 25 / 30 °C (salt check) |
 | `gwinner1996` | fao.org/4/x5065e, ch. 6 "Fungi and mycotoxins"; title page: GTZ Post-Harvest Project, 2nd ed. 1996 | storage fungi need RH ≥ 65 %, grow at about 10–40 °C |
 | `delucia1994` | fao.org/4/t0522e; FAO Agricultural Services Bulletin 93, © FAO 1994, ISBN 92-5-103108-8 | below 65–70 % equilibrium RH many degradation processes slow down; safe moisture paddy 14 %, wheat 13 % (hot regions) |
-| `sht3x` | Sensirion SHT3x-DIS datasheet, Version 7, December 2022 (PDF read locally) | SHT30 ±2 %RH and ±0.2 °C typical; command 0x2400; CRC-8 0x31/0xFF; conversion formulas |
+| `sht3x` | Sensirion SHT3x-DIS datasheet, Version 7, December 2022 (PDF read locally) | SHT30 typical ±2 %RH at 20–80 %RH (±3–4 near 0–10 and 90–100 %RH, Fig. 2 table) and ±0.2 °C at 0–65 °C; command 0x2400; CRC-8 0x31/0xFF; conversion formulas |
 
-Not yet citable: the IMD 1991–2020 Patiala normals were read from the Wikipedia climate table; cite the IMD
-document directly before submission.
+| `imd2022` (sent to the literature phase to add) | IMD, *Climatological Tables of Observatories in India 1991–2020*, 9th ed. (2022), PDF from imdpune.gov.in; title page, legend p. 216 (I = 0830 IST, II = 1730 IST), Patiala table p. 300 | monthly temperature and RH normals used in `scenarios.py` |

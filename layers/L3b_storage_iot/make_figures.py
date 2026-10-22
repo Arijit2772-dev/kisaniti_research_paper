@@ -41,7 +41,7 @@ PANELS = [("S2_monsoon_hold", "(a) Basmati held into the monsoon"),
           ("S3_fresh_wet", "(b) Freshly harvested, sun-dried on day 8"),
           ("S4_outages", "(c) Monsoon hold with Wi-Fi and power outages"),
           ("S5_open_air", "(d) Probe hung in shed air instead of the grain")]
-SCEN_SHORT = {"S1_winter_dry": "S1 dry, Nov--Feb", "S2_monsoon_hold": "S2 monsoon hold",
+SCEN_SHORT = {"S1_winter_dry": "S1 held Nov--Feb", "S2_monsoon_hold": "S2 monsoon hold",
               "S3_fresh_wet": "S3 fresh, then dried", "S4_outages": "S4 outages",
               "S5_open_air": "S5 probe in air", "S6_boundary": "S6 near 0.65"}
 RULE_SHORT = {"DEMO": "DEMO", "INSTANT": "Instant", "AMBIENT_RH": "Shed RH", "TEMP_ONLY": "Temp."}
@@ -80,7 +80,7 @@ def figure() -> None:
         for y in (65, 70):
             ax.axhline(y, color=style.MUTED, lw=0.5, ls=(0, (1, 1.5)))
         ax.set_xlim(x0, x1)
-        ax.set_ylim(25, 122)
+        ax.set_ylim(25, 140)
         ax.set_yticks([25, 50, 75, 100])
         ax.set_ylabel("RH (%)", fontsize=7)
         ax.set_title(title, fontsize=7.5, loc="left", fontweight="bold", pad=3)

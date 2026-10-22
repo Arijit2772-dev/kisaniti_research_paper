@@ -8,15 +8,17 @@
 (salt offset, settling time, outage tests, one-week grain run) when the kit is built (\texttt{firmware/BUILD\_GUIDE.md}).}
 
 We have not yet run the node in real grain, so we tested the rule on simulated sensor streams for basmati paddy
-stored on a farm near Patiala. The streams follow the monthly temperature and humidity normals for Patiala for
-1991--2020; shed air swings by $\pm15$ points of relative humidity each day; the grain's temperature follows the shed
-air with a 2-day lag; and its water activity drifts towards the shed's daily mean humidity, slowly, as it would through
-a jute bag. These are assumptions, listed in \texttt{layers/L3b\_storage\_iot/scenarios.py}.
-\authornote{Cite the IMD 1991--2020 normals document directly; the values were read from a secondary table.}
-The \kn{stor_scenarios} scenarios cover dry grain held from November to February, grain held into the monsoon, a lot
-probed straight after harvest and sun-dried on day~8, the monsoon case with Wi-Fi and power outages, a probe left
-hanging in shed air, and grain sitting at $a_w\approx0.65$. Each ran with \kn{stor_seeds} noise seeds, with no sensor
-bias and with a bias of $\pm2$\,\%RH and $\pm0.3$\,$^\circ$C.
+stored on a farm near Patiala. Air temperature follows the monthly mean daily maximum and minimum of the IMD station
+at Patiala for 1991--2020~\cite{imd2022}. Shed humidity follows a daily cycle fitted through IMD's two monthly means,
+taken at 08:30 and 17:30 IST; we assume shed air equals outdoor air. The grain's temperature follows the shed air with a
+2-day lag, and its water activity drifts slowly towards the shed's daily mean humidity, as it would through a jute bag.
+These are assumptions, listed in \texttt{layers/L3b\_storage\_iot/scenarios.py}. The \kn{stor_scenarios} scenarios
+cover grain stored dry and held from November to February, grain held into the monsoon, a lot probed straight after
+harvest and sun-dried on day~8, the monsoon case with Wi-Fi and power outages, a probe left hanging in shed air, and
+grain sitting at $a_w\approx0.65$. Each ran with \kn{stor_seeds} noise seeds, with no sensor bias and with a bias of
+$\pm2$\,\%RH and $\pm0.3$\,$^\circ$C. Patiala's winter mornings are humid (mean RH at 08:30 of 84\,\% or more from November
+to January), so in our model even grain stored dry reached $a_w=\kn{stor_s1_grain_aw_max}$ by February; how fast this
+happens in a real shed depends on the bag and the shed, which we have not measured.
 
 We compared STORAGE-DEMO-0.1 with three simpler rules: the same thresholds on the latest reading only (no median, no
 hysteresis), the same thresholds on shed-air humidity, and temperature bands alone. Each rule is scored against the
@@ -24,27 +26,34 @@ category that the rule's definition gives for the noise-free grain values at the
 noise, outages, placement and short cuts move a rule away from that definition. It does not show that the definition
 predicts spoilage.
 
-Table~\ref{tab:storage_rules} and Fig.~\ref{fig:storage} give the results. The largest difference was stability.
-Without sensor bias, STORAGE-DEMO-0.1 changed category at most \kn{stor_demo_flips_max} times per week in any
-scenario. The shed-air rule changed \kn{stor_shed_flips_min}--\kn{stor_shed_flips_max} times per week, following the
-daily humidity cycle rather than the grain. During the dry winter hold it marked \kn{stor_s1_shed_high}\,\% of hours
-HIGH, while the grain's water activity never exceeded \kn{stor_s1_grain_aw_max}. Temperature alone marked \kn{stor_s2_temp_high}\,\% of the
-monsoon hold HIGH, because warm weather says nothing about moisture. When the probe hung in shed air, our rule returned
-UNKNOWN for every hour, as intended.
+Table~\ref{tab:storage_rules} and Fig.~\ref{fig:storage} give the results. Without sensor bias, STORAGE-DEMO-0.1
+agreed with the intended category on \kn{stor_s3_demo_agree}--\kn{stor_s2_demo_agree}\,\% of known hours in the four
+scenarios with the probe in grain and moving conditions, and changed category at most \kn{stor_demo_flips_max} times
+per week. The latest-reading rule agreed about as often (\kn{stor_instant_agree_min}--\kn{stor_instant_agree_max}\,\%)
+but changed \kn{stor_instant_flips_min}--\kn{stor_instant_flips_max} times per week, mostly when the grain sat close to
+a limit. A shed-air reading was a poor stand-in for the grain: it agreed on \kn{stor_shed_agree_min}--%
+\kn{stor_shed_agree_max}\,\% of hours and changed \kn{stor_shed_flips_min}--\kn{stor_shed_flips_max} times per week,
+following the daily humidity cycle. Temperature alone marked \kn{stor_s2_temp_high}\,\% of the monsoon hold HIGH and
+gave no HIGH hour in the winter hold, when moisture rather than heat was the problem (agreement
+\kn{stor_s1_temp_agree}\,\%). When the probe hung in shed air, our rule returned UNKNOWN for every hour, as intended.
 
-The median and the start-up checks have a cost. A lot probed straight after harvest was marked HIGH
-\kn{stor_s3_demo_highdelay}\,h after its true condition, because the first day after insertion is UNKNOWN; in the
-monsoon hold, the 24-hour median delayed HIGH by about \kn{stor_s2_demo_highdelay}\,h. With the outages, the rule was
-UNKNOWN for \kn{stor_s4_demo_unknown}\,\% of the hours, against \kn{stor_s4_instant_unknown}\,\% for the latest-reading
-rule; \kn{stor_s4_lost_samples} readings were lost, half to the buffer limit during a 30-hour Wi-Fi outage and half to a
-6-hour power cut. For grain sitting near $a_w=0.65$, hysteresis held MEDIUM: no changes, but only
-\kn{stor_s6_demo_agree}\,\% agreement, against \kn{stor_s6_instant_agree}\,\% for the latest-reading rule, which changed
-category many times a week. The rule leans to the cautious level in this case.
+The median and the start-up checks have a cost. In the winter, monsoon and outage scenarios the 24-hour median
+reported HIGH about \kn{stor_s2_demo_highdelay}\,h after the intended category. A lot probed straight after harvest
+was marked HIGH \kn{stor_s3_demo_highdelay}\,h late, because the first day after insertion is UNKNOWN, and after it
+was dried the rule stayed HIGH for two more days, which made \kn{stor_s3_demo_falsehigh}\,\% of its known hours a false
+HIGH. With the outages, the rule was UNKNOWN for \kn{stor_s4_demo_unknown}\,\% of the hours, against
+\kn{stor_s4_instant_unknown}\,\% for the latest-reading rule; \kn{stor_s4_lost_samples} readings were lost, half to the
+buffer limit during a 30-hour Wi-Fi outage and half to a 6-hour power cut. For grain sitting at $a_w\approx0.65$,
+hysteresis held MEDIUM with no changes, which agreed with the intended category on only
+\kn{stor_s6_demo_agree}\,\% of hours; the latest-reading rule agreed on \kn{stor_s6_instant_agree}\,\% but changed
+\kn{stor_s6_instant_flips} times per week. Here the rule keeps the cautious level.
 
-Sensor bias mattered as much as the choice of rule. With $+2$\,\%RH, the rule stayed at MEDIUM for most of the weeks
-after the fresh lot was dried (agreement \kn{stor_s3_demo_agree_biasplus}\,\%), because the 2-point margin for falling
-back equals the sensor's tolerance. With $-2$\,\%RH it missed \kn{stor_s2_demo_missedhigh_biasminus}\,\% of the HIGH
-hours in the monsoon hold, as did the latest-reading rule. We therefore treat the salt calibration (75.3\,\%RH over
+A $\pm2$\,\%RH sensor error mattered about as much as the choice of rule. With $+2$\,\%RH, agreement in the four
+in-grain scenarios fell to \kn{stor_demo_agree_biasplus_min}--\kn{stor_demo_agree_biasplus_max}\,\% and up to
+\kn{stor_demo_falsehigh_biasplus_max}\,\% of hours were a false HIGH; with $-2$\,\%RH it fell to
+\kn{stor_demo_agree_biasminus_min}--\kn{stor_demo_agree_biasminus_max}\,\% and up to
+\kn{stor_demo_missedhigh_biasminus_max}\,\% of hours were a missed HIGH. The latest-reading rule was affected in the
+same way, so the median does not protect against bias. We therefore treat the salt calibration (75.3\,\%RH over
 saturated NaCl at 25\,$^\circ$C~\cite{greenspan1977}) as a required step before real readings are interpreted.
 
 \begin{figure}[t]

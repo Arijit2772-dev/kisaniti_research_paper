@@ -3,9 +3,10 @@
 Everything here is SYNTHETIC. The streams test how storage rules behave (stability, outages, placement, sensor
 error); they are not measurements and do not show that any rule predicts spoilage.
 
-Climate: IMD 1991–2020 normals for Patiala (monthly mean daily max/min temperature and mean relative humidity at
-17:30 IST), as tabulated on the Patiala Wikipedia page (secondary source, read 22 Oct 2026). We use the 17:30 RH as
-the daily mean RH, which is an approximation recorded in SCENARIO_ASSUMPTIONS.
+Climate: IMD, Climatological Tables of Observatories in India 1991-2020 (9th edition, 2022), station Patiala
+(index 42101), p. 300: monthly mean daily max/min temperature and mean relative humidity at 08:30 and 17:30 IST.
+Shed-air RH follows a daily sinusoid in phase with temperature (lowest at 15:00 IST) whose mean and amplitude are set
+so that it passes through both IMD observations each month (clipped to 5-98 %).
 
 In-grain model (assumptions, not measured):
 * in-grain temperature = ambient temperature passed through a first-order low-pass filter (time constant 2 days),
@@ -23,28 +24,29 @@ from datetime import UTC, datetime, timedelta
 
 import numpy as np
 
-# IMD 1991-2020 normals, Patiala: month -> (mean daily max C, mean daily min C, mean RH % at 17:30 IST)
+# IMD Climatological Tables 1991-2020, Patiala (42101), p. 300:
+# month -> (mean daily max C, mean daily min C, mean RH % at 08:30 IST, mean RH % at 17:30 IST)
 PATIALA_NORMALS = {
-    1: (18.7, 6.7, 70), 2: (22.5, 9.5, 62), 3: (28.0, 14.1, 53), 4: (35.2, 19.3, 33),
-    5: (39.3, 24.2, 32), 6: (38.3, 26.5, 46), 7: (34.4, 27.0, 69), 8: (33.4, 26.3, 75),
-    9: (33.1, 24.3, 71), 10: (32.6, 18.2, 59), 11: (27.7, 11.9, 59), 12: (21.2, 7.8, 69),
+    1: (18.7, 6.7, 93, 70), 2: (22.5, 9.5, 89, 62), 3: (28.0, 14.1, 79, 53), 4: (35.2, 19.3, 58, 33),
+    5: (39.3, 24.2, 52, 32), 6: (38.3, 26.5, 65, 46), 7: (34.4, 27.0, 82, 69), 8: (33.4, 26.3, 85, 75),
+    9: (33.1, 24.3, 85, 71), 10: (32.6, 18.2, 80, 59), 11: (27.7, 11.9, 84, 59), 12: (21.2, 7.8, 92, 69),
 }
 CLIMATE_SOURCE = (
-    "IMD 1991-2020 normals for Patiala as tabulated on en.wikipedia.org/wiki/Patiala (climate box), read 22 Oct 2026"
+    "IMD, Climatological Tables of Observatories in India 1991-2020, 9th ed. (2022), station Patiala 42101, p. 300; "
+    "https://imdpune.gov.in/library/public/Climatological%20Tables%201991-2020.pdf, read 22 Oct 2026"
 )
 
 SAMPLE = timedelta(minutes=5)
 IST = timedelta(hours=5, minutes=30)
-RH_DIURNAL_AMPLITUDE = 15.0  # +/- points of shed-air RH over a day (assumption)
 GRAIN_T_TAU_DAYS = 2.0
 
 SCENARIO_ASSUMPTIONS = {
     "climate": CLIMATE_SOURCE,
-    "daily_mean_rh": "IMD 17:30 IST RH used as the daily mean (approximation)",
-    "rh_diurnal_amplitude_points": RH_DIURNAL_AMPLITUDE,
+    "shed_rh": "sinusoid in phase with temperature fitted through the IMD 08:30 and 17:30 IST monthly means, "
+    "clipped to 5-98 %; shed air is assumed equal to outdoor air",
     "temperature_diurnal": "sinusoid between monthly mean daily min and max, peak at 15:00 IST",
     "grain_temperature": f"ambient low-pass, time constant {GRAIN_T_TAU_DAYS} days",
-    "grain_aw": "first-order exchange with daily-mean shed RH, scenario time constant tau",
+    "grain_aw": "first-order exchange with the daily-mean shed RH (mean of the fitted cycle), scenario time constant tau",
     "probe": "RH = 100 * a_w + noise + bias; temperature = grain temperature + noise + bias",
 }
 
@@ -55,8 +57,8 @@ def _month_mid(year: int, month: int) -> datetime:
     return start + (nxt - start) / 2
 
 
-def _interp_normals(times: list[datetime]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Daily max, min and RH interpolated linearly between mid-month anchors."""
+def _interp_normals(times: list[datetime]) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Daily max, min, RH 08:30 and RH 17:30 interpolated linearly between mid-month anchors."""
     years = {t.year for t in times}
     anchors = []
     for y in range(min(years) - 1, max(years) + 2):
@@ -64,7 +66,13 @@ def _interp_normals(times: list[datetime]) -> tuple[np.ndarray, np.ndarray, np.n
             anchors.append((_month_mid(y, m).timestamp(), *PATIALA_NORMALS[m]))
     a = np.array(anchors)
     ts = np.array([t.timestamp() for t in times])
-    return tuple(np.interp(ts, a[:, 0], a[:, i]) for i in (1, 2, 3))  # type: ignore[return-value]
+    return tuple(np.interp(ts, a[:, 0], a[:, i]) for i in (1, 2, 3, 4))  # type: ignore[return-value]
+
+
+def _daily_mean(x: np.ndarray, n_day: int) -> np.ndarray:
+    """Centred 24 h running mean (edges use the available part of the window)."""
+    k = np.ones(n_day)
+    return np.convolve(x, k, mode="same") / np.convolve(np.ones_like(x), k, mode="same")
 
 
 def _lowpass(x: np.ndarray, dt_days: float, tau_days: float, x0: float | None = None) -> np.ndarray:
@@ -94,8 +102,8 @@ class Scenario:
 
 
 SCENARIOS = [
-    Scenario("S1_winter_dry", "Dry basmati held Nov-Feb", datetime(2025, 11, 15, tzinfo=UTC), 105, 0.60, 60.0,
-             note="Dried basmati, cool months; ambient RH 59-70%"),
+    Scenario("S1_winter_dry", "Basmati stored dry, held Nov-Feb", datetime(2025, 11, 15, tzinfo=UTC), 105, 0.60,
+             60.0, note="Starts dry (a_w 0.60); winter air is humid (IMD 08:30 RH 84-93 %)"),
     Scenario("S2_monsoon_hold", "Basmati held into the monsoon", datetime(2026, 6, 1, tzinfo=UTC), 122, 0.62, 30.0,
              note="Held through Jun-Sep; jute bag absorbs monsoon humidity"),
     Scenario("S3_fresh_wet", "Freshly harvested, then sun-dried", datetime(2025, 10, 20, tzinfo=UTC), 30, 0.88,
@@ -131,11 +139,16 @@ def simulate(sc: Scenario, seed: int, rh_bias: float = 0.0, t_bias: float = 0.0,
     n_warm = int(warmup / SAMPLE)
     n = int(timedelta(days=sc.days) / SAMPLE) + 1
     all_times = [sc.start - warmup + i * SAMPLE for i in range(n_warm + n)]
-    tmax, tmin, rh_mean = _interp_normals(all_times)
+    tmax, tmin, rh_0830, rh_1730 = _interp_normals(all_times)
     hours_local = np.array([((t + IST).hour + (t + IST).minute / 60) for t in all_times])
     phase = np.sin(2 * np.pi * (hours_local - 9.0) / 24.0)  # +1 at 15:00 IST
     amb_t = (tmax + tmin) / 2 + (tmax - tmin) / 2 * phase
-    amb_rh = np.clip(rh_mean - RH_DIURNAL_AMPLITUDE * phase, 5, 100)
+    # RH = m - A*phase must equal the IMD means at 08:30 and 17:30 IST
+    p1, p2 = np.sin(2 * np.pi * (8.5 - 9.0) / 24.0), np.sin(2 * np.pi * (17.5 - 9.0) / 24.0)
+    amp = (rh_0830 - rh_1730) / (p2 - p1)
+    rh_cycle_mean = rh_0830 + amp * p1
+    amb_rh = np.clip(rh_cycle_mean - amp * phase, 5, 98)
+    rh_mean = _daily_mean(amb_rh, int(timedelta(days=1) / SAMPLE))
     dt_days = SAMPLE / timedelta(days=1)
     grain_t = _lowpass(amb_t, dt_days, GRAIN_T_TAU_DAYS)[n_warm:]
     amb_t, amb_rh, rh_mean = amb_t[n_warm:], amb_rh[n_warm:], rh_mean[n_warm:]

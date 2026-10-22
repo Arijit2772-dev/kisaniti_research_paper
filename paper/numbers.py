@@ -101,6 +101,17 @@ def l3b_storage() -> dict[str, str]:
     for rule, code in rule_code.items():
         f = [float(r["flips_per_week_mean"]) for r in base_rows if r["rule"] == rule]
         out[f"stor_{code}_flips_min"], out[f"stor_{code}_flips_max"] = f"{min(f):.1f}", f"{max(f):.1f}"
+        a = [float(r["agreement_known_mean"]) for r in base_rows if r["rule"] == rule]
+        out[f"stor_{code}_agree_min"], out[f"stor_{code}_agree_max"] = pct(str(min(a))), pct(str(max(a)))
+    # sensor bias, scenarios S1-S4 (in grain, moving conditions)
+    for bias, tag in ((2.0, "biasplus"), (-2.0, "biasminus")):
+        sel = [r for r in rows if r["rule"] == "DEMO" and float(r["rh_bias"]) == bias and r["scenario"][:2] in ("S1", "S2", "S3", "S4")]
+        a = [float(r["agreement_known_mean"]) for r in sel]
+        m = [float(r["missed_high_share_mean"]) for r in sel]
+        fh = [float(r["false_high_share_mean"]) for r in sel]
+        out[f"stor_demo_agree_{tag}_min"], out[f"stor_demo_agree_{tag}_max"] = pct(str(min(a))), pct(str(max(a)))
+        out[f"stor_demo_missedhigh_{tag}_max"] = pct(str(max(m)))
+        out[f"stor_demo_falsehigh_{tag}_max"] = pct(str(max(fh)))
     out["stor_s4_lost_samples"] = str(traces["S4_outages"]["lost_samples"])
     out["stor_s1_grain_aw_max"] = f"{max(traces['S1_winter_dry']['grain_aw']):.3f}"
     return out

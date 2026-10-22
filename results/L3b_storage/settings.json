@@ -51,7 +51,7 @@
   "scenarios": [
     {
       "key": "S1_winter_dry",
-      "title": "Dry basmati held Nov-Feb",
+      "title": "Basmati stored dry, held Nov-Feb",
       "start": "2025-11-15T00:00:00+00:00",
       "days": 105,
       "aw0": 0.6,
@@ -61,7 +61,7 @@
       "aw_after_drying": null,
       "hover": false,
       "outages": [],
-      "note": "Dried basmati, cool months; ambient RH 59-70%"
+      "note": "Starts dry (a_w 0.60); winter air is humid (IMD 08:30 RH 84-93 %)"
     },
     {
       "key": "S2_monsoon_hold",
@@ -151,14 +151,13 @@
     }
   ],
   "assumptions": {
-    "climate": "IMD 1991-2020 normals for Patiala as tabulated on en.wikipedia.org/wiki/Patiala (climate box), read 22 Oct 2026",
-    "daily_mean_rh": "IMD 17:30 IST RH used as the daily mean (approximation)",
-    "rh_diurnal_amplitude_points": 15.0,
+    "climate": "IMD, Climatological Tables of Observatories in India 1991-2020, 9th ed. (2022), station Patiala 42101, p. 300; https://imdpune.gov.in/library/public/Climatological%20Tables%201991-2020.pdf, read 22 Oct 2026",
+    "shed_rh": "sinusoid in phase with temperature fitted through the IMD 08:30 and 17:30 IST monthly means, clipped to 5-98 %; shed air is assumed equal to outdoor air",
     "temperature_diurnal": "sinusoid between monthly mean daily min and max, peak at 15:00 IST",
     "grain_temperature": "ambient low-pass, time constant 2.0 days",
-    "grain_aw": "first-order exchange with daily-mean shed RH, scenario time constant tau",
+    "grain_aw": "first-order exchange with the daily-mean shed RH (mean of the fitted cycle), scenario time constant tau",
     "probe": "RH = 100 * a_w + noise + bias; temperature = grain temperature + noise + bias"
   },
   "origin": "SYNTHETIC",
-  "generated_at": "2026-10-22T21:29:53+05:30"
+  "generated_at": "2026-10-22T21:53:11+05:30"
 }
