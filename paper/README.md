@@ -2,6 +2,8 @@
 
 **Guides:** [WRITING_GUIDE](WRITING_GUIDE.md), [FIGURE_GUIDE](FIGURE_GUIDE.md).
 
+**Build:** `paper/template/build.sh` regenerates the figures (final mode) and number macros and compiles `paper/template/build/main.pdf`. Draft figure previews: `python3 paper/figures/src/fig1_architecture.py` (and `fig2_methodology.py`); add `--final` for the paper version, which draws every part not marked built as dashed grey.
+
 **Folders:**
 - `sections/`: one draft per section, written as each phase finishes.
 - `figures/`, `tables/`: produced only by scripts.

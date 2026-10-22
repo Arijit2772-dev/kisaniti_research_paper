@@ -5,6 +5,7 @@
 ## 1. Honesty first (Springer policy)
 
 - Springer Nature requires any use of a large language model to be **documented in the Methods section** (or an equivalent section). AI tools cannot be authors. AI help limited to copy-editing human-written text (grammar, spelling, readability) does not need to be declared. ([Springer AI policy](https://www.springer.com/us/editorial-policies/artificial-intelligence--ai-/25428500))
+- **Update 22 Oct 2026:** Springer Nature's current AI policy ([journal policies, "Artificial intelligence (AI)"](https://link.springer.com/brands/springer/journal-policies)) uses a risk framework. Language polishing is "green" (permitted, disclosure encouraged). Drafting explanatory text, extensive writing support and suggesting methods are "amber": permitted with human oversight, verification and disclosure. Our use is amber, so we disclose it. The draft statement is in `paper/sections/06_declarations.tex`.
 - So the plan is:
   1. Claude drafts text from the results.
   2. **The authors rewrite each section in their own words** and add details only they know (what they observed, why they chose something, what went wrong).

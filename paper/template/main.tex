@@ -1,0 +1,49 @@
+% KisanNiti paper v3 -- Springer LNCS/LNNS proceedings format (llncs v2.25, 2026/09/03).
+% Build with ./build.sh (regenerates figures and numbers, then runs Tectonic).
+% Text lives in ../sections/*.tex; numbers come from numbers_v2.tex (generated).
+\documentclass[runningheads]{llncs}
+
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage[varvw]{newtxmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\urlstyle{rm}
+\graphicspath{{../figures/}}
+
+\input{numbers_v2.tex}
+
+% Draft markers. Set \draftmodefalse before submission: every marker must be gone by then.
+\newif\ifdraftmode \draftmodetrue
+\newcommand\draftfor[1]{\ifdraftmode\par\noindent\fcolorbox{orange}{yellow!25}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
+  \footnotesize\sffamily\textbf{DRAFT FOR AUTHOR REWRITE.} #1}}\par\smallskip\fi}
+\newcommand\authornote[1]{\ifdraftmode{\color{red!70!black}\sffamily\footnotesize[#1]}\fi}
+
+\begin{document}
+
+\title{KisanNiti: Cooperative Post-Harvest Selling for Farmer Producer Organizations
+with Mandi Price Forecasting, Storage Sensing and Fair Allocation}
+\titlerunning{KisanNiti: Cooperative Post-Harvest Selling for FPOs}
+% TODO(authors): confirm order, corresponding author, ORCIDs and the two unconfirmed emails.
+\author{Harkiran Kaur \and Arijit Singh \and Tushar Garg \and Hitesh Mehandiratta \and Namya Gautam}
+\authorrunning{H. Kaur et al.}
+\institute{Thapar Institute of Engineering and Technology, Patiala, Punjab, India\\
+\email{\{asingh28\_be23,tgarg3\_be23,hhitesh\_be23,ngautam\_23\}@thapar.edu}}
+
+\maketitle
+
+\input{../sections/00_abstract.tex}
+\input{../sections/01_introduction.tex}
+\input{../sections/02_related_work.tex}
+\input{../sections/03_system.tex}
+\input{../sections/04_results.tex}
+\input{../sections/05_conclusion.tex}
+\input{../sections/06_declarations.tex}
+
+\bibliographystyle{splncs04}
+\input{bibfiles.tex}
+
+\end{document}

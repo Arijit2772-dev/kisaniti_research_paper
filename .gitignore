@@ -20,3 +20,8 @@ node_modules/
 
 # OS
 .DS_Store
+
+# LaTeX build output (paper/template/build.sh)
+paper/template/build/
+paper/template/bibfiles.tex
+paper/template/v2_placeholder.bib

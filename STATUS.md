@@ -1,6 +1,6 @@
 # Research status
 
-Updated 21 Oct 2026.
+Updated 22 Oct 2026.
 
 | Phase | Layer | Status | Notes |
 |---|---|---|---|
@@ -15,6 +15,6 @@ Updated 21 Oct 2026.
 | R7 | L3d Allocation + fairness | NOT STARTED | v2 allocation results exist |
 | R8 | L4 + L5 | NOT STARTED | Needs WhatsApp test number; UI = product Next.js app (CHAT-30) |
 | R9 | Integration | NOT STARTED | — |
-| R10 | Paper | v2 exists; v3 NOT STARTED | Venue (D2) pending with guide; LaTeX template (CHAT-31) |
+| R10 | Paper | v3 IN PROGRESS (22 Oct): template + figure drafts | LNCS LaTeX template (llncs v2.25) compiles via `paper/template/build.sh`; Fig. 1 architecture and Fig. 2 methodology drafted as scripts (`paper/figures/src/`, Tabler icons, palette in `style.py`), **awaiting supervisor feedback**; section drafts: Intro + paddy/MSP finding (DRAFT FOR AUTHOR REWRITE), others placeholders; venue (D2) pending |
 
 Known duplicates: an untracked copy of the v2 experiments also exists at `../kisaniti_implementation/experiments/EXP-03_paper_v1/`, and the original at `~/Documents/rp_kisan/`. This folder is the canonical home from now on.

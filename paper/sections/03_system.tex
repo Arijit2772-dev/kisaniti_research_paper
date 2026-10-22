@@ -1,0 +1,46 @@
+% Section 3 -- Proposed system and methods. Subsections 3.1-3.7 are drafted by each phase
+% (R2-R8) when its results exist; see paper/README.md for the map.
+\section{System Design and Methods}
+\label{sec:system}
+
+\draftfor{Skeleton only. The two figures are script drafts for the supervisor's review
+(\texttt{paper/figures/src/}). Parts not built yet are drawn dashed and grey by the
+\texttt{--final} export; flip their status in the script as each layer is finished.}
+
+Figure~\ref{fig:architecture} shows the five layers of KisanNiti and how data moves between
+them. Panels drawn dashed and grey are not built yet.
+\authornote{One paragraph per layer, in the order of the figure, once each layer is tested.}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig1_architecture.pdf}
+  \caption{KisanNiti architecture. Data sources (1) are cleaned into a daily mandi price
+  panel (2). Decision models (3) turn prices, storage readings and lot records into a selling
+  plan that the FPO manager reviews (4). Farmers receive the approved plan on WhatsApp, and
+  their recorded sales update stock for the next plan (5). Dashed grey parts are not yet
+  built. MILP: mixed-integer linear program; GNN: graph neural network; RH: relative humidity.}
+  \label{fig:architecture}
+\end{figure}
+
+\subsection{Forecasting Method}
+\label{sec:method-forecast}
+
+Figure~\ref{fig:method} summarizes how we compare forecasters. Each test season is forecast by
+models trained only on earlier seasons, and the season just before it is held out to tune
+settings such as the number of neighbouring mandis~$k$ in the graph and the ridge penalty.
+This gives three forward-chaining folds with test seasons \kn{test_seasons}. Errors are
+scored only on prices that a mandi actually reported.
+\authornote{Port the A3T-GCN description and equations from v2 Sect.~3.2 here once the v3
+forecasting run (R4) confirms the same setup.}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig2_methodology.pdf}
+  \caption{Forecasting methodology. AGMARKNET prices are cleaned into one price per
+  mandi-day and split by season (1); folds F1--F3 train on earlier seasons, tune on the next
+  season and test on the season after it. Simple rules and learned models are compared on the
+  same targets (2) and evaluated by error and horizon before a model is chosen (3). Dashed
+  grey parts are not yet built. MSP: minimum support price; MAE, RMSE, MAPE: mean absolute,
+  root mean squared and mean absolute percentage error.}
+  \label{fig:method}
+\end{figure}
