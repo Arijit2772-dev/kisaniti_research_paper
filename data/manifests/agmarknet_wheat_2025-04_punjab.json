@@ -1,0 +1,19 @@
+{
+ "source": "AGMARKNET (agmarknet.gov.in), report 'Date Wise Prices for Specified Commodity', CSV export",
+ "downloaded_by": "user (CAPTCHA solved by the user in the Claude in-app browser)",
+ "filed_at_utc": "2026-10-22T10:59:46+00:00",
+ "original_filename": "Date_wise_Prices_for_Specified_Commodity_22-10-2026_04-28-52_PM.csv",
+ "raw_path": "data/raw/agmarknet/wheat/2025-04_punjab.csv",
+ "sha256": "3273cbe5f8213292af7cef7a23cb10cd647a85c2f9f744b6ce2d10471bd61c73",
+ "bytes": 54035,
+ "origin": "REAL",
+ "commodity": "Wheat",
+ "state": "Punjab",
+ "month": "2025-04",
+ "rows": 1081,
+ "blank_date_rows": 19,
+ "markets": 98,
+ "first_date": "2025-04-07",
+ "last_date": "2025-04-30",
+ "problems": []
+}

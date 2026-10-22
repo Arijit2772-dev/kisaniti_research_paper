@@ -1,0 +1,47 @@
+{
+  "manifest_version": 1,
+  "file": "data/raw/agmarknet/paddy_common/agmarknet_paddy_common_punjab.csv",
+  "stage": "RAW",
+  "origin": "REAL",
+  "description": "Flattened AGMARKNET API response, unchanged since download (capstone download_agmarknet_paddy.py).",
+  "source": {
+    "provider": "AGMARKNET (Directorate of Marketing and Inspection, Government of India)",
+    "endpoint": "https://api.agmarknet.gov.in/v1/prices-and-arrivals/date-wise/specific-commodity",
+    "request_scope": {
+      "state": "Punjab (stateId=28)",
+      "commodity": "Paddy(Common) (commodityId=2)",
+      "variety": "all varieties returned",
+      "years": "2020-2025",
+      "months": "September-December"
+    },
+    "downloaded_by": "Arijit Singh (capstone project, download_agmarknet_paddy.py)",
+    "downloaded_on": "2026-04-20 (file modification time of the raw CSV; exact request time not logged)",
+    "terms": "Public market information published by AGMARKNET; check the portal terms before redistribution. Data files are not committed to git."
+  },
+  "copied_from": "/Users/arijitsingh/Documents/sem_6/capstone/agmarknet_paddy_common_punjab.csv",
+  "copied_on": "2026-10-22",
+  "sha256": "68e9ef5f1b774fed5fc307dcaff5ba3144d09511eaf32fe4cc354d60e13be482",
+  "bytes": 4223974,
+  "rows": 16284,
+  "columns": [
+    "state_id",
+    "state_name",
+    "commodity_id",
+    "commodity_name",
+    "year",
+    "month",
+    "market_name",
+    "arrival_date",
+    "arrival_date_raw",
+    "variety",
+    "arrivals_metric_tonnes",
+    "total_arrivals_metric_tonnes",
+    "minimum_price_rs_per_quintal",
+    "maximum_price_rs_per_quintal",
+    "modal_price_rs_per_quintal",
+    "source_url"
+  ],
+  "date_min": "2020-09-21",
+  "date_max": "2025-11-27",
+  "distinct_markets": 176
+}
