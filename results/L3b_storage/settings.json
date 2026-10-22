@@ -1,0 +1,164 @@
+{
+  "policy_version": "STORAGE-DEMO-0.1",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "biases_rh_t": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      2.0,
+      0.3
+    ],
+    [
+      -2.0,
+      -0.3
+    ]
+  ],
+  "rules": [
+    "DEMO",
+    "INSTANT",
+    "AMBIENT_RH",
+    "TEMP_ONLY"
+  ],
+  "assessment_step": "1 h",
+  "sample_interval": "5 min",
+  "noise_sd": {
+    "rh_points": 0.3,
+    "t_c": 0.05
+  },
+  "scenarios": [
+    {
+      "key": "S1_winter_dry",
+      "title": "Dry basmati held Nov-Feb",
+      "start": "2025-11-15T00:00:00+00:00",
+      "days": 105,
+      "aw0": 0.6,
+      "tau_days": 60.0,
+      "placement": "IN_GRAIN",
+      "drying_day": null,
+      "aw_after_drying": null,
+      "hover": false,
+      "outages": [],
+      "note": "Dried basmati, cool months; ambient RH 59-70%"
+    },
+    {
+      "key": "S2_monsoon_hold",
+      "title": "Basmati held into the monsoon",
+      "start": "2026-06-01T00:00:00+00:00",
+      "days": 122,
+      "aw0": 0.62,
+      "tau_days": 30.0,
+      "placement": "IN_GRAIN",
+      "drying_day": null,
+      "aw_after_drying": null,
+      "hover": false,
+      "outages": [],
+      "note": "Held through Jun-Sep; jute bag absorbs monsoon humidity"
+    },
+    {
+      "key": "S3_fresh_wet",
+      "title": "Freshly harvested, then sun-dried",
+      "start": "2025-10-20T00:00:00+00:00",
+      "days": 30,
+      "aw0": 0.88,
+      "tau_days": 30.0,
+      "placement": "IN_GRAIN",
+      "drying_day": 8.0,
+      "aw_after_drying": 0.63,
+      "hover": false,
+      "outages": [],
+      "note": "Harvest moisture, dried on day 8"
+    },
+    {
+      "key": "S4_outages",
+      "title": "Monsoon hold with outages",
+      "start": "2026-07-01T00:00:00+00:00",
+      "days": 45,
+      "aw0": 0.64,
+      "tau_days": 30.0,
+      "placement": "IN_GRAIN",
+      "drying_day": null,
+      "aw_after_drying": null,
+      "hover": false,
+      "outages": [
+        [
+          10.0,
+          30.0,
+          "WIFI"
+        ],
+        [
+          25.0,
+          6.0,
+          "POWER"
+        ],
+        [
+          35.0,
+          2.0,
+          "WIFI"
+        ]
+      ],
+      "note": "Wi-Fi off 30 h (buffer overflows), power cut 6 h, Wi-Fi off 2 h"
+    },
+    {
+      "key": "S5_open_air",
+      "title": "Probe hung in shed air",
+      "start": "2025-10-20T00:00:00+00:00",
+      "days": 40,
+      "aw0": 0.62,
+      "tau_days": 45.0,
+      "placement": "AMBIENT",
+      "drying_day": null,
+      "aw_after_drying": null,
+      "hover": false,
+      "outages": [],
+      "note": "Same lot, probe outside the grain"
+    },
+    {
+      "key": "S6_boundary",
+      "title": "Grain near the 0.65 limit",
+      "start": "2026-02-01T00:00:00+00:00",
+      "days": 60,
+      "aw0": 0.65,
+      "tau_days": 45.0,
+      "placement": "IN_GRAIN",
+      "drying_day": null,
+      "aw_after_drying": null,
+      "hover": true,
+      "outages": [],
+      "note": "a_w wobbles +/-0.01 around 0.65"
+    }
+  ],
+  "assumptions": {
+    "climate": "IMD 1991-2020 normals for Patiala as tabulated on en.wikipedia.org/wiki/Patiala (climate box), read 22 Oct 2026",
+    "daily_mean_rh": "IMD 17:30 IST RH used as the daily mean (approximation)",
+    "rh_diurnal_amplitude_points": 15.0,
+    "temperature_diurnal": "sinusoid between monthly mean daily min and max, peak at 15:00 IST",
+    "grain_temperature": "ambient low-pass, time constant 2.0 days",
+    "grain_aw": "first-order exchange with daily-mean shed RH, scenario time constant tau",
+    "probe": "RH = 100 * a_w + noise + bias; temperature = grain temperature + noise + bias"
+  },
+  "origin": "SYNTHETIC",
+  "generated_at": "2026-10-22T21:29:53+05:30"
+}

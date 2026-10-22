@@ -1,0 +1,4 @@
+python 3.13.1
+numpy 2.2.6
+platform macOS-26.5.1-arm64-arm-64bit-Mach-O
+kisaniti_core.storage STORAGE-DEMO-0.1 from /Users/arijitsingh/Documents/kisaniti_implementation/core/src/kisaniti_core
