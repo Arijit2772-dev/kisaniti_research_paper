@@ -8,7 +8,7 @@
 - No brand logos are used. WhatsApp is shown with the generic `message-circle` icon and a text label, so no trademark artwork appears in the paper.
 - To add an icon: run `npm pack @tabler/icons@3.46.0`, copy `package/icons/outline/<name>.svg` into `src/icons/tabler/`, and list it below.
 
-Icons in use: adjustments, alert-triangle, arrows-split, brain, calendar, calendar-time, chart-bar, chart-dots, chart-histogram, chart-line, checks, clipboard-check, cloud-upload, coin-rupee, cpu, database, device-mobile, droplet, eraser, file-check, file-spreadsheet, filter, gauge, git-branch, history, hourglass, list-check, map-pin, math-function, message-circle, packages, receipt, refresh, route, ruler, scale, server, table, target, temperature, timeline, topology-star-3, trophy, truck, user-check, users, wheat, wifi, world-download (not all are drawn yet).
+Icons in use: adjustments, copy, device-desktop, lock, router, alert-triangle, arrows-split, brain, calendar, calendar-time, chart-bar, chart-dots, chart-histogram, chart-line, checks, clipboard-check, cloud-upload, coin-rupee, cpu, database, device-mobile, droplet, eraser, file-check, file-spreadsheet, filter, gauge, git-branch, history, hourglass, list-check, map-pin, math-function, message-circle, packages, receipt, refresh, route, ruler, scale, server, table, target, temperature, timeline, topology-star-3, trophy, truck, user-check, users, wheat, wifi, world-download (not all are drawn yet).
 
 ## Palette
 
@@ -36,3 +36,8 @@ Arial (falls back to Helvetica, Liberation Sans or DejaVu Sans), embedded as Tru
 ## Data
 
 Fig. 2's split grid is read from `FOLDS` in `legacy/v2_from_rp_kisan/experiments/forecast_experiment.py`. No measured values appear in Fig. 1 or Fig. 2.
+
+## Fig. 3 (hardware) and the storage-scenario figure
+
+- `src/fig3_hardware.py` (added by the M5 hardware session, 22 Oct 2026) reuses `figlib`; icons `copy`, `device-desktop`, `lock` and `router` were added from `@tabler/icons@3.46.0` (outline), unchanged.
+- `fig_storage_scenarios.*` is a data plot from `layers/L3b_storage_iot/make_figures.py` (simulated data, results/L3b_storage/).
