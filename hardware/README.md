@@ -2,7 +2,7 @@
 
 **Status 22 Oct 2026:** built and tested — firmware (`../kisaniti_implementation/firmware/`, both builds pass, 13 host tests), Wokwi twin with a custom SHT3x chip (ran on wokwi.com: compiles, reads the sensor), MQTT/TLS ingestion (`../kisaniti_implementation/backend/ingestion/`, live broker check passed), Fig. 3 (`paper/figures/src/fig3_hardware.py`). Not done: the physical node (kit not bought), a saved public Wokwi link, an observed twin → broker → ingestion run. Build and calibration steps: `../kisaniti_implementation/firmware/BUILD_GUIDE.md`. The `wokwi/` and `firmware/` folders here stay empty on purpose: the twin lives next to the firmware so they cannot drift.
 
-**Goal for Paper 1:** a clear hardware architecture plus a working **Wokwi** simulation that sends real MQTT messages into the KisanNiti pipeline. A physical bench test is optional for Paper 1 and required for Paper 2.
+**Goal for Paper 1:** a clear hardware architecture plus a working **Wokwi** simulation that sends real MQTT messages into the KisanNiti pipeline. A physical bench test is optional but strengthens the single paper.
 
 **Architecture (decided: CHAT-29 — real ESP32 + SHT30 build plus a Wokwi twin with the same firmware; the firmware lives in `../kisaniti_implementation/firmware/`):**
 

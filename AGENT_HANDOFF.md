@@ -7,7 +7,7 @@
 ## 1. The project in five lines
 
 1. **KisanNiti** helps a Farmer Producer Organisation (FPO) in Patiala, Punjab decide where, when and how much members should sell after harvest.
-2. **Goals:** a Springer research paper first (LNNS/LNCS conference, like the group's ICDPN 2025 paper), then a journal paper, plus working software and hardware built side by side.
+2. **Goals:** a Springer research paper first (LNNS/LNCS conference, like the group's ICDPN 2025 paper), (a single paper only, CHAT-33), plus working software and hardware built side by side.
 3. **Team:** Thapar Institute. Supervisor Harkiran Kaur; students Arijit Singh, Tushar Garg, Hitesh Mehandiratta, Namya Gautam.
 4. **Crops:**
    - MSP paddy and wheat use the fixed government price.

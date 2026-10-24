@@ -84,7 +84,7 @@ before real readings are interpreted.
 
 **Limits:** every stream is simulated (shed = outdoor air, grain moisture exchange and temperature damping are
 assumptions listed in `scenarios.py`); no rule here detects spoilage. Real-node results (calibration offset, settling
-time, data loss) belong to Paper 2 or to Sections 3.4/4.2 once measured.
+time, data loss) belong to Sections 3.4/4.2 once measured, otherwise to limitations and future work.
 
 ## References checked (22 Oct 2026, for Sections 3.4 / 4.2)
 

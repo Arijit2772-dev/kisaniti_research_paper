@@ -2,7 +2,7 @@
 
 ## 1. What this folder is
 
-This is the **research-first** workspace. Its goal is a Springer research paper (Paper 1: a conference in LNNS/LNCS style, like the group's ICDPN 2025 paper; Paper 2: a journal) backed by:
+This is the **research-first** workspace. Its goal is a Springer research paper (one paper only, CHAT-33; venue to be confirmed with the supervisor; see `../kisaniti/docs/paper/THE_ONE_PAPER.md`) backed by:
 
 - real data;
 - real model runs;

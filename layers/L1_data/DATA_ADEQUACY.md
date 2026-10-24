@@ -27,7 +27,7 @@
 | Paper 1: allocation and fairness | **Enough** | Needs real price differences between mandis (present) plus a synthetic FPO, which is labelled as such |
 | Paper 1: hold-or-sell backtest | **Weak but usable as exploratory** | Only **five seasons**, so any average gain rests on five data points. Report per-season results and bootstrap intervals; do not claim statistical significance or "proven benefit" |
 | Paper 1: per-mandi forecasting | **Not enough** | Few long series. Forecast the variety-level index and add mandi offsets |
-| Paper 2 (journal) | **Not enough on its own** | Needs many more seasons, a second source or region, and validation against real FPO or farmer sales |
+| Claims that need more than this data (ranking close models, proven benefit of holding, farmer-level income) | **Not supported** | Needs many more seasons, a second source or region, and real farmer sale records; these are stated as limitations and future work in the single paper |
 
 ## 3b. Power check: can this data show real differences between models? (measured 24 Oct)
 
@@ -64,7 +64,7 @@ Script: `power_check.py`; output: `results/L1_coverage/power_check.txt`. Explora
   2. **Independent spot check:** compare one month with a second source (eNAM trade data, the Punjab Mandi Board portal, or published press price reports) and report the agreement.
   3. **Internal consistency tests:** min ≤ modal ≤ max, prices against MSP, price against arrivals.
   4. **State the limitation** in the paper: modal price is a mandi-level summary, not the price a farmer received.
-- **Extensions that matter for Paper 2** (optional now):
+- **Extensions that would matter beyond this paper** (future work):
   - CEDA's harmonised AGMARKNET archive (2000 onward): about 20 more seasons for the hold-or-sell backtest. It is the same underlying data, so it adds history, not independence.
   - Haryana basmati mandis: a second region for robustness.
   - Weather (IMD or NASA POWER) and export prices (APEDA) as covariates.
@@ -73,6 +73,6 @@ Script: `power_check.py`; output: `results/L1_coverage/power_check.txt`. Explora
 ## 5. Decisions this implies (recorded in the tracker)
 
 1. Model the **variety-level daily index** (1121 and 1509), with mandi offsets; do not train per-mandi models.
-2. Treat hold-or-sell results as **exploratory** in Paper 1, with per-season reporting and uncertainty; seek CEDA history for Paper 2.
+2. Treat hold-or-sell results as **exploratory** in Paper 1, with per-season reporting and uncertainty; longer history (CEDA) would be future work.
 3. Add the **independent spot check** to the cleaning phase.
 4. Never describe the AGMARKNET modal price as the farmer's price.

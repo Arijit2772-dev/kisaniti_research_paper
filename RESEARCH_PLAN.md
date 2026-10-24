@@ -30,7 +30,7 @@ These results already support decision CHAT-20 in the planning folder: MSP crops
 | Paper | Venue (confirm with guide) | Content | When |
 |---|---|---|---|
 | **Paper 1** | Springer LNNS/LNCS conference proceedings, same style as the group's ICDPN 2025 paper ([reference](reference_papers/)) | v2 upgraded to v3. Keep the paddy MSP finding. Add wheat and basmati forecasting with price ranges, an exact fair cooperative allocation (leximin MILP vs alternatives), the IoT pipeline with a Wokwi simulation and the storage-risk rule, and screenshots of the manager dashboard and WhatsApp prototype. | First |
-| **Paper 2** | Springer journal (SN Computer Science or Agricultural Research) | The full study: hold-or-sell backtest over many seasons, whole-system simulation, solver scaling, real hardware bench test, usability/comprehension tests (with ethics approval) | After Paper 1 |
+| *(no second paper)* | — | Decision CHAT-33: one paper only. See [THE_ONE_PAPER](../kisaniti/docs/paper/THE_ONE_PAPER.md) for scope and claim strength. | — |
 
 Each paper reports distinct results; no duplicate publication.
 
@@ -123,4 +123,4 @@ Algorithms used in experiments come from the shared `core/` package in `../kisan
 1. Download wheat and basmati price data from AGMARKNET (the CAPTCHA blocks scripts), or get CEDA access. Steps are in the [L1 card](layers/L1_data/README.md).
 2. Create a Meta WhatsApp developer test number and add your own phone as the test recipient (for R8 screenshots).
 3. Confirm D1–D4, author emails and the corresponding author (open items listed in the [v2 README](legacy/v2_from_rp_kisan/README.md)).
-4. Optional: buy the hardware kit for a real bench test (Paper 2 needs it; Paper 1 can use Wokwi).
+4. Optional: buy the hardware kit for a real bench test (the paper can use the Wokwi twin alone, but a real one-week run makes it stronger).
