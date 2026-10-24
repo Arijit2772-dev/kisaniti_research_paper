@@ -1,15 +1,18 @@
 """File one AGMARKNET "Date Wise Prices for Specified Commodity" CSV export.
 
 Usage:
-    python3 layers/L1_data/ingest_download.py [path/to/export.csv]
+    python3 layers/L1_data/ingest_download.py [--copy] [--provenance TEXT] [export.csv ...]
 
 Without a path, the newest Date_wise_Prices_for_Specified_Commodity_*.csv in
-~/Downloads is used. The file is moved unchanged into
+~/Downloads is used. Several paths can be given. Re-filing a month whose bytes
+already match is a no-op; different bytes are refused. The file is moved (or
+copied with --copy) unchanged into
 data/raw/agmarknet/<commodity>/<YYYY-MM>_<state>.csv, and a manifest JSON is
 written to data/manifests/. The month, commodity and state are read from the
 report's own title line, never guessed from the file name.
 """
 
+import argparse
 import csv
 import hashlib
 import json
@@ -91,30 +94,28 @@ def summarise(path: Path) -> dict:
     }
 
 
-def main() -> None:
-    if len(sys.argv) > 1:
-        source = Path(sys.argv[1]).expanduser()
-    else:
-        candidates = sorted(DOWNLOADS.glob("Date_wise_Prices_for_Specified_Commodity_*.csv"),
-                            key=lambda p: p.stat().st_mtime)
-        if not candidates:
-            sys.exit("No AGMARKNET export found in ~/Downloads")
-        source = candidates[-1]
-
+def file_one(source: Path, copy: bool, provenance: str) -> str:
+    """File one export. Returns 'filed', 'already-filed' or exits on a conflict."""
     info = summarise(source)
     target_dir = RAW / slug(info["commodity"])
     target = target_dir / f"{info['month']}_{slug(info['state'])}.csv"
-    if target.exists():
-        sys.exit(f"Already filed: {target} (delete it first if you re-downloaded on purpose)")
-
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    if target.exists():
+        if hashlib.sha256(target.read_bytes()).hexdigest() == digest:
+            print(f"Already filed (same bytes): {target.relative_to(ROOT)}")
+            return "already-filed"
+        sys.exit(f"CONFLICT: {target} exists with different bytes; not overwritten")
+
     target_dir.mkdir(parents=True, exist_ok=True)
     MANIFESTS.mkdir(parents=True, exist_ok=True)
-    shutil.move(str(source), target)
+    shutil.copy2(source, target)
+    if hashlib.sha256(target.read_bytes()).hexdigest() != digest:
+        target.unlink()
+        sys.exit(f"Copy of {source.name} did not match its checksum; removed the bad copy")
 
     manifest = {
         "source": "AGMARKNET (agmarknet.gov.in), report 'Date Wise Prices for Specified Commodity', CSV export",
-        "downloaded_by": "user (CAPTCHA solved by the user in the Claude in-app browser)",
+        "downloaded_by": provenance,
         "filed_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "original_filename": source.name,
         "raw_path": str(target.relative_to(ROOT)),
@@ -135,11 +136,34 @@ def main() -> None:
         writer.writerow([info["month"], info["commodity"], info["state"], info["rows"], info["blank_date_rows"], info["markets"],
                          info["first_date"], info["last_date"], len(info["problems"]), digest[:16],
                          manifest["filed_at_utc"]])
+    if not copy:
+        source.unlink()
 
     print(f"Filed {target.relative_to(ROOT)}: {info['rows']} rows (+{info['blank_date_rows']} blank-date), {info['markets']} markets, "
           f"{info['first_date']} to {info['last_date']}, problems: {len(info['problems'])}")
     for problem in info["problems"][:10]:
         print("  ", problem)
+    return "filed"
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("paths", nargs="*", help="export CSV file(s); default: newest in ~/Downloads")
+    parser.add_argument("--copy", action="store_true", help="keep the original file instead of moving it")
+    parser.add_argument("--provenance", default="user (CAPTCHA entered by the user in a browser)",
+                        help="who/what downloaded the file, recorded in the manifest")
+    args = parser.parse_args()
+
+    if args.paths:
+        sources = [Path(p).expanduser() for p in args.paths]
+    else:
+        candidates = sorted(DOWNLOADS.glob("Date_wise_Prices_for_Specified_Commodity_*.csv"),
+                            key=lambda p: p.stat().st_mtime)
+        if not candidates:
+            sys.exit("No AGMARKNET export found in ~/Downloads")
+        sources = [candidates[-1]]
+    for source in sources:
+        file_one(source, args.copy, args.provenance)
 
 
 if __name__ == "__main__":
