@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Run Python in the research environment with the shared core on the path:
+#   env/run layers/L3d_allocation_fairness/run_policies.py
+# PYTHONPATH is set explicitly because macOS can flag files inside .venv as hidden, and Python 3.13
+# skips hidden .pth files, so the editable install's .pth may silently not load.
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export PYTHONPATH="$ROOT/../kisaniti_implementation/core/src${PYTHONPATH:+:$PYTHONPATH}"
+exec "$ROOT/.venv/bin/python" "$@"

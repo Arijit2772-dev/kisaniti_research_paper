@@ -1,3 +1,5 @@
+> **WORK IN PROGRESS (24 Oct 2026):** `l3d_common.py` (persona, instances, scoring) and `run_policies.py` (policy comparison, EXP-09) were written by an interrupted session and **have not been run to completion; no results exist yet** (`results/L3d_allocation/` is empty). Run with `env/run layers/L3d_allocation_fairness/run_policies.py` after reading both files and the product repo's `core/allocation`. Tracker steps E.1–E.5.
+
 # L3d — Cooperative allocation and fairness (phase R7, EXP-08/09)
 
 **Research question:** Does an exact, fair cooperative plan send lots to mandis better than simple rules? What does fairness cost in rupees? Which solver is fast enough?
