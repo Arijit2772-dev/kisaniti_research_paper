@@ -1,0 +1,12 @@
+== Observations per season (variety-level daily index, >=3 mandis reporting)
+1121: total index days 433; per season {'2021-22': 81, '2022-23': 65, '2023-24': 88, '2024-25': 90, '2025-26': 88, '2026-27': 21} ; median mandis/day 6
+Basmati 1509: total index days 369; per season {'2021-22': 46, '2022-23': 36, '2023-24': 73, '2024-25': 86, '2025-26': 79, '2026-27': 49} ; median mandis/day 5
+
+== Rolling-origin comparison: naive vs ridge-on-lags (exploratory), expanding window
+1121 h=1: origins 383; MAE naive ₹149.8, ridge ₹150.2 (-0.2%); DM-style z=-0.05; smallest detectable gain ≈ 13.3% of naive MAE; effective n ≈ 351
+1121 h=5: origins 356; MAE naive ₹190.3, ridge ₹179.6 (+5.6%); DM-style z=+1.46; smallest detectable gain ≈ 10.8% of naive MAE; effective n ≈ 288
+Basmati 1509 h=1: origins 317; MAE naive ₹74.8, ridge ₹80.3 (-7.4%); DM-style z=-1.67; smallest detectable gain ≈ 12.5% of naive MAE; effective n ≈ 231
+Basmati 1509 h=5: origins 295; MAE naive ₹117.6, ridge ₹118.7 (-0.9%); DM-style z=-0.15; smallest detectable gain ≈ 17.2% of naive MAE; effective n ≈ 113
+
+== How independent are the mandis? (average pairwise correlation of weekly changes, mandis with >=40 obs)
+1121: 31 mandis with >=40 obs; 77 pairs; mean correlation of day-to-day changes 0.37
