@@ -1,5 +1,7 @@
 # Agent handoff — continue KisanNiti from here
 
+> **Latest (24 Oct 2026):** the final plan, acceptance checklist, gates and risks are in [`../kisaniti/docs/NEW_CHAT_START.md`](../kisaniti/docs/NEW_CHAT_START.md); the step-by-step checklist is `../kisaniti/docs/PROJECT_TRACKER.md`. The data collection described below is finished (29 basmati months). Sections 3–4 of this file are older; trust the tracker.
+
 22 October 2026 • For any AI agent (Claude, ChatGPT, Codex, Gemini, …) or person taking over. Read this file and you can continue without any earlier chat.
 
 ## 1. The project in five lines
