@@ -1,5 +1,7 @@
 # CEDA history runbook: basmati, Punjab, 2000–2021
 
+> **On hold (user decision, 24 Oct 2026):** do not email CEDA or register anywhere for now. Use this only if the CEDA website loads later and offers a download. Check with `curl -I https://agmarknet.ceda.ashoka.edu.in`.
+
 24 October 2026 • How to get about 20 more seasons of basmati prices. **You do the access steps (they need your identity and agreement to CEDA's terms); the script files whatever you obtain with checksums.** The script is tested (`test_ceda_fetch.py`, 7 tests against a fake server) but **has not been run against the real CEDA service**, because it needs a token that only CEDA can issue.
 
 ## Status on 24 Oct 2026: the web portal does not load
