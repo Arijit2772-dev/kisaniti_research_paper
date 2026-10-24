@@ -18,6 +18,8 @@ TARGET = (
     + ["2021-09", "2021-10", "2021-11", "2021-12", "2022-01"]
     + ["2025-06"]
 )
+# Months the site reported as empty; they count as done (see data/manifests/*_NO_DATA.json)
+CHECKED_EMPTY = {"2025-06"}
 
 
 def main() -> None:
@@ -32,7 +34,9 @@ def main() -> None:
         rows, markets = filed[month]
         print(f"  {month}: {rows} rows, {markets} markets")
 
-    missing = [m for m in TARGET if m not in filed]
+    missing = [m for m in TARGET if m not in filed and m not in CHECKED_EMPTY]
+    if CHECKED_EMPTY:
+        print(f"Checked, site reports no data: {', '.join(sorted(CHECKED_EMPTY))}")
     print(f"\nStill to download ({len(missing)}): {', '.join(missing) if missing else 'none'}")
     if missing:
         print(f"NEXT: {missing[0]}  (Paddy(Basmati), Punjab)")

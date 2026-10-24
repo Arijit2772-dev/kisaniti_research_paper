@@ -1,0 +1,7 @@
+variety,rows,rows_missing_modal,rows_missing_min_or_max,markets,trading_days,varieties,arrivals_tonnes,modal_min,modal_median,modal_max
+1121,3234,0,2,71,646,1,3308732.3,800.0,3444.5,6000.0
+Basmati,120,0,0,5,109,1,50694.1,2700.0,3500.0,4650.0
+Basmati 1509,2700,0,2,56,608,1,1609069.9,2000.0,3184.0,4800.0
+Other,15,0,0,1,15,1,1532.0,3000.0,3100.0,3400.0
+Sugandha,27,0,0,1,27,1,47450.0,3200.0,3870.0,4430.0
+SuperFine(Basmati),2,0,0,1,2,1,2537.0,3150.0,3175.0,3200.0

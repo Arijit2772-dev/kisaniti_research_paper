@@ -50,3 +50,11 @@ Outside April–May, Punjab mandis report almost no wheat trade. A few prices we
 ## Finding (22 Oct 2026): basmati is dense and its price moves
 
 Paddy(Basmati), Punjab, October 2025: 429 rows (+13 blank-date) from 39 mandis, every day of the month. Varieties: Basmati 1509 (238 rows) and 1121 (191 rows). Modal prices ranged from ₹2,389 to ₹3,765 per quintal (median ₹2,990), a real spread across mandis, varieties and days, unlike MSP crops. **Basmati is usable for forecasting and mandi choice.** Decision CHAT-32 (22 Oct): basmati is the main market-priced crop; held wheat becomes a limitation/future work. Plan: download the basmati season months (Sep–Feb) for 2021–2026 first, and test one off-season month for sparsity. Progress is tracked in [download_log.csv](download_log.csv). Done so far: see the log.
+
+## Result (24 Oct 2026): basmati download complete
+
+- 29 monthly files filed: four full seasons (2021-22 to 2024-25), the 2025-26 season, and September–October 2026. **6,098 observed rows, 86 mandis, 726 trading days, 6 varieties** (1121: 3,234 rows; Basmati 1509: 2,700; others under 150). Full tables: `results/L1_coverage/basmati_coverage.md` (made by `coverage_basmati.py`).
+- **The market is seasonal.** September–December are dense (100–460 rows a month); January has 14–57 rows and February 3–51. **June 2025 returned "No data available"**, so there is no off-season basmati trade in Punjab mandi reports. Forecasting is therefore a September–January problem.
+- **Sparse months are real, not download errors:** the same months are thin in every season (Jan 2022: 14 rows, Jan 2023: 24, Feb 2026: 3).
+- **Data quality flags for Layer 2:** 580 blank-date rows kept raw; 4 rows with min or max shown as "-" (kept as missing, not zero); one very low modal price of ₹800 in 2021-22 (median that season ₹3,170) to be checked against the website.
+- Proposed forecastable-series rule (to confirm in Phase B/C): a variety is forecastable for a season if it has price observations in at least 3 of the 5 months Sep–Jan and in at least 10 mandis in October–November; 1121 and 1509 qualify in every season, other varieties do not.
