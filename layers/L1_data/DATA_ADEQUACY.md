@@ -51,7 +51,7 @@ Script: `power_check.py`; output: `results/L1_coverage/power_check.txt`. Explora
 
 **Ways to get enough power, in order of value**
 
-1. **CEDA history (2000 onward, about 20 more seasons).** Roughly 4–5 times more origins would cut the smallest detectable gain to about 5–7%. This is the single most important addition for a paper that trains and ranks many models. The portal advertises downloadable raw files, over 300 commodities and 2,700 mandis, updated monthly; whether it needs registration is not stated on the pages we could reach, so the owner must check ([CEDA Agri Market Data](https://agmarknet.ceda.ashoka.edu.in)).
+1. **CEDA history (2000 onward, about 20 more seasons). Note: at commodity level only (no variety field in the API); runbook and tested filing script: [CEDA_RUNBOOK.md](CEDA_RUNBOOK.md).** Roughly 4–5 times more origins would cut the smallest detectable gain to about 5–7%. This is the single most important addition for a paper that trains and ranks many models. The portal advertises downloadable raw files, over 300 commodities and 2,700 mandis, updated monthly; whether it needs registration is not stated on the pages we could reach, so the owner must check ([CEDA Agri Market Data](https://agmarknet.ceda.ashoka.edu.in)).
 2. **A second region** (Haryana basmati) as an independent test series, and more varieties.
 3. **Fewer candidates, fixed in advance:** at most 6–8 models, the protocol written before looking at the test seasons, and a multiple-comparison correction (Holm, or a Model Confidence Set).
 4. **Report effect sizes with confidence intervals**, not just "best model".
