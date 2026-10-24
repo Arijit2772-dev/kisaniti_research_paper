@@ -50,7 +50,7 @@ The product still needs advice beyond these horizons (CHAT-22 asks for ranges be
 | 5 | ARIMA | statsforecast `AutoARIMA` |
 | 6 | LightGBM | features: lags 1,2,3,5,7 of the index, day-of-season, number of mandis (lagged), lagged IQR. 5 seeds |
 | 7 | GRU | one small network, fixed grid on validation only. 5 seeds |
-| 8 | Chronos-2 zero-shot | pretrained; its training data may include public price series, so its result is flagged. Dropped and reported if it cannot be run |
+| 8 | Chronos-2 zero-shot | pretrained; its training data may include public price series, so its result is flagged. Checked 24 Oct: runs on this Mac on CPU (`amazon/chronos-2`, Apache-2.0, 120M parameters; chronos-forecasting 2.3.2, torch 2.14.1). Input: the index of the current season only, reindexed to daily with missing days left as NaN (not filled); quantile forecasts from the model. Dropped and reported if it fails later |
 
 Not included, with reasons: **arrivals as a feature** (arrivals are shared or ambiguous for blank-date rows and contain very large values at some markets; unchecked), **T-GCN and A3T-GCN** (they need mandi-level series, which the data-adequacy note rejects as too short), **XGBoost** (one gradient-boosting model is enough for the budget of eight), **an MSP rule** (basmati has no MSP; whether any MSP-anchoring applies to basmati is UNKNOWN and is not assumed).
 
