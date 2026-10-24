@@ -12,6 +12,10 @@ parser and the blank-date rule, not a random sample of the whole dataset. Strata
   C  descriptive extremes: the 3 lowest and 3 highest modal prices relative to their
      season-and-variety median (a description for a human look, NOT an outlier rule)
   D  ordinary dated rows, spread over the seasons (16)
+  F  the largest arrivals figures (one row for each of the two markets with the largest values,
+     Khanna and Budalada), to see whether the website shows the same tonnage
+  E  modal price equal to 2389 or 2390 (the 2025-26 paddy Grade A MSP is 2389): 48 rows, mostly
+     Kot Ise Khan in Oct 2025; 4 are checked to see whether the website shows the same value
 """
 
 import csv
@@ -95,9 +99,31 @@ def build(rows):
     add("C_extreme_low", [r for _, r in ratios[:3]])
     add("C_extreme_high", [r for _, r in ratios[-3:]])
 
+    msp_like = [r for r in rows if r["modal_price"] in ("2389.0", "2390.0") and r["date"] and not r["flags"]]
+    msp_like.sort(key=lambda r: (r["market_raw"], r["row_id"]))
+    by_market = defaultdict(list)
+    for r in msp_like:
+        by_market[r["market_raw"]].append(r)
+    picks = []
+    for market in sorted(by_market, key=lambda m: -len(by_market[m])):
+        rng.shuffle(by_market[market])
+        picks.append(by_market[market][0])
+    extra = [r for m in sorted(by_market, key=lambda m: -len(by_market[m])) for r in by_market[m][1:2]]
+    add("E_modal_equals_msp_value", (picks + extra)[:4])
+
     normal = [r for r in rows if r["date_inferred"] != "1" and r["date"] and not r["flags"]
               and r["variety_raw"] in MAIN]
     add("D_ordinary", spread(normal, 16, rng, taken))
+    dated = [r for r in rows if r["date"] and r["arrivals_t"] and r["date_inferred"] != "1"]
+    dated.sort(key=lambda r: -float(r["arrivals_t"]))
+    seen, top = set(), []
+    for r in dated:
+        if r["market_raw"] not in seen:
+            seen.add(r["market_raw"])
+            top.append(r)
+        if len(top) == 2:
+            break
+    add("F_largest_arrivals", top)
     return chosen
 
 

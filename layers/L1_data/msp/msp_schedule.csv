@@ -1,0 +1,19 @@
+crop,grade,marketing_season,msp_rs_per_quintal,announced_on,source_url,verified
+paddy,common,KMS 2021-22,1940,2021-06-09,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1725612,yes
+paddy,grade_a,KMS 2021-22,1960,2021-06-09,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1725612,yes
+paddy,common,KMS 2022-23,2040,2022-06-08,https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1832172,yes
+paddy,grade_a,KMS 2022-23,2060,2022-06-08,https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1832172,yes
+paddy,common,KMS 2023-24,2183,2023-06-07,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1930443,yes
+paddy,grade_a,KMS 2023-24,2203,2023-06-07,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1930443,yes
+paddy,common,KMS 2024-25,2300,2024-06-19,https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2026697&reg=3&lang=2,yes
+paddy,grade_a,KMS 2024-25,2320,2024-06-19,https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2026697&reg=3&lang=2,yes
+paddy,common,KMS 2025-26,2369,2025-05-28,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2131983,yes
+paddy,grade_a,KMS 2025-26,2389,2025-05-28,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2131983,yes
+paddy,common,KMS 2026-27,2441,2026-05-13,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2260618,yes
+paddy,grade_a,KMS 2026-27,2461,2026-05-13,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2260618,yes
+wheat,all,RMS 2021-22,1975,2020-09-21,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1657426,yes
+wheat,all,RMS 2022-23,2015,2021-09-08,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1753109,yes
+wheat,all,RMS 2023-24,2125,2022-10-18,https://www.pib.gov.in/PressReleasePage.aspx?PRID=1868760,yes
+wheat,all,RMS 2024-25,2275,2023-10-18,https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=1968729,yes
+wheat,all,RMS 2025-26,2425,2024-10-16,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2065310,yes
+wheat,all,RMS 2026-27,2585,2025-10-01,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2173566,yes
