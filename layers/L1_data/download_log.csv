@@ -27,3 +27,4 @@ month,commodity,state,rows,blank_date_rows,markets,first_date,last_date,problems
 2022-11,Paddy(Basmati),Punjab,333,75,26,2022-11-01,2022-11-30,0,e0f44504c0b338c1,2026-10-24T08:36:33+00:00
 2022-12,Paddy(Basmati),Punjab,112,16,16,2022-12-01,2022-12-31,0,53ffaca94e666c6a,2026-10-24T08:37:44+00:00
 2023-01,Paddy(Basmati),Punjab,24,0,4,2023-01-02,2023-01-31,0,a0268f433b617965,2026-10-24T08:38:44+00:00
+2021-09,Paddy(Basmati),Punjab,44,0,10,2021-09-16,2021-09-30,0,ab58ac0e8c7c4920,2026-10-24T08:39:56+00:00
