@@ -1,5 +1,7 @@
 # L2 — Cleaning and validation (phase R3, EXP-02)
 
+> Detailed steps, tests and the blank-date hypothesis: [CLEANING_PLAN.md](CLEANING_PLAN.md). Why the data is enough (and for what): [../L1_data/DATA_ADEQUACY.md](../L1_data/DATA_ADEQUACY.md).
+
 **Research question:** Which cleaning rules remove real errors without deleting genuine price spikes, and does cleaning change forecast accuracy?
 
 **Build:**
