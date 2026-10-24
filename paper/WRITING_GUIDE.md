@@ -2,6 +2,14 @@
 
 22 October 2026 • Built from the college plagiarism/AI checker's report on paper v2: **13% of the text flagged as "resembles AI text" and 6% similarity with outside sources**. The aim is a paper that the authors genuinely wrote and can defend line by line. Every agent and author follows this guide.
 
+## 0. Manuscript conventions (decision PAPER-EDITORIAL-2026-10-22)
+
+- **Author order:** student authors first with their supplied emails; Harkiran Kaur (supervisor) last. Her email and two student emails are still to be confirmed. Never guess an email.
+- **Citations:** each reference gets its own brackets, e.g. `[1][4]`, never `[1, 4]` or `[1–4]`.
+- **Figures:** elaborate illustrated vector panels in the style of the supplied sample (see [FIGURE_GUIDE](FIGURE_GUIDE.md)); proposed, simulated and physical parts drawn and labelled differently.
+- **Evidence:** every number is preserved from the result files; nothing is rounded or rephrased by hand.
+- The AI-detector score of the revised text is **unknown** until the college checker is re-run.
+
 ## 1. Honesty first (Springer policy)
 
 - Springer Nature requires any use of a large language model to be **documented in the Methods section** (or an equivalent section). AI tools cannot be authors. AI help limited to copy-editing human-written text (grammar, spelling, readability) does not need to be declared. ([Springer AI policy](https://www.springer.com/us/editorial-policies/artificial-intelligence--ai-/25428500))
@@ -35,7 +43,7 @@
    - "delve", "pivotal", "landscape", "furthermore" chains;
    - "not only … but also".
 4. **Report, don't sell.** Every claim is tied to a table, figure, reference or our own run. No "significantly" without a significance test.
-5. **Our voice.** First person plural ("we tested", "we found"), past tense for what we did, present tense for what the results show.
+5. **Voice (supervisor instruction, 22 Oct 2026 — replaces the earlier first-person rule).** Passive or impersonal academic phrasing ("the models were compared", "the results show"), past tense for what was done, present tense for what the results show. No "we"/"our" in the manuscript. The other rules (specific facts, varied rhythm, no filler, no announced lessons) still apply.
 6. **Limitations in plain words** where they matter, not hidden at the end.
 7. **Own the methods.** Explain choices briefly ("We used A3T-GCN because …") and refer to the [design alternatives](../../kisaniti/docs/research/DESIGN_ALTERNATIVES.md) for the comparison.
 8. **Numbers only from `numbers.py`.** Never retype a value from memory.

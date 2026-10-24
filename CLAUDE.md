@@ -42,7 +42,7 @@ You need no earlier chat context.
 
 **Writing and figures** — follow [paper/WRITING_GUIDE.md](paper/WRITING_GUIDE.md) (from the college checker's AI/similarity report; Springer AI-disclosure rule) and [paper/FIGURE_GUIDE.md](paper/FIGURE_GUIDE.md) (illustrated icon-style diagrams the supervisor asked for).
 - Every reference verified: open the DOI and check the claim; never invent a citation; log what was checked.
-- Plain, human first-person prose ("we"); short sentences; no AI-sounding phrases; use the humanizer skill before finalising.
+- Plain, human prose in passive/impersonal academic voice (supervisor instruction 22 Oct; no "we"); short sentences; students first and Harkiran Kaur last in the author list; separate brackets per citation ([1][4]); no AI-sounding phrases; use the humanizer skill before finalising.
 
 **Engineering**
 - Tests for core math: exact quantities, a brute-force reference for the optimizer, stock arithmetic.

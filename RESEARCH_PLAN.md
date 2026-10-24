@@ -81,7 +81,7 @@ Different phases may run in separate sessions; two sessions never edit the same 
 
 - **Real data only for accuracy and benefit claims.** Synthetic FPO members and lots are labelled synthetic, using the 300-member Patiala persona (CHAT-25).
 - **Fair comparisons.** Every new method is compared against simple baselines on the same targets, using time-ordered splits with no future data. Report significance tests and negative results.
-- **Every reference verified** (DOI opened, claim checked). Plain, human first-person prose. No AI-sounding text: use the humanizer skill before finalising.
+- **Every reference verified** (DOI opened, claim checked). Plain, human prose in passive/impersonal academic voice (22 Oct supervisor instruction), students first and supervisor last in the author list. No AI-sounding text: use the humanizer skill before finalising.
 - **Hardware honesty:**
   - The current design uses ESP32 + SHT30 (CHAT-06).
   - The v2 paper shows DHT22 + 2×DS18B20. Paper v3 must use **one** consistent hardware story, and the user decides which (see §7).
