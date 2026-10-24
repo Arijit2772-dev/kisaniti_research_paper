@@ -3,3 +3,7 @@ duplicate_mandi_days_excluded,index_days,median_mandis,variant,variety,days_2021
 0,369,5,dated_only,Basmati 1509,46,36,73,86,79,49
 1,442,6.0,with_blank,1121,82,70,89,92,88,21
 1,408,5.0,with_blank,Basmati 1509,56,49,78,96,80,49
+0,431,6,dated_only_towns,1121,81,65,88,89,87,21
+0,369,5,dated_only_towns,Basmati 1509,46,36,73,86,79,49
+0,439,6,with_blank_towns,1121,82,70,89,90,87,21
+0,408,5.0,with_blank_towns,Basmati 1509,56,49,78,96,80,49

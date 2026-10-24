@@ -58,3 +58,18 @@ def test_dated_only_matches_independent_power_check():
         rows = list(csv.DictReader(f))
     for variety, n in expected.items():
         assert len(bi.build_index(rows, variety, "dated_only")[0]) == n
+
+
+def test_town_key_merges_subyards_and_spellings():
+    assert bi.town_key("Bhikhiwind (Algo) APMC") == bi.town_key("Bhikhiwind APMC") == bi.town_key("Bhikhiwind(Khalra) APMC")
+    assert bi.town_key("Khem karan APMC") == bi.town_key("Khemkaran (Amarkot) APMC")
+    assert bi.town_key("Amloh APMC") != bi.town_key("Ajnala APMC")
+
+
+def test_merged_town_uses_median_of_its_yards_and_is_not_a_duplicate():
+    rows = [row("Zed (A) APMC", "2024-11-01", 3000), row("Zed (B) APMC", "2024-11-01", 3400),
+            row("Y APMC", "2024-11-01", 3100), row("X APMC", "2024-11-01", 3200)]
+    raw, _ = bi.build_index(rows, "1121", "dated_only")
+    towns, dup = bi.build_index(rows, "1121", "dated_only", merge_subyards=True)
+    assert raw[0]["n_mandis"] == 4 and towns[0]["n_mandis"] == 3 and dup == 0
+    assert towns[0]["index_modal"] == 3200   # median of 3200 (Zed), 3100, 3200

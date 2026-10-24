@@ -15,6 +15,8 @@ Variants (the blank-date rule is a hypothesis awaiting the hand check, tracker B
 
 Mandi-days with two or more rows for the same variety (DUPLICATE_KEY) are excluded from the
 index and counted; the prices are never averaged. Rows with a missing modal price are skipped.
+The *_towns variants merge sub-yards of one town (candidate market map) as a sensitivity run.
+In those variants a town with several yard rows on one day uses the median of its rows.
 Varieties: only 1121 and Basmati 1509 (the other labels are about 3% of rows).
 
 Writes: data/processed/basmati/index_<variant>.csv (git-ignored)
@@ -22,6 +24,7 @@ Writes: data/processed/basmati/index_<variant>.csv (git-ignored)
 """
 
 import csv
+import re
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -32,13 +35,22 @@ OUT_DATA = ROOT / "data" / "processed" / "basmati"
 OUT_RES = ROOT / "results" / "L2_cleaning"
 MIN_MANDIS = 3
 VARIETIES = ("1121", "Basmati 1509")
-VARIANTS = ("dated_only", "with_blank")
+VARIANTS = ("dated_only", "with_blank", "dated_only_towns", "with_blank_towns")
 
 
 def season(date):
     y, m = int(date[:4]), int(date[5:7])
     s = y if m >= 9 else y - 1
     return f"{s}-{str(s + 1)[2:]}"
+
+
+def town_key(market_raw):
+    """Candidate market map for sensitivity only: the town name without bracketed sub-yard,
+    the word APMC, spaces or punctuation (so 'Khem karan' and 'Khemkaran (Amarkot)' coincide).
+    Whether sub-yards should be merged is an open decision (OPEN_ITEMS O9)."""
+    name = re.sub(r"\(.*?\)", "", market_raw)
+    name = re.sub(r"\bAPMC\b", "", name, flags=re.I)
+    return re.sub(r"[^a-z]", "", name.lower())
 
 
 def quartiles(values):
@@ -48,7 +60,7 @@ def quartiles(values):
     return q[0], q[2]
 
 
-def build_index(rows, variety, variant, min_mandis=MIN_MANDIS):
+def build_index(rows, variety, variant, min_mandis=MIN_MANDIS, merge_subyards=False):
     """Return (index_rows, excluded_duplicate_mandi_days)."""
     by_day = defaultdict(lambda: defaultdict(list))
     for r in rows:
@@ -56,15 +68,16 @@ def build_index(rows, variety, variant, min_mandis=MIN_MANDIS):
             continue
         if variant == "dated_only" and r["date_inferred"] == "1":
             continue
-        by_day[r["date"]][r["market_raw"]].append(float(r["modal_price"]))
+        key = town_key(r["market_raw"]) if merge_subyards else r["market_raw"]
+        by_day[r["date"]][key].append(float(r["modal_price"]))
     out, dup = [], 0
     for day in sorted(by_day):
         prices = []
         for market, vals in by_day[day].items():
-            if len(vals) > 1:
+            if len(vals) > 1 and not merge_subyards:
                 dup += 1
                 continue
-            prices.append(vals[0])
+            prices.append(vals[0] if len(vals) == 1 else statistics.median(vals))
         if len(prices) < min_mandis:
             continue
         q1, q3 = quartiles(prices)
@@ -83,7 +96,7 @@ def main():
     for variant in VARIANTS:
         allrows = []
         for variety in VARIETIES:
-            idx, dup = build_index(rows, variety, variant)
+            idx, dup = build_index(rows, variety, variant.removesuffix("_towns"), merge_subyards=variant.endswith("_towns"))
             allrows += idx
             by_season = defaultdict(int)
             for r in idx:

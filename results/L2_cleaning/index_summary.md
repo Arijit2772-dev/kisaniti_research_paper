@@ -8,3 +8,7 @@ Rule: median modal price over mandis reporting that day, at least 3 mandis; no f
 | dated_only | Basmati 1509 | 369 | 0 | 5 | 46 | 36 | 73 | 86 | 79 | 49 |
 | with_blank | 1121 | 442 | 1 | 6.0 | 82 | 70 | 89 | 92 | 88 | 21 |
 | with_blank | Basmati 1509 | 408 | 1 | 5.0 | 56 | 49 | 78 | 96 | 80 | 49 |
+| dated_only_towns | 1121 | 431 | 0 | 6 | 81 | 65 | 88 | 89 | 87 | 21 |
+| dated_only_towns | Basmati 1509 | 369 | 0 | 5 | 46 | 36 | 73 | 86 | 79 | 49 |
+| with_blank_towns | 1121 | 439 | 0 | 6 | 82 | 70 | 89 | 90 | 87 | 21 |
+| with_blank_towns | Basmati 1509 | 408 | 0 | 5.0 | 56 | 49 | 78 | 96 | 80 | 49 |
