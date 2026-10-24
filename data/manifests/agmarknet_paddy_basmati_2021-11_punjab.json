@@ -1,0 +1,19 @@
+{
+ "source": "AGMARKNET (agmarknet.gov.in), report 'Date Wise Prices for Specified Commodity', CSV export",
+ "downloaded_by": "user (CAPTCHA entered by the user in the Claude in-app browser); export by Claude",
+ "filed_at_utc": "2026-10-24T08:42:21+00:00",
+ "original_filename": "Date_wise_Prices_for_Specified_Commodity_24-10-2026_02-12-18_PM.csv",
+ "raw_path": "data/raw/agmarknet/paddy_basmati/2021-11_punjab.csv",
+ "sha256": "ec44af05d30a98dbd0d642b02c2f425035613291a7192fc580e57089fc3fce65",
+ "bytes": 19137,
+ "origin": "REAL",
+ "commodity": "Paddy(Basmati)",
+ "state": "Punjab",
+ "month": "2021-11",
+ "rows": 359,
+ "blank_date_rows": 50,
+ "markets": 31,
+ "first_date": "2021-11-01",
+ "last_date": "2021-11-30",
+ "problems": []
+}
