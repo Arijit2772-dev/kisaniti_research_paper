@@ -2,6 +2,10 @@
 
 24 October 2026 • How to get about 20 more seasons of basmati prices. **You do the access steps (they need your identity and agreement to CEDA's terms); the script files whatever you obtain with checksums.** The script is tested (`test_ceda_fetch.py`, 7 tests against a fake server) but **has not been run against the real CEDA service**, because it needs a token that only CEDA can issue.
 
+## Status on 24 Oct 2026: the web portal does not load
+
+`agmarknet.ceda.ashoka.edu.in` resolves but never answers, from the user's browser and from our machine (checked with curl: no response), while the CEDA main site and the API documentation do load. So the portal may be down or blocked. **Plan A: email CEDA** (draft: [CEDA_EMAIL_DRAFT.md](CEDA_EMAIL_DRAFT.md), address `ceda@ashoka.edu.in` from their contact page) and try the portal again in a few days. **Plan B:** the data.gov.in "Current Daily Price of Various Commodities from Various Markets (Mandi)" resource lists data from 2013 to 2025 and offers an API on request ([page](https://data.gov.in/resource/current-daily-price-various-commodities-various-markets-mandi)); I could not confirm that it holds Punjab variety-wise history for 2013–2020, so this must be tested once the user has a key. **Plan C:** if neither works, Paper 1 keeps its current scope (a small pre-registered forecasting comparison, effect sizes with intervals, exploratory hold-or-sell) and the long-history work moves to Paper 2.
+
 ## What CEDA is, and what it is not
 
 - CEDA (Centre for Economic Data and Analysis, Ashoka University) republishes the same AGMARKNET data from **2000 onward**, harmonised, for 300+ commodities and 2,700+ mandis, updated monthly ([CEDA Agri Market Data](https://agmarknet.ceda.ashoka.edu.in)). It adds history, **not an independent source**.
