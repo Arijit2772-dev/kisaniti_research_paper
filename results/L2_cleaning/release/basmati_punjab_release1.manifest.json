@@ -1,0 +1,147 @@
+{
+  "arrivals_rounded_rows": 149,
+  "blank_date_rows": 580,
+  "commodity": "Paddy(Basmati)",
+  "crop": "PADDY",
+  "dated_rows": 6098,
+  "files": {
+    "mandis.csv": "6cc5f62284907ff6728303a816a61bc3093c903e2ad7b502d8ba949659e23d05",
+    "observations.csv": "f8ca5040860f352fb341b25749cda52686dfceef6dc66990d6d402f742cc521d"
+  },
+  "flagged_rows": 8,
+  "mandis": 86,
+  "mandis_with_coordinates": 13,
+  "msp_applies": false,
+  "raw_files": {
+    "2021-09_punjab.csv": {
+      "data_rows": 44,
+      "sha256": "ab58ac0e8c7c4920cdd45d9eeefcd714f837c5e48ec0f7c1829d51e2b4c42eb7"
+    },
+    "2021-10_punjab.csv": {
+      "data_rows": 344,
+      "sha256": "75d883c85981dab807bc8dc22a88c8c9947cb32c5241d60652cfa93a0e667716"
+    },
+    "2021-11_punjab.csv": {
+      "data_rows": 409,
+      "sha256": "ec44af05d30a98dbd0d642b02c2f425035613291a7192fc580e57089fc3fce65"
+    },
+    "2021-12_punjab.csv": {
+      "data_rows": 171,
+      "sha256": "3a23fb0b167cfb916b3cc52388db6fc080a5af8507e880fe0ea41c8befe80153"
+    },
+    "2022-01_punjab.csv": {
+      "data_rows": 14,
+      "sha256": "12afa16d2ba6d929083f90b10de0a506bcdb4b61c7b0fb444d520d764cd90b83"
+    },
+    "2022-09_punjab.csv": {
+      "data_rows": 68,
+      "sha256": "56f83d07e8b127078fd432805e0b38ac452a1f32d0b378e1580b5500cbe1a326"
+    },
+    "2022-10_punjab.csv": {
+      "data_rows": 280,
+      "sha256": "a84f02755371169f702580c6da630012e5f7ca4247dd05d0b62317ab4cae5788"
+    },
+    "2022-11_punjab.csv": {
+      "data_rows": 408,
+      "sha256": "e0f44504c0b338c1c4ab70e7b0e17dd158a235341b982d177892bba47f8cf75a"
+    },
+    "2022-12_punjab.csv": {
+      "data_rows": 128,
+      "sha256": "53ffaca94e666c6a5ecb94969ffa6e37c895a46a1e49c005b4e9e5c6d3f38383"
+    },
+    "2023-01_punjab.csv": {
+      "data_rows": 24,
+      "sha256": "a0268f433b61796532e7efbb61dbf9c8926cee5bf10748c0fce2e10f64eaf1cc"
+    },
+    "2023-09_punjab.csv": {
+      "data_rows": 118,
+      "sha256": "b1cf726704fefee427c1589699bfda041f0c6c1dcdcd5e7d6461ed692837039b"
+    },
+    "2023-10_punjab.csv": {
+      "data_rows": 481,
+      "sha256": "e052a1dd2b30c1040662efbc60780c1f673bd870acca30572048195b5210ce16"
+    },
+    "2023-11_punjab.csv": {
+      "data_rows": 556,
+      "sha256": "598cc9b869072a7818e2eb3c6010d586b166451a7cc421e54299bd75354f7c85"
+    },
+    "2023-12_punjab.csv": {
+      "data_rows": 208,
+      "sha256": "8b6385f85799cf01978f55d3a0c2f76577054535541034cffad4f246d0f3e6b9"
+    },
+    "2024-01_punjab.csv": {
+      "data_rows": 50,
+      "sha256": "ce0a562293e06e0f76411e2fd01536b6d6efe58a4ad5506ea8e997421d09fd5c"
+    },
+    "2024-09_punjab.csv": {
+      "data_rows": 163,
+      "sha256": "05d2627ab0a0fc435cf0b74acc32fd10f8fd32bde0f05d8f668f3643ba9431ae"
+    },
+    "2024-10_punjab.csv": {
+      "data_rows": 459,
+      "sha256": "23d1e187bb2e2c73348b2281dcd4eed036cbea4a064c6767c18a334e2e1ac023"
+    },
+    "2024-11_punjab.csv": {
+      "data_rows": 566,
+      "sha256": "f46e101bcf14707dfdc3539c002be57f45362c31cd0d39063b8d4654f7fbe78b"
+    },
+    "2024-12_punjab.csv": {
+      "data_rows": 284,
+      "sha256": "491e83a5589a1d0bfd822e4d4c2659bc586274d6c3f6236154d1491788eaf7a7"
+    },
+    "2025-01_punjab.csv": {
+      "data_rows": 57,
+      "sha256": "c035ddc786c06d18e1fe076914d5e8af7aa830f534a407e4cb582779a3ec5a20"
+    },
+    "2025-02_punjab.csv": {
+      "data_rows": 51,
+      "sha256": "d1085f738c0766b03786fcb44645bf854aa7f6a271db1bf079d579231d8d15ac"
+    },
+    "2025-09_punjab.csv": {
+      "data_rows": 211,
+      "sha256": "4c8277c161dbadd08331666e740ab33e732cdc367df1f69b3f007567459a6574"
+    },
+    "2025-10_punjab.csv": {
+      "data_rows": 442,
+      "sha256": "7e40842820d131bc4ba04aaf9f073133eb590eedb4080167ff62971fb0d67d91"
+    },
+    "2025-11_punjab.csv": {
+      "data_rows": 342,
+      "sha256": "c196f2cb615a4d33fdbb34a31d7f498bc72b9e220a172ca3bf49222efa3c25af"
+    },
+    "2025-12_punjab.csv": {
+      "data_rows": 168,
+      "sha256": "a4922243483490f1df8f4387316363f587c93b67d800c1d9a15f975b17ff83ec"
+    },
+    "2026-01_punjab.csv": {
+      "data_rows": 27,
+      "sha256": "abcacb666374935ee8f74149db375a05ceeaadbbca0bcf42656faa229ecf436c"
+    },
+    "2026-02_punjab.csv": {
+      "data_rows": 3,
+      "sha256": "240d9383c69b055cd905cb523246004937303257b61c7c9861cd05d3715b3298"
+    },
+    "2026-09_punjab.csv": {
+      "data_rows": 340,
+      "sha256": "6e3a05ee5e860f8722364fca5661299fb3041e10542f3321072027dcd500184b"
+    },
+    "2026-10_punjab.csv": {
+      "data_rows": 262,
+      "sha256": "eb43666d5dd795a0b6adb6aaaa42c4f3b14b915eb5c661f7007fc0f6efb03c36"
+    }
+  },
+  "release_name": "basmati_punjab_release1",
+  "rows": 6678,
+  "rules": {
+    "blank_date_rule": "a row with empty date and arrivals takes the date of the closest preceding dated row of the same market in the same file; date_inferred = 1",
+    "decimals": "prices exact to 0.01 rupee; arrivals exact to 0.001 tonne; ARRIVALS_ROUNDED_3DP marks rows rounded from source noise (under 0.000002 t = 2 grams)",
+    "flags": "mechanical checks only; no value is removed or corrected; informational flag BLANK_DATE_HAS_OWN_ARRIVALS",
+    "mandi_names": "one mandi per source market name; town groups sub-yards for analysis only",
+    "parser": "layers/L2_cleaning/parse_basmati.py",
+    "research_repo_commit_at_release": "66e5b1f1b8bd4e310b50be833e19394f6e4ae2b3"
+  },
+  "source": "AGMARKNET, Date Wise Prices for Specified Commodity (manual CSV export, filed 22-24 Oct 2026)",
+  "state": "Punjab",
+  "validation_note": "The blank-date rule (rows with an empty date take the date of the preceding row of the same market) is a hypothesis until the 56-row hand check on the website is done.",
+  "validation_status": "PENDING_HAND_CHECK"
+}
