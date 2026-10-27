@@ -1,5 +1,5 @@
 {
-  "research_commit_before_manifest": "14b919a",
+  "research_commit_before_manifest": "a1b05fa",
   "frozen_index_sha256": {
     "index_dated_only.csv": "fe20b58f62dd47d0aa670b84ef7b3ed2bb6f808ddb6fde2bf3c38c2ffd67271e",
     "index_dated_only_towns.csv": "5ec184516c7c1071cc8c54d93dabf2c1afa7b2b42e8811a39f9d9cbd943b87da",
@@ -55,8 +55,11 @@
     "results/L1_coverage/power_check.txt": "ec16b35b8422e6539ee10bc921f30ad75592340e28472ab1d2673c70c12e6261",
     "results/L2_cleaning/blank_date_plausibility.json": "7f4d354cf9db479e1ef74736c4d9d1168644ae6725a9048190649fc7b23b37c5",
     "results/L2_cleaning/flag_counts.csv": "96efaee36d59896d78e5cca6828b6d9898224a5febbcc0d041306cad97a04496",
+    "results/L2_cleaning/hand_check_claude_replication_raw.json": "2bdfba3507a8670baaebdb8532b7c910d75f159af13a164f467908f87d0f716c",
     "results/L2_cleaning/hand_check_instructions.md": "ee7fe61b97bbbca31e3ce0a8116449d8415231aa6483d34f0f9c1f9776e901ec",
-    "results/L2_cleaning/hand_check_sheet.csv": "a7e8d80a50bb3ffe78b39add69ac7431a83b15aeadfb5b157305374dc4da5e37",
+    "results/L2_cleaning/hand_check_observations.csv": "1d0caded92a6ce42405d439e66f35ee172c34f8d6b0f1412bd1478545d97fc6c",
+    "results/L2_cleaning/hand_check_sheet.csv": "26d9242eb4f9760d2205dfd5039beddce7e2882f47614eb861342d32a163eda6",
+    "results/L2_cleaning/hand_check_summary.json": "b1dd58e36a6c7a4e4a95f1d1748c0741bbcf70daf65f8e2daf43a24f18d0e9c4",
     "results/L2_cleaning/index_summary.csv": "846766737469d1e165c52228fce98ac335d9685eaf601cba9b405e7c52df3cf6",
     "results/L2_cleaning/index_summary.md": "e1c520f56aaa7dc0fe3f53ab48106edb5772b70e6facb33e213aaf9c7821b5fd",
     "results/L2_cleaning/parse_summary.md": "a5c631bcd8cb278b0906a022ed5dc88b16a0f0812ecf146f044859f9c89c2560",

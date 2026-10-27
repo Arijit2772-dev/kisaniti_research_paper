@@ -7,6 +7,7 @@ C05,Independent choices exceed a mandi limit in every run,v2 abstract,VERIFIED,s
 C06,Basmati variety index has 433 (1121) and 369 (1509) index days,protocol 2; THE_ONE_PAPER 3,VERIFIED,"dated_only index days: {'1121': 433, 'Basmati 1509': 369}"
 C07,"6,678 basmati rows reconcile with the 29 manifests",STATUS R3,VERIFIED,29 manifests: 6678 rows = 6098 dated + 580 blank-date
 C08,The hand-check sheet has 56 rows,STATUS R3,VERIFIED,56 rows in the sheet (the check itself is not done)
+C23,"Hand check of 56 rows on the live portal: 56 modal prices agree, 33 rows agree fully, 20 differ in arrivals, 4 show a missing bound as zero (agent inspection; owner sign-off pending)",paper 3.1,VERIFIED,"rows, modal agree, arrivals differ, missing-vs-zero, numeric match = (56, 56, 20, 4, 33); sign-off still pending"
 C09,Smallest detectable gain is 11-13% (1121) and 12-17% (1509),protocol 8,VERIFIED,"detectable gains {'1121': [13.3, 10.8], 'Basmati 1509': [12.5, 17.2]} (exploratory run, protocol section 1)"
 C10,"Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)",THE_ONE_PAPER 1,FAILED,"1121 median daily change of the index 100.0; same-day gap across mandis median 950.0, mean 997, max 2750.0; the plan text says 50 and 1,468"
 C11,At least 60 test-season pairs per variety at every primary horizon,protocol 4,FAILED,"primary horizons under 60 test pairs after the eligibility rule: [('Basmati 1509', '7', '57'), ('Basmati 1509', '14', '51')]"

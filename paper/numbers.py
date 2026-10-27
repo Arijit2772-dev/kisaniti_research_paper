@@ -211,6 +211,16 @@ def data_cleaning() -> dict[str, str]:
     return out
 
 
+def hand_check() -> dict[str, str]:
+    """B.2: the 56-row inspection against the live portal (agent inspection; the owner's sign-off is separate)."""
+    d = _json(RESULTS / "L2_cleaning" / "hand_check_summary.json")
+    c, b, r = d["recomputed_counts"], d["blank_date_rule_c0"], d["independent_replication"]
+    return {"hc_rows": str(c["ids"]), "hc_modal": str(c["modal_match"]), "hc_numeric": str(c["numeric_match"]),
+            "hc_arr_differ": str(c["arrivals_differ"]), "hc_missing_zero": str(c["missing_vs_zero"]), "hc_union": str(c["union"]),
+            "hc_inferred": str(b["rows_with_inferred_date_in_sheet"]), "hc_inferred_ok": str(b["confirmed_same_date_same_prices_under_preceding_date"]),
+            "hc_repl": str(r["rows_replicated_by_claude"]), "hc_repl_same": str(r["live_values_identical_to_codex"])}
+
+
 def validator_agreement() -> dict[str, str]:
     """Stage 3: the independent plan validator against a second checker written from the rules, on random edits."""
     v = _json(RESULTS / "L3d_allocation" / "validator_agreement.json")
@@ -283,6 +293,7 @@ LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("4.2 pre-registered forecasting results", forecast_test_results),
     ("4.2 prospective check 2026-27 (partial)", prospective_results),
     ("4.2 sensitivity to the index variant", sensitivity_variants),
+    ("2 hand check (B.2)", hand_check),
 ]
 
 

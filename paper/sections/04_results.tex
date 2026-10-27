@@ -33,8 +33,7 @@ comparison. For Paddy (Common) the announced MSP is therefore used as the price 
 \label{sec:results-basmati}
 
 The comparison was run once on the held-out season after the protocol and the configuration were frozen (commits
-\texttt{C.0 freeze} and \texttt{C.0 configuration freeze} in the repository), on the dated-only index; the hand check of the
-blank-date rule is still open and cannot change the primary result. The index has \kn{data_index_days_1121} days for 1121 and
+\texttt{C.0 freeze} and \texttt{C.0 configuration freeze} in the repository), on the dated-only index; the portal inspection (Sect.~\ref{sec:method-data}) cannot change the primary result. The index has \kn{data_index_days_1121} days for 1121 and
 \kn{data_index_days_1509} for Basmati 1509, because index days exist only from September to January. After the rule that an
 origin needs ten index days of its season, the held-out season offers \kn{pairs_1121_h1}, \kn{pairs_1121_h7} and
 \kn{pairs_1121_h14} pairs at 1, 7 and 14 days for 1121 and \kn{pairs_1509_h1}, \kn{pairs_1509_h7} and \kn{pairs_1509_h14} for 1509,
@@ -43,10 +42,8 @@ fewer than the 60 first planned for 1509, and \kn{pairs_1509_h28} at 28 days, be
 Cleaning choices were measured before any forecast was run. Four outlier screens (past-only median absolute deviation with $k=3$ and
 $k=5$, a Hampel filter, an interquartile rule) flag \kn{scr_madk5_flagged_pct}\% to \kn{scr_madk3_flagged_pct}\% of the dated rows, and excluding
 them would change \kn{scr_madk5_changed_1121} to \kn{scr_madk3_changed_1121} of the \kn{data_index_days_1121} index days of 1121, by up to
-Rs~\kn{scr_iqr15_maxchange_1121} per quintal; the hand check must decide. As a plausibility check of the inferred dates
-(weaker than the hand check), the \kn{bd_pairs} same-day pairs of 1121 and 1509 in one market, whose second row always has an inferred date,
-have a median price ratio of \kn{bd_ratio_inf} against \kn{bd_ratio_ctl} for \kn{bd_control} own-dated pairs one day apart, with the smaller
-spread expected of same-day pairs (interquartile range \kn{bd_iqr_inf} against \kn{bd_iqr_ctl}); only \kn{bd_dups} of \kn{bd_rows} inferred rows fall
+Rs~\kn{scr_iqr15_maxchange_1121} per quintal; the portal inspection cannot decide which are errors. For the inferred dates, \kn{bd_pairs} same-day pairs of 1121 and 1509 in one market (the second row has an inferred date)
+have a median price ratio of \kn{bd_ratio_inf} against \kn{bd_ratio_ctl} for \kn{bd_control} own-dated pairs one day apart (interquartile range \kn{bd_iqr_inf} against \kn{bd_iqr_ctl}); only \kn{bd_dups} of \kn{bd_rows} inferred rows fall
 on a key that already has another row.
 
 \begin{table}[t]
@@ -87,25 +84,20 @@ Under the pre-registered rule, none of the \kn{inf_total} comparisons found a me
 \kn{inf_1121_1_gru_rel}\% (Rs~\kn{fc_1121_1_gru_mae} against Rs~\kn{fc_1121_1_naive_mae}); its bootstrap interval excluded zero, but
 the Holm-adjusted $p$ was \kn{inf_1121_1_gru_p}. The only methods that differed significantly from the naive value were worse:
 the seasonal naive forecast was significantly worse in \kn{inf_worse_sig} comparisons (Basmati 1509 at one day: change
-\kn{inf_1509_1_seasonal_naive_rel}\%, adjusted $p$ \kn{inf_1509_1_seasonal_naive_p}), because one season's price level says little
-about the next. The result is not that all methods are equal: in \kn{inf_excl_gain} of the \kn{inf_total} comparisons the interval excludes an improvement as
+\kn{inf_1509_1_seasonal_naive_rel}\%, adjusted $p$ \kn{inf_1509_1_seasonal_naive_p}). The result is not that all methods are equal: in \kn{inf_excl_gain} of the \kn{inf_total} comparisons the interval excludes an improvement as
 large as the smallest detectable gain, but the other \kn{inf_inconclusive} are inconclusive rather than negative, notably all
 \kn{inf_h1_1121_inconclusive} non-seasonal methods at one day for 1121, where improvements of up to about a quarter fit the data (median interval
-width \kn{inf_width_median} points). The naive value is therefore a strong forecast for prices that move this little from day to day, and the
-promotion rule keeps it: the product uses the naive value with ranges and states that the baseline is enough.
+width \kn{inf_width_median} points). The naive value is a strong forecast for prices that move this little, so the
+product uses it with ranges and states that the baseline is enough.
 
 The same \kn{inf_total} comparisons were repeated, with the configuration already chosen, on all \kn{sens_done} index variants declared in the
-protocol (inferred dates included; sub-yards of one town merged, with and without inferred dates; at least 2 or at least 4 mandis per day):
-\kn{sens_better} of \kn{sens_comparisons} comparisons found a method better, and the only significant differences from the naive value were
-those of the seasonal naive forecast (\kn{sens_other_significant} others), so the result does not depend on these cleaning choices.
+protocol (inferred dates included; sub-yards merged; at least 2 or 4 mandis per day):
+\kn{sens_better} of \kn{sens_comparisons} comparisons found a better method, and only the seasonal naive forecast differed significantly (\kn{sens_other_significant} others).
 
 Secondary and descriptive horizons are reported without a test. At 28 days the GRU and LightGBM had a lower MAE than the naive value for
-1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against Rs~\kn{fc_1121_28_naive_mae}), as in validation; both use the day of the season as a
-feature, so this is a hypothesis for the next season, not a finding. The partly observed season 2026--27 was run separately and is labelled
-partial: \kn{pro_1121_1_pairs} pairs at one day for 1121 and \kn{pro_1509_1_pairs} for 1509, falling to \kn{pro_1509_14_pairs} at 14 days, so no
+1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against Rs~\kn{fc_1121_28_naive_mae}); both use the day of the season, so this is a hypothesis, not a finding. The partly observed season 2026--27, run separately, is partial: \kn{pro_1121_1_pairs} pairs at one day for 1121 and \kn{pro_1509_1_pairs} for 1509, falling to \kn{pro_1509_14_pairs} at 14 days, so no
 test was run. For 1509 the naive value had the lowest MAE at 7 and 14 days (Rs~\kn{pro_1509_7_naive_mae} and
-Rs~\kn{pro_1509_14_naive_mae}), while the GRU and LightGBM were clearly less accurate (Rs~\kn{pro_1509_7_gru_mae} and
-Rs~\kn{pro_1509_7_lightgbm_mae} at 7 days).
+Rs~\kn{pro_1509_14_naive_mae}).
 
 Ranges at 80\% and 95\% were assessed at the three primary horizons. The models' own ranges (ETS, ARIMA, LightGBM quantiles,
 Chronos-2) were calibrated in \kn{rng_native_calibrated} of \kn{rng_native_total} cases, too wide in \kn{rng_native_over} and too

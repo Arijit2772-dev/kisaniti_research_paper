@@ -68,6 +68,17 @@ def hand_check_rows() -> Result:
     return ("VERIFIED" if n == 56 else "FAILED", f"{n} rows in the sheet (the check itself is not done)")
 
 
+def hand_check_counts() -> Result:
+    """Recount the 56 observations directly from the per-row file (not from the transfer script's own summary)."""
+    rows = list(csv.DictReader((ROOT / "results/L2_cleaning/hand_check_observations.csv").open()))
+    modal = sum(1 for r in rows if r["file_modal"] and r["live_modal"] and abs(float(r["file_modal"]) - float(r["live_modal"])) < 0.005)
+    arr = sum(1 for r in rows if r["arrivals_agree"] == "0")
+    miss = sum(1 for r in rows if r["missing_vs_zero"] == "1")
+    full = sum(1 for r in rows if r["numeric_match"] == "1")
+    got = (len(rows), modal, arr, miss, full)
+    return ("VERIFIED" if got == (56, 56, 20, 4, 33) else "FAILED", f"rows, modal agree, arrivals differ, missing-vs-zero, numeric match = {got}; sign-off still pending")
+
+
 def power_gain() -> Result:
     t = (ROOT / "results/L1_coverage/power_check.txt").read_text()
     out: dict[str, list[float]] = {}
@@ -189,6 +200,7 @@ CLAIMS = [
     ("C06", "Basmati variety index has 433 (1121) and 369 (1509) index days", "protocol 2; THE_ONE_PAPER 3", index_days),
     ("C07", "6,678 basmati rows reconcile with the 29 manifests", "STATUS R3", rows_reconcile),
     ("C08", "The hand-check sheet has 56 rows", "STATUS R3", hand_check_rows),
+    ("C23", "Hand check of 56 rows on the live portal: 56 modal prices agree, 33 rows agree fully, 20 differ in arrivals, 4 show a missing bound as zero (agent inspection; owner sign-off pending)", "paper 3.1", hand_check_counts),
     ("C09", "Smallest detectable gain is 11-13% (1121) and 12-17% (1509)", "protocol 8", power_gain),
     ("C10", "Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)", "THE_ONE_PAPER 1", basmati_movement),
     ("C11", "At least 60 test-season pairs per variety at every primary horizon", "protocol 4", protocol_pair_counts),
