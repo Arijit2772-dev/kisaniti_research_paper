@@ -236,3 +236,19 @@ def test_raw_pair_counts_equal_the_filed_counts():
             assert len(ek.raw_pairs(s, int(r["horizon_days"]), season)) == int(r[season]), (r["variety"], r["horizon_days"], season)
             checked += 1
     assert checked == len(filed) * 6 and checked > 100
+
+
+def test_interval_metrics_and_bootstrap_mean_by_hand():
+    m = ek.interval_metrics([12.0, 25.0], [5.0, 5.0], [15.0, 15.0], 0.80)
+    assert m["coverage"] == 0.5 and m["mean_width"] == 10.0
+    assert m["pinball"] == pytest.approx(((0.7 + 2.0) / 2 + (0.3 + 9.0) / 2) / 2)
+    assert ek.block_bootstrap_mean([1.0] * 30, 3, draws=100) == (1.0, 1.0)
+    lo, hi = ek.block_bootstrap_mean([0.0, 0.0, 1.0, 1.0] * 20, 2, draws=400)
+    assert 0.3 < lo < 0.5 < hi < 0.7
+    assert ek.block_bootstrap_mean([0.0, 1.0] * 40, 2, draws=100, seed=3) == ek.block_bootstrap_mean([0.0, 1.0] * 40, 2, draws=100, seed=3)
+
+
+def test_run_model_unpacks_native_ranges():
+    s = series(range(30))
+    out = ek.run_model(s, lambda h, t: (h[-1].value, {80: (h[-1].value - 1, h[-1].value + 1)}), 3, "2022-23")
+    assert out and all(f.ranges == {80: (f.origin_value - 1, f.origin_value + 1)} for f in out)

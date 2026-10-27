@@ -28,9 +28,14 @@ class Obs:
     day: date
     season: str
     value: float
+    n_mandis: int = 0  # mandis behind the index value (used as a feature by LightGBM only)
+    iqr: float = 0.0  # interquartile range of those mandis' modal prices
 
 
-Model = Callable[[Sequence[Obs], date], "float | None"]  # (history up to the origin, target day) -> forecast
+Ranges = dict[int, tuple[float, float]]  # nominal level (80 or 95) -> (lower, upper)
+ModelOut = "float | tuple[float, Ranges] | None"
+# (history up to the origin, target day) -> point forecast, or (point, native ranges), or None when the model cannot forecast
+Model = Callable[[Sequence[Obs], date], ModelOut]
 
 
 # ---- pairs --------------------------------------------------------------------------------------------------------
@@ -89,6 +94,7 @@ class Forecast:
     origin_value: float
     forecast: float
     actual: float
+    ranges: Ranges | None = None
 
     @property
     def error(self) -> float:
@@ -101,8 +107,10 @@ def run_model(series: Sequence[Obs], model: Model, h: int, season: str) -> list[
     for origin, target in eligible_pairs(ordered, h, season):
         history = [o for o in ordered if o.day <= origin.day]  # nothing after the origin is ever passed in
         f = model(history, target.day)
-        if f is not None:
-            out.append(Forecast(origin.day, target.day, origin.value, float(f), target.value))
+        if f is None:
+            continue
+        point, ranges = (f, None) if not isinstance(f, tuple) else f
+        out.append(Forecast(origin.day, target.day, origin.value, float(point), target.value, ranges))
     return out
 
 
@@ -205,18 +213,37 @@ def block_bootstrap_relative_change(
     return float(np.percentile(vals, 2.5)), float(np.percentile(vals, 97.5))
 
 
+def interval_metrics(y: Sequence[float], lo: Sequence[float], hi: Sequence[float], coverage: float) -> dict[str, float]:
+    """Empirical coverage, mean width and pinball loss of pairs of lower and upper bounds with nominal level `coverage`."""
+    y_, lo_, hi_ = (np.asarray(v, float) for v in (y, lo, hi))
+    tau = (1 - coverage) / 2
+    return {"coverage": float(np.mean((y_ >= lo_) & (y_ <= hi_))), "mean_width": float(np.mean(hi_ - lo_)),
+            "pinball": float((pinball(y_, lo_, tau) + pinball(y_, hi_, 1 - tau)) / 2)}
+
+
+def block_bootstrap_mean(x: Sequence[float], block: int, draws: int = 2000, seed: int = 20261027) -> tuple[float, float]:
+    """95% interval of the mean of x with moving blocks of `block` consecutive values."""
+    a = np.asarray(x, float)
+    n = len(a)
+    block = max(1, min(block, n))
+    rng = np.random.default_rng(seed)
+    per = math.ceil(n / block)
+    means = np.empty(draws)
+    for i in range(draws):
+        idx = np.concatenate([np.arange(s, s + block) for s in rng.integers(0, n - block + 1, per)])[:n]
+        means[i] = a[idx].mean()
+    return float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
+
+
 def beats_naive(holm_p: float, ci: tuple[float, float], relative_change: float, smallest_gain: float) -> bool:
     """Section 8: all three must hold. relative_change is negative for an improvement; smallest_gain is positive."""
     return holm_p < 0.05 and ci[1] < 0 and -relative_change >= smallest_gain
 
 
-def compare_to_naive(
-    series: Sequence[Obs], model: Model, h: int, test_season: str, draws: int = 2000
-) -> dict[str, float | int | tuple[float, float]]:
-    """One model against naive on the test season, on the pairs where both produce a forecast. Returns the raw
-    p (not yet Holm-adjusted, which needs the whole family), the interval and the relative change in MAE."""
-    base = {(f.origin, f.target): f for f in run_model(series, naive, h, test_season)}
-    mine = [f for f in run_model(series, model, h, test_season) if (f.origin, f.target) in base]
+def compare_forecasts(mine_all: Sequence[Forecast], base_all: Sequence[Forecast], h: int, draws: int = 2000) -> dict[str, float | int | tuple[float, float]]:
+    """One model against naive on already computed forecasts, on the pairs where both exist."""
+    base = {(f.origin, f.target): f for f in base_all}
+    mine = [f for f in mine_all if (f.origin, f.target) in base]
     ref = [base[(f.origin, f.target)] for f in mine]
     e_m, e_n = [f.error for f in mine], [f.error for f in ref]
     stat, p = dm_test(e_m, e_n, h)
@@ -229,3 +256,11 @@ def compare_to_naive(
         "p_raw": p,
         "ci": block_bootstrap_relative_change(e_m, e_n, h, draws),
     }
+
+
+def compare_to_naive(
+    series: Sequence[Obs], model: Model, h: int, test_season: str, draws: int = 2000
+) -> dict[str, float | int | tuple[float, float]]:
+    """One model against naive on the test season, on the pairs where both produce a forecast. Returns the raw
+    p (not yet Holm-adjusted, which needs the whole family), the interval and the relative change in MAE."""
+    return compare_forecasts(run_model(series, model, h, test_season), run_model(series, naive, h, test_season), h, draws)

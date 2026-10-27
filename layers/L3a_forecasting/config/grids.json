@@ -1,0 +1,21 @@
+{
+  "_comment": "Written before the first validation run (protocol section 10). Hyperparameters are chosen per variety and horizon by the lowest validation-season MAE (choose_config.py); nothing else is tuned.",
+  "horizons": {"primary": [1, 7, 14], "secondary": [28], "descriptive": [60]},
+  "families": ["naive", "seasonal_naive", "ma5", "ets", "arima", "lightgbm", "gru", "chronos2"],
+  "lightgbm": [
+    {"num_leaves": 7, "n_estimators": 100},
+    {"num_leaves": 7, "n_estimators": 300},
+    {"num_leaves": 15, "n_estimators": 100},
+    {"num_leaves": 15, "n_estimators": 300}
+  ],
+  "gru": [
+    {"hidden": 16, "epochs": 50},
+    {"hidden": 16, "epochs": 100},
+    {"hidden": 32, "epochs": 50},
+    {"hidden": 32, "epochs": 100}
+  ],
+  "smallest_detectable_gain": {
+    "1121": {"1": 0.133, "7": 0.133, "14": 0.133},
+    "Basmati 1509": {"1": 0.172, "7": 0.172, "14": 0.172}
+  }
+}

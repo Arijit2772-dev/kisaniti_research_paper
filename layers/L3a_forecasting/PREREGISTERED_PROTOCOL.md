@@ -102,6 +102,14 @@ For each variety and primary horizon the product uses the model that meets §8 a
 2. The pair counts of §4 are the eligible counts, with the consequences stated there.
 3. The choices of section 13 are adopted.
 
+**27 October 2026, before any validation run (recorded with the grids, `config/grids.json`):** clarifications found while writing the model code; none changes a model or a split.
+- A1. Item 10 below: lag 1 is the index value at the origin day, so the "lagged" mandi count and IQR are those of the origin day; no feature is later than the origin.
+- A2. LightGBM quantile models (ranges) use seed 0 only; the point forecast uses the five seeds. Separately fitted quantiles can cross, so they are rearranged: the 95% range contains the 80% range and both contain the point forecast.
+- A3. Section 6 names model 6 in both lists, so LightGBM gets both native quantile ranges and split-conformal ranges; both are reported, labelled by method.
+- A4. Native ranges (ETS, ARIMA, LightGBM quantiles, Chronos-2) are computed in every stage; conformal ranges only in the test and prospective stages.
+- A5. LightGBM uses its native training interface (no extra dependency); the GRU window is the last seven index days of the season including the origin.
+- A6. Grid: LightGBM num_leaves {7, 15} x n_estimators {100, 300} at learning rate 0.05; GRU hidden {16, 32} x epochs {50, 100}. Nothing else is tuned.
+
 ## 13. Implementation details fixed at the freeze
 
 The draft left these open; each was chosen before any model was run, for the reason given. Choices 1 to 8 are the owner's approved list (`EVALKIT_ASSUMPTIONS.md`); 9 to 18 were found while writing the model code and are fixed here by the same approval of "freeze it, then wire models 4 to 8".

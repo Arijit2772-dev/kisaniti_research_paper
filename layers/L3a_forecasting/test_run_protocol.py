@@ -62,3 +62,21 @@ def test_the_real_runner_refuses_today_because_the_protocol_is_not_frozen(capsys
     sys.argv = ["run_protocol.py", "--stage", "validation"]
     assert rp.main() == 2
     assert "REFUSED" in capsys.readouterr().err
+
+
+def test_worker_processes_give_the_same_rows_as_one_process():
+    one = rp.run_stage(world(), "validation", ["naive", "ma5"], [1, 7], rp.registry(), workers=1)
+    two = rp.run_stage(world(), "validation", ["naive", "ma5"], [1, 7], None, workers=2)
+    key = lambda r: (r["variety"], r["horizon"], r["model"], r["origin"])  # noqa: E731
+    assert sorted(one["forecasts"], key=key) == sorted(two["forecasts"], key=key)
+
+
+def test_chosen_variants_and_conformal_ranges_in_the_test_stage():
+    chosen = {"lightgbm": {"1121": {"1": "ma5"}}}  # any runnable name stands in for a tuned variant
+    models = {**rp.BASELINES, "lightgbm": rp.BASELINES["naive"]}
+    cal = {("1121", 1, "naive"): [10.0 + i for i in range(40)]}
+    res = rp.run_stage(world(), "test", ["naive", "lightgbm"], [1], models, {"1121": {"1": 0.1}}, draws=100, chosen=chosen, calibration=cal)
+    assert {m["config"] for m in res["metrics"] if m["model"] == "lightgbm"} == {"ma5"}  # the chosen variant ran under the family name
+    conf = [r for r in res["ranges"] if r["range_method"] == "conformal"]
+    assert {(r["model"], r["level"]) for r in conf} == {("naive", 80), ("naive", 95)}
+    assert all(r["claim_allowed"] for r in conf) and all(0 <= r["coverage"] <= 1 for r in conf)
