@@ -99,6 +99,37 @@ def forecasts_run() -> Result:
     return ("VERIFIED" if p.exists() else "PENDING_RUN", "no model comparison has been run on the price index; the protocol is a draft")
 
 
+def oracle_agreement() -> Result:
+    import json
+
+    o = json.loads((ROOT / "results/L3d_allocation/oracle_agreement.json").read_text())
+    ok = o["cases"] == o["agree"] and o["cases"] > 0 and all(v["cases"] == v["agree"] for v in o["by_solver"].values())
+    return ("VERIFIED" if ok else "FAILED", f"{o['agree']} of {o['cases']} runs equal the brute-force optimum ({o['instances']} instances)")
+
+
+def validator_agreement() -> Result:
+    import json
+
+    v = json.loads((ROOT / "results/L3d_allocation/validator_agreement.json").read_text())
+    ok = v["edits"] == v["agree"] and v["expected_valid"] > 0 and v["expected_invalid"] > 0
+    return ("VERIFIED" if ok else "FAILED", f"{v['agree']} of {v['edits']} edits get the same verdict ({v['expected_valid']} valid, {v['expected_invalid']} invalid)")
+
+
+def policy_run() -> Result:
+    runs = pd.read_csv(ROOT / "results/L3d_allocation/allocation_policies_runs_no_weighted.csv")
+    kis = runs[runs.policy_key == "kisaniti"]
+    exact = runs[runs.status.str.contains("/")]
+    ok = len(kis) == 60 and bool(kis.valid.all()) and exact.status.str.endswith("PROVEN_OPTIMAL").all()
+    return ("VERIFIED" if ok else "FAILED", f"{len(kis)} plans, all valid: {bool(kis.valid.all())}; exact solves proven optimal: {int(exact.status.str.endswith('PROVEN_OPTIMAL').sum())} of {len(exact)}")
+
+
+def references_exist() -> Result:
+    rows = list(csv.DictReader((ROOT / "literature/crossref_check.csv").open()))
+    bad = [r["key"] for r in rows if r["status"].startswith(("DOI_NOT_FOUND", "CANNOT_CHECK"))]
+    ok_n = sum(r["status"] == "MATCH" for r in rows)
+    return ("VERIFIED" if not bad else "FAILED", f"{ok_n} of {len(rows)} entries match their DOI record; unresolved: {bad}; no DOI (manual): {sum(r['status'] == 'NO_DOI_MANUAL' for r in rows)}")
+
+
 CLAIMS = [
     ("C01", "Paddy (Common): more than 96% of reports equal the MSP in every season 2020-25", "THE_ONE_PAPER 1; v2 abstract", msp_shares),
     ("C02", "Paddy (Common): the MSP rule has the lowest mean forecast error (Rs 1.26 per quintal); no learned model beats it", "v2 abstract", msp_rule_mae),
@@ -112,6 +143,10 @@ CLAIMS = [
     ("C10", "Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)", "THE_ONE_PAPER 1", basmati_movement),
     ("C11", "At least 60 test-season pairs per variety at every primary horizon", "protocol 4", protocol_pair_counts),
     ("C12", "A forecasting model beats naive on basmati", "future paper claim", forecasts_run),
+    ("C13", "The solver reaches the brute-force optimum on every random small instance", "paper 4.3", oracle_agreement),
+    ("C14", "The plan validator agrees with a second rule-based checker on every random edit", "paper 4.4", validator_agreement),
+    ("C15", "60 plans, all valid, exact solves proven optimal", "paper 4.3", policy_run),
+    ("C16", "Every bibliography DOI resolves to a record with the same title", "paper references", references_exist),
 ]
 
 
