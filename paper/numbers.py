@@ -252,6 +252,21 @@ def blank_date_plausibility() -> dict[str, str]:
             "bd_rows": str(d["inferred_rows"]), "bd_dups": str(d["inferred_rows_on_a_key_with_another_row"])}
 
 
+def sensitivity_variants() -> dict[str, str]:
+    """C.0 section 13, item 18: the same 42 comparisons on the pre-declared index variants (never replacing the primary)."""
+    names = ["with_blank", "dated_only_towns", "with_blank_towns", "dated_only_mm2", "dated_only_mm4"]
+    done = [n for n in names if (RESULTS / "C0_protocol" / f"sensitivity_{n}_inference.csv").exists()]
+    if not done:
+        raise NotRun("results/C0_protocol/sensitivity_*_inference.csv")
+    comps = better = worse_other = 0
+    for n in done:
+        for r in _csv(RESULTS / "C0_protocol" / f"sensitivity_{n}_inference.csv"):
+            comps += 1
+            better += r["verdict"] == "BETTER"
+            worse_other += float(r["p_holm"]) < 0.05 and r["model"] != "seasonal_naive"
+    return {"sens_done": str(len(done)), "sens_comparisons": str(comps), "sens_better": str(better), "sens_other_significant": str(worse_other)}
+
+
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
     ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
@@ -267,6 +282,7 @@ LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("3.3 pairs per horizon (C.0, dates only)", protocol_pairs),
     ("4.2 pre-registered forecasting results", forecast_test_results),
     ("4.2 prospective check 2026-27 (partial)", prospective_results),
+    ("4.2 sensitivity to the index variant", sensitivity_variants),
 ]
 
 

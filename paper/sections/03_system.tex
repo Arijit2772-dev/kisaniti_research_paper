@@ -5,8 +5,7 @@
 KisanNiti follows the order in which an FPO manager works (Fig.~\ref{fig:architecture}): (1)~farmer records, mandi prices
 and storage readings are collected and cleaned; (2)~a forecast, a storage assessment and a fair allocation produce a proposed
 plan; (3)~the manager reviews, edits and approves or rejects it; (4)~each farmer is told in their own language; and
-(5)~replies and actual sales are recorded and compared with the plan. Five rules hold throughout: raw facts, derived values,
-proposals, human decisions and what actually happened are stored separately and never overwrite each other; quantities and
+(5)~replies and actual sales are recorded and compared with the plan. Five rules hold throughout: raw facts, derived values, proposals, human decisions and what happened are stored separately; quantities and
 money are exact (grams and paise, never floating point); each FPO sees only its own data, enforced in the query and again in
 the database; every change is an append-only record with its author; and every failure is explicit, so a missing contact,
 consent or language blocks a message with a stated reason instead of being guessed.

@@ -38,14 +38,12 @@ blank-date rule is still open and cannot change the primary result. The index ha
 \kn{data_index_days_1509} for Basmati 1509, because index days exist only from September to January. After the rule that an
 origin needs ten index days of its season, the held-out season offers \kn{pairs_1121_h1}, \kn{pairs_1121_h7} and
 \kn{pairs_1121_h14} pairs at 1, 7 and 14 days for 1121 and \kn{pairs_1509_h1}, \kn{pairs_1509_h7} and \kn{pairs_1509_h14} for 1509,
-fewer than the 60 first planned for 1509, and \kn{pairs_1509_h28} at 28 days, below the 40 pairs needed for a coverage claim. An
-exploratory power check on earlier seasons puts the smallest detectable improvement over the naive forecast at 11 to 17\% of its
-error, so ``the naive forecast is hard to beat'' is a valid outcome.
+fewer than the 60 first planned for 1509, and \kn{pairs_1509_h28} at 28 days, below the 40 pairs needed for a coverage claim. An exploratory power check on earlier seasons puts the smallest detectable improvement at 11 to 17\% of the naive error.
 
 Cleaning choices were measured before any forecast was run. Four outlier screens (past-only median absolute deviation with $k=3$ and
 $k=5$, a Hampel filter, an interquartile rule) flag \kn{scr_madk5_flagged_pct}\% to \kn{scr_madk3_flagged_pct}\% of the dated rows, and excluding
 them would change \kn{scr_madk5_changed_1121} to \kn{scr_madk3_changed_1121} of the \kn{data_index_days_1121} index days of 1121, by up to
-Rs~\kn{scr_iqr15_maxchange_1121} per quintal; the hand check must decide which screen is right. As a plausibility check of the inferred dates
+Rs~\kn{scr_iqr15_maxchange_1121} per quintal; the hand check must decide. As a plausibility check of the inferred dates
 (weaker than the hand check), the \kn{bd_pairs} same-day pairs of 1121 and 1509 in one market, whose second row always has an inferred date,
 have a median price ratio of \kn{bd_ratio_inf} against \kn{bd_ratio_ctl} for \kn{bd_control} own-dated pairs one day apart, with the smaller
 spread expected of same-day pairs (interquartile range \kn{bd_iqr_inf} against \kn{bd_iqr_ctl}); only \kn{bd_dups} of \kn{bd_rows} inferred rows fall
@@ -95,6 +93,11 @@ large as the smallest detectable gain, but the other \kn{inf_inconclusive} are i
 \kn{inf_h1_1121_inconclusive} non-seasonal methods at one day for 1121, where improvements of up to about a quarter fit the data (median interval
 width \kn{inf_width_median} points). The naive value is therefore a strong forecast for prices that move this little from day to day, and the
 promotion rule keeps it: the product uses the naive value with ranges and states that the baseline is enough.
+
+The same \kn{inf_total} comparisons were repeated, with the configuration already chosen, on \kn{sens_done} of the five index variants declared in the
+protocol (inferred dates included; sub-yards of one town merged, with and without inferred dates; at least 2 or at least 4 mandis per day):
+\kn{sens_better} of \kn{sens_comparisons} comparisons found a method better, and the only significant differences from the naive value were
+those of the seasonal naive forecast (\kn{sens_other_significant} others), so the result does not depend on these cleaning choices.
 
 Secondary and descriptive horizons are reported without a test. At 28 days the GRU and LightGBM had a lower MAE than the naive value for
 1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against Rs~\kn{fc_1121_28_naive_mae}), as in validation; both use the day of the season as a
@@ -146,9 +149,8 @@ KisanNiti hierarchy raised the smallest share to \kn{allpol_kisaniti_min_fulfilm
 coefficient of \kn{allpol_kisaniti_gini_fulfilment}, at Rs~\kn{allpol_kisaniti_price_of_fairness_rs_per_q} per quintal against the utilitarian plan.
 The greedy rule reaches the same smallest share but gives up Rs~\kn{allpol_greedy_price_of_fairness_rs_per_q} per quintal. Actual instead of forecast
 prices changed nothing, as expected: prices of Paddy (Common) hardly differ between mandis (Sect.~\ref{sec:results-msp}), so the plan is
-decided by distance, limits and fairness. Of the \kn{allpol_exact_solves} exact solves, \kn{allpol_exact_proven} were proven optimal. Three
-weighted-sum alternatives were tried in a six-plan pilot; all reached the 300-second limit without a proof and are left out of
-Table~\ref{tab:alloc}. The experiment uses a synthetic FPO and shows properties of the method, not a gain for any real farmer.
+decided by distance, limits and fairness. Of the \kn{allpol_exact_solves} exact solves, \kn{allpol_exact_proven} were proven optimal. Three weighted-sum alternatives reached the 300-second limit without a proof in a six-plan pilot and are left out of Table~\ref{tab:alloc}.
+The FPO is synthetic: this shows properties of the method, not a gain for any real farmer.
 
 The transport rate and the daily limit are invented inputs, so the comparison was repeated for \kn{alloc_sens_settings} combinations of three
 rates (Rs 1, 2 and 4 per quintal-km) and three limits (200, 300 and 500 quintals per mandi-day). The KisanNiti plan was valid in every
