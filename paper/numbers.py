@@ -181,9 +181,17 @@ def data_cleaning() -> dict[str, str]:
     return out
 
 
+def validator_agreement() -> dict[str, str]:
+    """Stage 3: the independent plan validator against a second checker written from the rules, on random edits."""
+    v = _json(RESULTS / "L3d_allocation" / "validator_agreement.json")
+    return {"val_instances": str(v["instances"]), "val_edits": f"{v['edits']:,}", "val_agree": f"{v['agree']:,}",
+            "val_valid": f"{v['expected_valid']:,}", "val_invalid": f"{v['expected_invalid']:,}", "val_kinds": str(len(v["by_kind"]))}
+
+
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
     ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
+    ("3.4 manager edits: validator against a second checker", validator_agreement),
     ("4.3 allocation: sensitivity", allocation_sensitivity),
     ("4.3 allocation: scaling", allocation_scaling),
     ("3.4 / 4.2 storage rules (simulated)", l3b_storage),

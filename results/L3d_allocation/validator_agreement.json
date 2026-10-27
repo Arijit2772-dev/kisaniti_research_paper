@@ -1,0 +1,45 @@
+{
+  "instances": 500,
+  "edits": 4431,
+  "agree": 4431,
+  "expected_valid": 1052,
+  "expected_invalid": 3379,
+  "by_kind": {
+    "drop-a-line": {
+      "edits": 492,
+      "agree": 492
+    },
+    "duplicate-line": {
+      "edits": 492,
+      "agree": 492
+    },
+    "half-increment": {
+      "edits": 492,
+      "agree": 492
+    },
+    "inadmissible-choice": {
+      "edits": 492,
+      "agree": 492
+    },
+    "move-whole-line": {
+      "edits": 479,
+      "agree": 479
+    },
+    "one-increment-more": {
+      "edits": 492,
+      "agree": 492
+    },
+    "over-allocate-a-lot": {
+      "edits": 500,
+      "agree": 500
+    },
+    "unchanged": {
+      "edits": 500,
+      "agree": 500
+    },
+    "zero-quantity": {
+      "edits": 492,
+      "agree": 492
+    }
+  }
+}

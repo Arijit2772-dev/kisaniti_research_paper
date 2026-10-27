@@ -164,6 +164,18 @@ gain for any real farmer; the comparison with basmati prices, where mandis diffe
 % 4.4 storage rule on simulated scenarios (M5 hardware session draft)
 \input{../sections/04_2_storage.tex}
 
+\subsection{Checking the Manager's Edits}
+\label{sec:results-edits}
+
+A manager may change a proposed plan, and the system must accept exactly the edits that keep it valid. An independent
+validator re-checks every revision against the frozen input. To test it, a second checker was written directly from
+the rules (admissible choice, no duplicate line, a positive whole number of increments, no lot over-allocated or, when
+the whole lot must be sold, left over, and no mandi over its strict daily limit). On \kn{val_instances} random
+instances, each solved plan was edited in \kn{val_kinds} ways, from harmless to a single broken rule, giving
+\kn{val_edits} edits (\kn{val_valid} valid and \kn{val_invalid} invalid). The validator and the second checker
+gave the same verdict on \kn{val_agree} of them. The edit workflow itself, with revisions that are never overwritten, is
+exercised by the end-to-end run described next.
+
 \subsection{The Built System}
 \label{sec:results-system}
 
