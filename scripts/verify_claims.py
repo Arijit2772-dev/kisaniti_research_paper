@@ -94,6 +94,13 @@ def protocol_pair_counts() -> Result:
     return ("FAILED" if low else "VERIFIED", f"primary horizons under 60 test pairs after the eligibility rule: {low}")
 
 
+def independent_check() -> Result:
+    import json
+
+    d = json.loads((ROOT / "results/C0_protocol/independent_check.json").read_text())
+    return ("VERIFIED" if d["agrees"] and d["comparisons"] == 42 else "FAILED", f"exact quantities agree to {max(d['max_abs_difference'][k] for k in ('mae', 'dm', 'p_raw', 'p_holm', 'rel')):.1e}; bootstrap ends within {d['max_abs_difference']['ci']:.2f} of the interval width")
+
+
 def forecasts_run() -> Result:
     p = ROOT / "results" / "C0_protocol" / "test_season_inference.csv"
     if not p.exists():
@@ -155,6 +162,17 @@ def scaling_valid() -> Result:
     return ("VERIFIED" if ok and proven else "FAILED", f"{len(returned)} returned plans, all valid: {ok}; HiGHS and SCIP proven optimal up to 100 farmers: {bool(proven)}")
 
 
+def sensitivity_null() -> Result:
+    names = ["with_blank", "dated_only_towns", "with_blank_towns", "dated_only_mm2", "dated_only_mm4"]
+    tot = better = other = 0
+    for n in names:
+        d = pd.read_csv(ROOT / "results" / "C0_protocol" / f"sensitivity_{n}_inference.csv")
+        tot += len(d)
+        better += int((d.verdict == "BETTER").sum())
+        other += int(((d.p_holm < 0.05) & (d.model != "seasonal_naive")).sum())
+    return ("VERIFIED" if tot == 210 and better == 0 and other == 0 else "FAILED", f"{tot} comparisons over 5 index variants; better: {better}; significant other than seasonal naive: {other}")
+
+
 def references_exist() -> Result:
     rows = list(csv.DictReader((ROOT / "literature/crossref_check.csv").open()))
     bad = [r["key"] for r in rows if r["status"].startswith(("DOI_NOT_FOUND", "CANNOT_CHECK"))]
@@ -182,6 +200,8 @@ CLAIMS = [
     ("C17", "The KisanNiti plan is valid in every transport-rate and limit setting", "paper 4.3", sensitivity_valid),
     ("C19", "In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days", "paper 4.2", prospective_naive),
     ("C20", "Every plan a solver returned in the scaling grid was valid; HiGHS and SCIP proved optimality up to 100 farmers", "paper 4.3", scaling_valid),
+    ("C21", "On all five declared index variants no method beats naive; only seasonal naive differs significantly", "paper 4.2", sensitivity_null),
+    ("C22", "Independent recomputation of the test statistics agrees with the runner", "paper 4.2", independent_check),
     ("C16", "Every bibliography DOI resolves to a record with the same title", "paper references", references_exist),
 ]
 

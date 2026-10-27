@@ -18,4 +18,6 @@ C15,"60 plans, all valid, exact solves proven optimal",paper 4.3,VERIFIED,"60 pl
 C17,The KisanNiti plan is valid in every transport-rate and limit setting,paper 4.3,VERIFIED,"9 settings, KisanNiti plans valid in all: True"
 C19,In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days,paper 4.2,VERIFIED,"lowest MAE at 7 and 14 days (1509, 2026-27 partial): {7: 'naive', 14: 'naive'}"
 C20,Every plan a solver returned in the scaling grid was valid; HiGHS and SCIP proved optimality up to 100 farmers,paper 4.3,VERIFIED,"51 returned plans, all valid: True; HiGHS and SCIP proven optimal up to 100 farmers: True"
+C21,On all five declared index variants no method beats naive; only seasonal naive differs significantly,paper 4.2,VERIFIED,210 comparisons over 5 index variants; better: 0; significant other than seasonal naive: 0
+C22,Independent recomputation of the test statistics agrees with the runner,paper 4.2,VERIFIED,exact quantities agree to 8.5e-14; bootstrap ends within 0.05 of the interval width
 C16,Every bibliography DOI resolves to a record with the same title,paper references,VERIFIED,38 of 62 entries match their DOI record; unresolved: []; no DOI (manual): 19

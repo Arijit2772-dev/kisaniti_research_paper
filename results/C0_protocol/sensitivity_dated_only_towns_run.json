@@ -1,0 +1,27 @@
+{
+  "stage": "sensitivity",
+  "variant": "dated_only_towns",
+  "season": "2025-26",
+  "commit": "02bade13ba8db4996bc96b70869e2604a046754a",
+  "index_sha256": "5ec184516c7c1071cc8c54d93dabf2c1afa7b2b42e8811a39f9d9cbd943b87da",
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "ma5",
+    "ets",
+    "arima",
+    "lightgbm",
+    "gru",
+    "chronos2"
+  ],
+  "horizons": [
+    1,
+    7,
+    14,
+    28,
+    60
+  ],
+  "python": "3.13.1",
+  "run_at": "2026-10-27T19:02:44+00:00",
+  "pairs": 3833
+}

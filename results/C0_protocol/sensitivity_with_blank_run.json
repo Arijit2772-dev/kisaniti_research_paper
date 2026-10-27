@@ -1,0 +1,27 @@
+{
+  "stage": "sensitivity",
+  "variant": "with_blank",
+  "season": "2025-26",
+  "commit": "af99ec1ca7a48b6e67d5e1be1b47fe3e74f07495",
+  "index_sha256": "d8eaa6c1d364afd83c7b6218f100c2df4c0f815a1cbd6b79405d449b1b4ac367",
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "ma5",
+    "ets",
+    "arima",
+    "lightgbm",
+    "gru",
+    "chronos2"
+  ],
+  "horizons": [
+    1,
+    7,
+    14,
+    28,
+    60
+  ],
+  "python": "3.13.1",
+  "run_at": "2026-10-27T18:57:48+00:00",
+  "pairs": 3921
+}
