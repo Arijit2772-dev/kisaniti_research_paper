@@ -1,0 +1,23 @@
+{
+  "cases": 1728,
+  "agree": 1728,
+  "instances": 324,
+  "infeasible_instances": 1,
+  "by_solver": {
+    "highs": {
+      "cases": 576,
+      "agree": 576,
+      "seconds_mean": 0.009
+    },
+    "scip": {
+      "cases": 576,
+      "agree": 576,
+      "seconds_mean": 0.029
+    },
+    "cpsat": {
+      "cases": 576,
+      "agree": 576,
+      "seconds_mean": 0.0156
+    }
+  }
+}

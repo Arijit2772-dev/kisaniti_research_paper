@@ -105,6 +105,12 @@ reportable outcome.
 \subsection{Allocation: Fair Plans Against Simple Rules}
 \label{sec:results-alloc}
 
+Before it was compared with anything, the solver was checked against a brute-force enumeration that shares only the
+input types and the exact objective with it. On \kn{alloc_oracle_instances} random small instances, three back ends
+(HiGHS, SCIP and CP-SAT) and two leximin methods were run; \kn{alloc_oracle_agree} of \kn{alloc_oracle_cases} runs
+reached exactly the same complete objective as the enumeration, and an instance the enumeration proved infeasible was
+reported as proven infeasible by every solver.
+
 The allocation method was compared with simple selling rules on \kn{allpol_plans} weekly plans: ten random
 draws of a synthetic FPO of 300 members whose lots become ready over six harvest weeks, scored at real
 2025 AGMARKNET prices of Paddy (Common) and real mandi coordinates. Every plan was re-checked by the

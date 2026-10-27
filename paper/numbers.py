@@ -46,30 +46,24 @@ def r0_reproduction() -> dict[str, str]:
             "r0_numbers_different": str(len(rows) - same)}
 
 
-def l3d_allocation() -> dict[str, str]:
-    """R7 / L3d: allocation and fairness (layers/L3d_allocation_fairness/, results/L3d_allocation/)."""
-    out: dict[str, str] = {}
-    base = RESULTS / "L3d_allocation"
-    oracle = _json(base / "oracle_agreement.json")
-    out["alloc_oracle_cases"] = f"{oracle['cases']:,}"
-    out["alloc_oracle_agree"] = f"{oracle['agree']:,}"
-    for solver, r in oracle.get("by_solver", {}).items():
+def allocation_oracle() -> dict[str, str]:
+    """E.1b: solver against the brute-force oracle on random tiny cases (results/L3d_allocation/oracle_agreement.json)."""
+    o = _json(RESULTS / "L3d_allocation" / "oracle_agreement.json")
+    out = {"alloc_oracle_cases": f"{o['cases']:,}", "alloc_oracle_agree": f"{o['agree']:,}", "alloc_oracle_instances": str(o["instances"])}
+    for solver, r in o["by_solver"].items():
         out[f"alloc_oracle_agree_{solver}"] = f"{r['agree']:,}"
         out[f"alloc_oracle_cases_{solver}"] = f"{r['cases']:,}"
-    for r in _csv(base / "allocation_policies_summary.csv"):
-        key = r["policy_key"]
-        for col, fmt in [("net_rs_per_q", "{:,.2f}"), ("min_fulfilment_pct", "{:.1f}"), ("gini_fulfilment", "{:.3f}"),
-                         ("allocated_pct", "{:.1f}"), ("price_of_fairness_rs_per_q", "{:.2f}"),
-                         ("runs_with_violation_pct", "{:.0f}")]:
-            if r.get(col, "") != "":
-                out[f"alloc_{key}_{col}"] = fmt.format(float(r[col]))
-    for k, v in _json(base / "allocation_settings.json").get("paper_numbers", {}).items():
-        out[f"alloc_{k}"] = str(v)
-    for r in _csv(base / "allocation_scaling_summary.csv"):
-        out[f"alloc_scaling_{r['key']}"] = r["value"]
-    for r in _csv(base / "allocation_sensitivity_summary.csv"):
-        out[f"alloc_sens_{r['key']}"] = r["value"]
     return out
+
+
+def allocation_sensitivity() -> dict[str, str]:
+    """E.3: the policy comparison under 3 x 3 transport rates and mandi-day limits."""
+    return {f"alloc_sens_{r['key']}": r["value"] for r in _csv(RESULTS / "L3d_allocation" / "allocation_sensitivity_summary.csv")}
+
+
+def allocation_scaling() -> dict[str, str]:
+    """E.2: solve time against FPO size, three back ends and the greedy heuristic."""
+    return {f"alloc_scaling_{r['key']}": r["value"] for r in _csv(RESULTS / "L3d_allocation" / "allocation_scaling_summary.csv")}
 
 
 def l3b_storage() -> dict[str, str]:
@@ -189,7 +183,9 @@ def data_cleaning() -> dict[str, str]:
 
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
-    ("3.6 / 4.4 allocation and fairness", l3d_allocation),
+    ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
+    ("4.3 allocation: sensitivity", allocation_sensitivity),
+    ("4.3 allocation: scaling", allocation_scaling),
     ("3.4 / 4.2 storage rules (simulated)", l3b_storage),
     ("4.3 allocation policy comparison (60 plans)", allocation_policies),
     ("3 / 4.5 the built system", system_evidence),
