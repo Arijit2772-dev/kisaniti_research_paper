@@ -1,0 +1,5 @@
+rule,rows_considered,rows_flagged,share_flagged_pct,1121_index_days,1121_days_lost,1121_days_changed,1121_max_change_rs,1121_median_change_rs,1509_index_days,1509_days_lost,1509_days_changed,1509_max_change_rs,1509_median_change_rs,jaccard_with_others
+hampel_w7_k3,5934,173,2.92,433,9,48,480.0,50.0,369,10,43,250.0,25.0,iqr_1.5:0.13; mad_k3:0.04; mad_k5:0.04
+iqr_1.5,5934,160,2.7,433,7,48,770.0,50.0,369,10,34,100.0,25.0,hampel_w7_k3:0.13; mad_k3:0.06; mad_k5:0.05
+mad_k3,5934,520,8.76,433,20,110,637.5,50.0,369,26,96,220.0,25.0,hampel_w7_k3:0.04; iqr_1.5:0.06; mad_k5:0.25
+mad_k5,5934,128,2.16,433,9,27,510.0,75.0,369,10,34,250.0,20.0,hampel_w7_k3:0.04; iqr_1.5:0.05; mad_k3:0.25

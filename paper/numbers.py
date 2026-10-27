@@ -188,6 +188,20 @@ def validator_agreement() -> dict[str, str]:
             "val_valid": f"{v['expected_valid']:,}", "val_invalid": f"{v['expected_invalid']:,}", "val_kinds": str(len(v["by_kind"]))}
 
 
+def cleaning_screens() -> dict[str, str]:
+    """B.3a: what four outlier screens flag and how far excluding the flagged rows would move the index."""
+    out: dict[str, str] = {}
+    for r in _csv(RESULTS / "L2_cleaning" / "screen_comparison.csv"):
+        k = r["rule"].replace(".", "").replace("_", "")
+        out[f"scr_{k}_flagged_pct"] = f"{float(r['share_flagged_pct']):.1f}"
+        out[f"scr_{k}_flagged"] = f"{int(r['rows_flagged']):,}"
+        out[f"scr_{k}_changed_1121"] = r["1121_days_changed"]
+        out[f"scr_{k}_changed_1509"] = r["1509_days_changed"]
+        out[f"scr_{k}_maxchange_1121"] = f"{float(r['1121_max_change_rs']):.0f}"
+        out[f"scr_{k}_lost_1121"] = r["1121_days_lost"]
+    return out
+
+
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
     ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
@@ -198,6 +212,7 @@ LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("4.3 allocation policy comparison (60 plans)", allocation_policies),
     ("3 / 4.5 the built system", system_evidence),
     ("3.1 basmati data and cleaning", data_cleaning),
+    ("3.1 outlier screens and the index", cleaning_screens),
     ("3.3 pairs per horizon (C.0, dates only)", protocol_pairs),
     ("4.2 pre-registered forecasting results", forecast_test_results),
 ]

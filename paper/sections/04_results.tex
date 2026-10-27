@@ -59,6 +59,15 @@ only what does not depend on forecast error: the data and the number of forecast
 table is generated from \texttt{results/C0\_protocol/test\_season\_results.csv} and stays empty
 (\texttt{??key??}) until that file exists.}
 
+How much the cleaning rule matters was measured before any forecast was run. Four outlier screens (a past-only
+median-absolute-deviation rule with $k=3$ and $k=5$, a Hampel filter, and an interquartile-range rule) flag between
+\kn{scr_madk5_flagged_pct}\% and \kn{scr_madk3_flagged_pct}\% of the dated price rows. If the flagged rows were
+excluded, the daily index of 1121 would change on between \kn{scr_madk5_changed_1121} and \kn{scr_madk3_changed_1121}
+of its \kn{data_index_days_1121} days, by up to Rs~\kn{scr_iqr15_maxchange_1121} per quintal, and the strictest rule
+would remove \kn{scr_madk3_lost_1121} days because fewer than three mandis would remain. The screens only flag, nothing is
+deleted, and which screen is right is for the hand check to decide; this comparison shows that the choice is not
+negligible.
+
 The variety index has \kn{data_index_days_1121} days for 1121 and \kn{data_index_days_1509} days for
 Basmati 1509 over five seasons, because index days exist only from September to January. This limits
 what can be tested. Table~\ref{tab:pairs} shows how many forecast pairs the held-out season offers after
