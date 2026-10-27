@@ -14,4 +14,5 @@ C12,A forecasting model beats naive on basmati,future paper claim,PENDING_RUN,no
 C13,The solver reaches the brute-force optimum on every random small instance,paper 4.3,VERIFIED,1728 of 1728 runs equal the brute-force optimum (324 instances)
 C14,The plan validator agrees with a second rule-based checker on every random edit,paper 4.4,VERIFIED,"4431 of 4431 edits get the same verdict (1052 valid, 3379 invalid)"
 C15,"60 plans, all valid, exact solves proven optimal",paper 4.3,VERIFIED,"60 plans, all valid: True; exact solves proven optimal: 240 of 240"
+C17,The KisanNiti plan is valid in every transport-rate and limit setting,paper 4.3,VERIFIED,"9 settings, KisanNiti plans valid in all: True"
 C16,Every bibliography DOI resolves to a record with the same title,paper references,VERIFIED,38 of 61 entries match their DOI record; unresolved: []; no DOI (manual): 18

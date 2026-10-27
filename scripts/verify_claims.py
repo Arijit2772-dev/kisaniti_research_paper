@@ -123,6 +123,13 @@ def policy_run() -> Result:
     return ("VERIFIED" if ok else "FAILED", f"{len(kis)} plans, all valid: {bool(kis.valid.all())}; exact solves proven optimal: {int(exact.status.str.endswith('PROVEN_OPTIMAL').sum())} of {len(exact)}")
 
 
+def sensitivity_valid() -> Result:
+    d = pd.read_csv(ROOT / "results/L3d_allocation/allocation_sensitivity.csv")
+    k = d[d.policy_key == "kisaniti"]
+    ok = len(k) == 9 and bool((k.all_valid_pct == 100).all())
+    return ("VERIFIED" if ok else "FAILED", f"{len(k)} settings, KisanNiti plans valid in all: {bool((k.all_valid_pct == 100).all())}")
+
+
 def references_exist() -> Result:
     rows = list(csv.DictReader((ROOT / "literature/crossref_check.csv").open()))
     bad = [r["key"] for r in rows if r["status"].startswith(("DOI_NOT_FOUND", "CANNOT_CHECK"))]
@@ -146,6 +153,7 @@ CLAIMS = [
     ("C13", "The solver reaches the brute-force optimum on every random small instance", "paper 4.3", oracle_agreement),
     ("C14", "The plan validator agrees with a second rule-based checker on every random edit", "paper 4.4", validator_agreement),
     ("C15", "60 plans, all valid, exact solves proven optimal", "paper 4.3", policy_run),
+    ("C17", "The KisanNiti plan is valid in every transport-rate and limit setting", "paper 4.3", sensitivity_valid),
     ("C16", "Every bibliography DOI resolves to a record with the same title", "paper references", references_exist),
 ]
 

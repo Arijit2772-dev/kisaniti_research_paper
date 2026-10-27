@@ -1,0 +1,10 @@
+key,value
+settings,9
+kis_min_fulfilment_min,45.67
+kis_min_fulfilment_max,98.17
+kis_gain_vs_p1_min,3.81
+kis_gain_vs_p1_max,19.19
+kis_pof_min,0.74
+kis_pof_max,17.15
+p1_min_fulfilment_max,79.68
+kis_always_valid,1

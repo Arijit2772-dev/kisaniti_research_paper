@@ -58,7 +58,12 @@ def allocation_oracle() -> dict[str, str]:
 
 def allocation_sensitivity() -> dict[str, str]:
     """E.3: the policy comparison under 3 x 3 transport rates and mandi-day limits."""
-    return {f"alloc_sens_{r['key']}": r["value"] for r in _csv(RESULTS / "L3d_allocation" / "allocation_sensitivity_summary.csv")}
+    out = {f"alloc_sens_{r['key']}": r["value"] for r in _csv(RESULTS / "L3d_allocation" / "allocation_sensitivity_summary.csv")}
+    rows = _csv(RESULTS / "L3d_allocation" / "allocation_sensitivity.csv")
+    pof = {(r["rate_rs_per_q_km"], r["cap_q_per_mandi_day"], r["policy_key"]): float(r["price_of_fairness_rs_per_q"]) for r in rows}
+    settings = {(a, b) for a, b, _ in pof}
+    out["alloc_sens_greedy_costlier"] = str(sum(pof[(a, b, "greedy")] > pof[(a, b, "kisaniti")] for a, b in settings))
+    return out
 
 
 def allocation_scaling() -> dict[str, str]:

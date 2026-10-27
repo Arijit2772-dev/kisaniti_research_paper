@@ -235,7 +235,17 @@ by distance, limits and fairness, not by price. Of the \kn{allpol_exact_solves} 
 plans; all reached the 300-second time limit without a proof of optimality and are therefore left out of
 Table~\ref{tab:alloc}. The experiment uses a synthetic FPO, so it shows properties of the method and not a
 gain for any real farmer; the comparison with basmati prices, where mandis differ, is future work.
-\authornote{Add the solver comparison and the sensitivity to transport cost and limits when they are run.}
+The transport rate and the daily limit are invented inputs, so the comparison was repeated for \kn{alloc_sens_settings}
+combinations of three transport rates (Rs 1, 2 and 4 per quintal-km) and three limits (200, 300 and 500 quintals per
+mandi-day). The KisanNiti plan was valid in every setting. The smallest share it
+secures depends on the limit, from \kn{alloc_sens_kis_min_fulfilment_min}\% when the limits are tight to
+\kn{alloc_sens_kis_min_fulfilment_max}\% when they are loose, because no plan can sell more than the mandis can take.
+Its gain over the nearest-mandi rule ranges from Rs~\kn{alloc_sens_kis_gain_vs_p1_min} to
+Rs~\kn{alloc_sens_kis_gain_vs_p1_max} per quintal, and the price of fairness from Rs~\kn{alloc_sens_kis_pof_min} to
+Rs~\kn{alloc_sens_kis_pof_max}. The greedy heuristic gave up more than the exact plan in \kn{alloc_sens_greedy_costlier} of the
+\kn{alloc_sens_settings} settings. The nearest-mandi rule left some farmer without any sale in all settings with limits of
+300 quintals or less, and its smallest share was at most \kn{alloc_sens_p1_min_fulfilment_max}\% even with loose limits.
+\authornote{Add the solver scaling comparison when it is run.}
 
 
 % 4.4 storage rule on simulated scenarios (M5 hardware session draft)
