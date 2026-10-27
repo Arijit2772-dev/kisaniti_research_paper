@@ -1,5 +1,7 @@
 # evalkit.py: choices the protocol text leaves open, and one inconsistency found
 
+**Resolved 27 October 2026:** the owner approved these choices and the correction of the pair counts; they are now §13 and §12 of the frozen protocol.
+
 26 October 2026 • `evalkit.py` is the machinery for the C.0 protocol (pairs, baselines, metrics, conformal ranges, Diebold–Mariano with the HLN correction, Holm, block bootstrap, the three-part rule). It is tested on synthetic series (`test_evalkit.py`, 21 tests; 10 deliberate code changes were each caught by at least one test, after one test was strengthened because a one-day look-ahead survived). **No model has been run on the price index.** The protocol stays a draft until the owner approves it.
 
 ## Choices made where the draft is silent (the owner confirms them, or they change before the freeze)

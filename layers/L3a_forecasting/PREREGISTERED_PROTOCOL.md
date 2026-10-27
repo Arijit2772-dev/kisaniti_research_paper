@@ -1,6 +1,6 @@
 # Pre-registered forecasting protocol (C.0) — Paddy(Basmati), Punjab
 
-24 October 2026 • **Status: DRAFT for the owner's approval. It becomes FROZEN by a commit whose message starts with "C.0 freeze".** No forecasting model has been run on this data for the purpose of this protocol. After the freeze, every change is an amendment (§12) with date and reason, and results before and after are both reported.
+24 October 2026 • **Status: FROZEN on 27 October 2026, on the owner's approval in chat ("I approve the C.0 protocol with the corrections in PUBLICATION_PLAN_V3 section 3 (true pair counts, your eight choices, dated_only primary until my hand check decides otherwise)"). Version C.0 v1.0, by a commit whose message starts with "C.0 freeze".** No forecasting model had been run on this data for the purpose of this protocol before the freeze. After the freeze, every change is an amendment (§12) with date and reason, and results before and after are both reported.
 
 ## 1. What has been looked at already (disclosure)
 
@@ -11,7 +11,7 @@
 ## 2. Series
 
 - Variety-level daily index from `layers/L2_cleaning/build_index.py` for **1121** and **Basmati 1509**: median modal ₹/quintal over mandis that reported that variety that day, at least 3 mandis, no filling. Other variety labels (about 3% of rows) are not forecast.
-- **Which variant is primary is decided by the hand check (B.2) with a rule fixed now:** `with_blank` is primary if at least 19 of the 20 blank-date rows in the hand-check sheet are confirmed on the website (same date, same prices, shown under the preceding date); otherwise `dated_only` is primary and the blank-date rule is reported as rejected. The other variant is run as a sensitivity analysis.
+- **Primary variant: `dated_only`** (rows with a date in the source file; no inferred date enters the primary result). Amended at the freeze (§12, item 1): the draft made `with_blank` primary if at least 19 of the 20 blank-date rows of the hand check were confirmed, which tied the start of the comparison to a check that is not yet done. `with_blank` is run afterwards as a labelled sensitivity analysis with the identical, already chosen configuration; a later hand check can confirm or reject the blank-date rule but cannot change the primary result.
 - The index is a mandi-level summary price, **not the price a farmer received**.
 
 ## 3. Splits
@@ -32,9 +32,9 @@ Pairs available per horizon come from `results/C0_protocol/horizon_pairs.csv` (i
 
 | Horizon (calendar days) | Treatment | Why |
 |---|---|---|
-| 1, 7, 14 | **Primary** | At least 60 test-season pairs per variety at every primary horizon (1121: 76, 73, 66; 1509: 71, 66, 60 under `dated_only`) |
-| 28 | Secondary | 59 (1121) and 47 (1509) test-season pairs, strongly overlapping |
-| 60 | Descriptive only | 29 and 24 test-season pairs, heavily overlapping; no tests, no claims |
+| 1, 7, 14 | **Primary** | Test-season pairs after the §3 eligibility rule, `dated_only` (`results/C0_protocol/eligible_pairs.csv`): 1121: 68, 64, 60; Basmati 1509: 62, 57, 51. The draft's counts (76, 73, 66 and 71, 66, 60) ignored the rule. Basmati 1509 therefore has fewer than 60 pairs at 7 and 14 days; its power is lower and the paper states the counts |
+| 28 | Secondary | 50 (1121) and 38 (1509) eligible test-season pairs, strongly overlapping; 1509 is under the 40-pair floor, so **no coverage claim** is made for it |
+| 60 | Descriptive only | 21 and 18 eligible test-season pairs, heavily overlapping; no tests, no claims |
 | 90, 120 | **Not evaluated** | 25 and 6 pairs in all seasons together for 90 days; 4 and 1 for 120 days |
 
 The product still needs advice beyond these horizons (CHAT-22 asks for ranges beyond 7 days). The paper will say the forecast evidence covers up to 28 days and that longer-horizon advice rests on assumptions, not on a tested forecast.
@@ -97,4 +97,30 @@ For each variety and primary horizon the product uses the model that meets §8 a
 
 ## 12. Amendment log
 
-None yet.
+**27 October 2026 (freeze, version C.0 v1.0), approved by the owner:**
+1. Primary index variant is `dated_only` (§2).
+2. The pair counts of §4 are the eligible counts, with the consequences stated there.
+3. The choices of section 13 are adopted.
+
+## 13. Implementation details fixed at the freeze
+
+The draft left these open; each was chosen before any model was run, for the reason given. Choices 1 to 8 are the owner's approved list (`EVALKIT_ASSUMPTIONS.md`); 9 to 18 were found while writing the model code and are fixed here by the same approval of "freeze it, then wire models 4 to 8".
+
+1. Loss of the Diebold–Mariano test: absolute error (MAE is the primary metric).
+2. "10 index days of the season exist" counts the origin day.
+3. Seasonal naive: median of the previous season's values within ±3 days of the *target* day one year earlier; none if empty.
+4. Moving average: the last five index days of the same season (fewer if fewer exist).
+5. Newey–West variance with Bartlett weights, lag h − 1.
+6. Bootstrap blocks: h consecutive pairs.
+7. MASE scale: eligible naive h-step errors of all earlier seasons.
+8. Too few residuals for a nominal level: no range is produced.
+9. ETS and ARIMA (statsforecast `AutoETS`, `AutoARIMA`, season length 1) are fitted at every origin on the same season's index, reindexed to daily with the last observed value carried forward **for the model input only**; targets are never filled.
+10. LightGBM: one direct model per horizon; features are the index lagged by 1, 2, 3, 5 and 7 index days, the day of season, and the number of mandis and the IQR at the previous index day; trained on all (origin, target) pairs whose target day is not after the current origin (earlier seasons and the current season), five seeds (0–4) averaged; quantile versions (alpha 0.025, 0.1, 0.9, 0.975) with the same features give the ranges.
+11. GRU: one layer, input the last seven index values of the season (standardised with the training pairs' mean and standard deviation), a direct output for the horizon, Adam with learning rate 0.001, full batch, trained on the same pairs as LightGBM, five seeds (0–4) averaged. Hyperparameters come from the grid in `config/grids.json`.
+12. Chronos-2 zero-shot (`amazon/chronos-2`): context is the same season's index reindexed to daily with missing days left as NaN; prediction length h; the median is the point forecast and its quantiles give the ranges.
+13. Choice of hyperparameters: for each model family, variety and horizon, the grid point with the lowest validation-season MAE (ties: first in grid order), written to `config/chosen.json` before the configuration freeze.
+14. Smallest detectable gain for the §8 rule: 13.3% for 1121 and 17.2% for Basmati 1509 at every primary horizon, the larger of the two values the exploratory power check reported for each variety (`results/L1_coverage/power_check.txt`); no new power computation is made.
+15. Split-conformal ranges (models 1–3, 6, 7): half-width from the absolute residuals of the validation-season forecasts of the same model, variety, horizon and chosen configuration, as `evalkit.conformal_halfwidth`; reported for the test and prospective stages only.
+16. Training data: validation-season forecasts use seasons up to 2023-24, test-season forecasts up to 2024-25, the prospective check up to 2025-26 (expanding window).
+17. Seeds 0–4 for LightGBM and the GRU (NumPy and PyTorch); Chronos-2 and the statistical models are deterministic.
+18. Sensitivity runs (`with_blank`, town-merged index, minimum mandis 2 and 4) use the configuration chosen for the primary variant and never replace the primary result.
