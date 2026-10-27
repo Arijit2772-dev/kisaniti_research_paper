@@ -1,0 +1,32 @@
+{
+  "lightgbm": {
+    "1121": {
+      "1": "lightgbm@nl7_n100",
+      "7": "lightgbm@nl15_n100",
+      "14": "lightgbm@nl15_n300",
+      "28": "lightgbm@nl7_n300",
+      "60": "lightgbm@nl7_n100"
+    },
+    "Basmati 1509": {
+      "1": "lightgbm@nl7_n100",
+      "7": "lightgbm@nl7_n100",
+      "14": "lightgbm@nl7_n100",
+      "28": "lightgbm@nl15_n100"
+    }
+  },
+  "gru": {
+    "1121": {
+      "1": "gru@h32_e100",
+      "7": "gru@h32_e100",
+      "14": "gru@h32_e100",
+      "28": "gru@h16_e50",
+      "60": "gru@h16_e50"
+    },
+    "Basmati 1509": {
+      "1": "gru@h32_e100",
+      "7": "gru@h32_e100",
+      "14": "gru@h32_e100",
+      "28": "gru@h32_e100"
+    }
+  }
+}
