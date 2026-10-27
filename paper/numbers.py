@@ -160,10 +160,20 @@ def protocol_pairs() -> dict[str, str]:
 
 def forecast_test_results() -> dict[str, str]:
     """C.0 test-season results of the pre-registered comparison. NOT_RUN until the protocol is frozen and run."""
-    rows = _csv(RESULTS / "C0_protocol" / "test_season_results.csv")
+    code = {"1121": "1121", "Basmati 1509": "1509"}
+    base = RESULTS / "C0_protocol"
     out: dict[str, str] = {}
-    for r in rows:
-        out[f"fc_{r['variety']}_{r['horizon']}_{r['model']}_mae"] = f"{float(r['mae']):.1f}"
+    for r in _csv(base / "test_season_results.csv"):
+        k = f"fc_{code[r['variety']]}_{r['horizon']}_{r['model']}"
+        out[f"{k}_mae"], out[f"{k}_mase"], out[f"{k}_pairs"] = f"{float(r['mae']):.0f}", f"{float(r['mase']):.2f}", r["pairs"]
+    for r in _csv(base / "test_season_inference.csv"):
+        k = f"inf_{code[r['variety']]}_{r['horizon']}_{r['model']}"
+        out[f"{k}_rel"] = f"{100 * float(r['relative_change']):+.1f}"
+        out[f"{k}_p"] = f"{float(r['p_holm']):.3f}"
+        out[f"{k}_verdict"] = {"BETTER": "better", "NO_DETECTABLE_DIFFERENCE": "no detectable difference"}.get(r["verdict"], r["verdict"])
+    for r in _csv(base / "test_ranges.csv"):
+        k = f"rng_{code[r['variety']]}_{r['horizon']}_{r['model']}_{r['range_method']}_{r['level']}"
+        out[f"{k}_cov"], out[f"{k}_width"] = f"{100 * float(r['coverage']):.0f}", f"{float(r['mean_width']):.0f}"
     return out
 
 

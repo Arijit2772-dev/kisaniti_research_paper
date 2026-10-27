@@ -98,18 +98,86 @@ reportable outcome.
 
 \begin{table}[t]
   \centering
-  \caption{Test-season MAE (Rs per quintal) by method, variety and horizon. Filled from the results file only.}
-  \label{tab:forecast}
-  \begin{tabular}{lrrr}
+  \caption{Held-out season 2025--26, 1121: mean absolute error (Rs per quintal) at 1, 7 and 14 days and MASE at 14 days. Filled from the results file only.}
+  \label{tab:forecast-1121}
+  \begin{tabular}{lrrrr}
     \toprule
-    Method (1121) & 1 day & 7 days & 14 days\\
+    Method & MAE 1 d & MAE 7 d & MAE 14 d & MASE 14 d\\
     \midrule
-    Naive & \kn{fc_1121_1_naive_mae} & \kn{fc_1121_7_naive_mae} & \kn{fc_1121_14_naive_mae}\\
-    Seasonal naive & \kn{fc_1121_1_seasonal_naive_mae} & \kn{fc_1121_7_seasonal_naive_mae} & \kn{fc_1121_14_seasonal_naive_mae}\\
-    Five-day average & \kn{fc_1121_1_ma5_mae} & \kn{fc_1121_7_ma5_mae} & \kn{fc_1121_14_ma5_mae}\\
+    Naive & \kn{fc_1121_1_naive_mae} & \kn{fc_1121_7_naive_mae} & \kn{fc_1121_14_naive_mae} & \kn{fc_1121_14_naive_mase}\\
+    Seasonal naive & \kn{fc_1121_1_seasonal_naive_mae} & \kn{fc_1121_7_seasonal_naive_mae} & \kn{fc_1121_14_seasonal_naive_mae} & \kn{fc_1121_14_seasonal_naive_mase}\\
+    Five-day average & \kn{fc_1121_1_ma5_mae} & \kn{fc_1121_7_ma5_mae} & \kn{fc_1121_14_ma5_mae} & \kn{fc_1121_14_ma5_mase}\\
+    ETS & \kn{fc_1121_1_ets_mae} & \kn{fc_1121_7_ets_mae} & \kn{fc_1121_14_ets_mae} & \kn{fc_1121_14_ets_mase}\\
+    ARIMA & \kn{fc_1121_1_arima_mae} & \kn{fc_1121_7_arima_mae} & \kn{fc_1121_14_arima_mae} & \kn{fc_1121_14_arima_mase}\\
+    LightGBM & \kn{fc_1121_1_lightgbm_mae} & \kn{fc_1121_7_lightgbm_mae} & \kn{fc_1121_14_lightgbm_mae} & \kn{fc_1121_14_lightgbm_mase}\\
+    GRU & \kn{fc_1121_1_gru_mae} & \kn{fc_1121_7_gru_mae} & \kn{fc_1121_14_gru_mae} & \kn{fc_1121_14_gru_mase}\\
+    Chronos-2 (zero-shot) & \kn{fc_1121_1_chronos2_mae} & \kn{fc_1121_7_chronos2_mae} & \kn{fc_1121_14_chronos2_mae} & \kn{fc_1121_14_chronos2_mase}\\
     \bottomrule
   \end{tabular}
 \end{table}
+
+\begin{table}[t]
+  \centering
+  \caption{Held-out season 2025--26, Basmati 1509: mean absolute error (Rs per quintal) at 1, 7 and 14 days and MASE at 14 days. Filled from the results file only.}
+  \label{tab:forecast-1509}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Method & MAE 1 d & MAE 7 d & MAE 14 d & MASE 14 d\\
+    \midrule
+    Naive & \kn{fc_1509_1_naive_mae} & \kn{fc_1509_7_naive_mae} & \kn{fc_1509_14_naive_mae} & \kn{fc_1509_14_naive_mase}\\
+    Seasonal naive & \kn{fc_1509_1_seasonal_naive_mae} & \kn{fc_1509_7_seasonal_naive_mae} & \kn{fc_1509_14_seasonal_naive_mae} & \kn{fc_1509_14_seasonal_naive_mase}\\
+    Five-day average & \kn{fc_1509_1_ma5_mae} & \kn{fc_1509_7_ma5_mae} & \kn{fc_1509_14_ma5_mae} & \kn{fc_1509_14_ma5_mase}\\
+    ETS & \kn{fc_1509_1_ets_mae} & \kn{fc_1509_7_ets_mae} & \kn{fc_1509_14_ets_mae} & \kn{fc_1509_14_ets_mase}\\
+    ARIMA & \kn{fc_1509_1_arima_mae} & \kn{fc_1509_7_arima_mae} & \kn{fc_1509_14_arima_mae} & \kn{fc_1509_14_arima_mase}\\
+    LightGBM & \kn{fc_1509_1_lightgbm_mae} & \kn{fc_1509_7_lightgbm_mae} & \kn{fc_1509_14_lightgbm_mae} & \kn{fc_1509_14_lightgbm_mase}\\
+    GRU & \kn{fc_1509_1_gru_mae} & \kn{fc_1509_7_gru_mae} & \kn{fc_1509_14_gru_mae} & \kn{fc_1509_14_gru_mase}\\
+    Chronos-2 (zero-shot) & \kn{fc_1509_1_chronos2_mae} & \kn{fc_1509_7_chronos2_mae} & \kn{fc_1509_14_chronos2_mae} & \kn{fc_1509_14_chronos2_mase}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[t]
+  \centering
+  \caption{1121, 7 days: change in MAE against the naive forecast, Holm-adjusted $p$ over all 42 comparisons, and the verdict of the pre-registered rule (adjusted $p<0.05$, bootstrap interval excluding zero, and a gain of at least the smallest detectable one).}
+  \label{tab:infer-1121}
+  \begin{tabular}{lrrl}
+    \toprule
+    Method & Change in MAE & Adjusted $p$ & Verdict\\
+    \midrule
+    Seasonal naive & \kn{inf_1121_7_seasonal_naive_rel}\% & \kn{inf_1121_7_seasonal_naive_p} & \kn{inf_1121_7_seasonal_naive_verdict}\\
+    Five-day average & \kn{inf_1121_7_ma5_rel}\% & \kn{inf_1121_7_ma5_p} & \kn{inf_1121_7_ma5_verdict}\\
+    ETS & \kn{inf_1121_7_ets_rel}\% & \kn{inf_1121_7_ets_p} & \kn{inf_1121_7_ets_verdict}\\
+    ARIMA & \kn{inf_1121_7_arima_rel}\% & \kn{inf_1121_7_arima_p} & \kn{inf_1121_7_arima_verdict}\\
+    LightGBM & \kn{inf_1121_7_lightgbm_rel}\% & \kn{inf_1121_7_lightgbm_p} & \kn{inf_1121_7_lightgbm_verdict}\\
+    GRU & \kn{inf_1121_7_gru_rel}\% & \kn{inf_1121_7_gru_p} & \kn{inf_1121_7_gru_verdict}\\
+    Chronos-2 (zero-shot) & \kn{inf_1121_7_chronos2_rel}\% & \kn{inf_1121_7_chronos2_p} & \kn{inf_1121_7_chronos2_verdict}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[t]
+  \centering
+  \caption{Basmati 1509, 7 days: change in MAE against the naive forecast, Holm-adjusted $p$ over all 42 comparisons, and the verdict of the pre-registered rule (adjusted $p<0.05$, bootstrap interval excluding zero, and a gain of at least the smallest detectable one).}
+  \label{tab:infer-1509}
+  \begin{tabular}{lrrl}
+    \toprule
+    Method & Change in MAE & Adjusted $p$ & Verdict\\
+    \midrule
+    Seasonal naive & \kn{inf_1509_7_seasonal_naive_rel}\% & \kn{inf_1509_7_seasonal_naive_p} & \kn{inf_1509_7_seasonal_naive_verdict}\\
+    Five-day average & \kn{inf_1509_7_ma5_rel}\% & \kn{inf_1509_7_ma5_p} & \kn{inf_1509_7_ma5_verdict}\\
+    ETS & \kn{inf_1509_7_ets_rel}\% & \kn{inf_1509_7_ets_p} & \kn{inf_1509_7_ets_verdict}\\
+    ARIMA & \kn{inf_1509_7_arima_rel}\% & \kn{inf_1509_7_arima_p} & \kn{inf_1509_7_arima_verdict}\\
+    LightGBM & \kn{inf_1509_7_lightgbm_rel}\% & \kn{inf_1509_7_lightgbm_p} & \kn{inf_1509_7_lightgbm_verdict}\\
+    GRU & \kn{inf_1509_7_gru_rel}\% & \kn{inf_1509_7_gru_p} & \kn{inf_1509_7_gru_verdict}\\
+    Chronos-2 (zero-shot) & \kn{inf_1509_7_chronos2_rel}\% & \kn{inf_1509_7_chronos2_p} & \kn{inf_1509_7_chronos2_verdict}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\draftfor{Text for this subsection is written only after the single test-season run, from the tables above: which methods
+were distinguishable from the naive value at which horizon, how the ranges covered (Sect.~\ref{sec:method-forecast}), and the
+prospective 2026--27 check reported separately and labelled partial. If no method is distinguishable from the naive
+forecast, the paper says so; the protocol names that a valid outcome.}
 
 \subsection{Allocation: Fair Plans Against Simple Rules}
 \label{sec:results-alloc}
