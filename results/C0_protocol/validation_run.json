@@ -1,0 +1,33 @@
+{
+  "stage": "validation",
+  "variant": "dated_only",
+  "season": "2024-25",
+  "commit": "c680e303d8be114415ba51bdd5818c559c7fed95",
+  "index_sha256": "fe20b58f62dd47d0aa670b84ef7b3ed2bb6f808ddb6fde2bf3c38c2ffd67271e",
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "ma5",
+    "ets",
+    "arima",
+    "lightgbm@nl7_n100",
+    "lightgbm@nl7_n300",
+    "lightgbm@nl15_n100",
+    "lightgbm@nl15_n300",
+    "gru@h16_e50",
+    "gru@h16_e100",
+    "gru@h32_e50",
+    "gru@h32_e100",
+    "chronos2"
+  ],
+  "horizons": [
+    1,
+    7,
+    14,
+    28,
+    60
+  ],
+  "python": "3.13.1",
+  "run_at": "2026-10-27T18:11:29+00:00",
+  "pairs": 7224
+}
