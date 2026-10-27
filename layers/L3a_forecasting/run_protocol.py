@@ -90,7 +90,7 @@ def run_stage(
     if workers > 1:
         from concurrent.futures import ProcessPoolExecutor
 
-        with ProcessPoolExecutor(workers) as ex:
+        with ProcessPoolExecutor(workers, max_tasks_per_child=1) as ex:  # a fresh process per job: LightGBM and PyTorch never share one
             done = list(ex.map(_task, [(*j[:7], None) for j in jobs], chunksize=1))
     else:
         done = [_task(j) for j in jobs]

@@ -105,11 +105,11 @@ _QUANTILES = {80: (0.1, 0.9), 95: (0.025, 0.975)}
 
 
 def _make_lgbm(num_leaves: int, n_estimators: int, with_ranges: bool) -> ek.Model:
-    import lightgbm as lgb
-
     cache: dict[tuple[date, int, int], Any] = {}
 
     def fit(x: np.ndarray, y: np.ndarray, objective: str, alpha: float | None, seed: int) -> Any:
+        import lightgbm as lgb  # imported only when used: LightGBM and PyTorch must not be loaded in one process (two OpenMP runtimes)
+
         params: dict[str, Any] = dict(objective=objective, num_leaves=num_leaves, learning_rate=0.05, min_data_in_leaf=5, bagging_fraction=0.8,
                                       bagging_freq=1, feature_fraction=0.8, seed=seed, num_threads=1, verbose=-1, deterministic=True, force_row_wise=True)
         if alpha is not None:
@@ -141,23 +141,24 @@ def _make_lgbm(num_leaves: int, n_estimators: int, with_ranges: bool) -> ek.Mode
 
 # ---- GRU -----------------------------------------------------------------------------------------------------------------
 def _make_gru(hidden: int, epochs: int) -> ek.Model:
-    import torch
-    from torch import nn
-
-    torch.set_num_threads(1)
     cache: dict[tuple[date, int, int], float] = {}
 
-    class Net(nn.Module):
-        def __init__(self) -> None:
-            super().__init__()
-            self.gru = nn.GRU(1, hidden, batch_first=True)
-            self.out = nn.Linear(hidden, 1)
-
-        def forward(self, z: Any) -> Any:
-            o, _ = self.gru(z)
-            return self.out(o[:, -1, :]).squeeze(-1)
-
     def model(history: Sequence[ek.Obs], target: date) -> Any:
+        import torch  # imported only when used: LightGBM and PyTorch must not be loaded in one process (two OpenMP runtimes)
+        from torch import nn
+
+        torch.set_num_threads(1)
+
+        class Net(nn.Module):
+            def __init__(self) -> None:
+                super().__init__()
+                self.gru = nn.GRU(1, hidden, batch_first=True)
+                self.out = nn.Linear(hidden, 1)
+
+            def forward(self, z: Any) -> Any:
+                o, _ = self.gru(z)
+                return self.out(o[:, -1, :]).squeeze(-1)
+
         origin = history[-1].day
         h = (target - origin).days
         key = (origin, len(history), h)
