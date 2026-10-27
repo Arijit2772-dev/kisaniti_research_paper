@@ -72,6 +72,8 @@ def _task(args: tuple) -> tuple:
     """One (variety, horizon, family) job: forecasts for the whole stage season. Runs in a worker process."""
     variety, series, h, fam, name, stage, chosen_unused, models_arg = args
     models = models_arg if models_arg is not None else _WORKER.setdefault("models", registry())  # type: ignore[assignment]
+    if name not in models:  # a tuned family with no chosen variant: no variant could forecast this cell (too few training pairs)
+        return (variety, h, fam, name, [])
     return (variety, h, fam, name, ek.run_model(series, models[name], h, STAGE_SEASON[stage]))  # type: ignore[index]
 
 
@@ -130,6 +132,8 @@ def run_stage(
         for variety in series_by_variety:
             for h in (x for x in horizons if x in (1, 7, 14)):  # the primary family (section 8)
                 for fam in (f for f in families if f != "naive"):
+                    if not by_key[(variety, h, fam)]:
+                        continue  # no forecast possible in this cell
                     raw.append((variety, h, fam, ek.compare_forecasts(by_key[(variety, h, fam)], by_key[(variety, h, "naive")], h, draws)))
         adj = ek.holm_adjust([r["p_raw"] for *_, r in raw])  # type: ignore[misc]
         for (variety, h, fam, r), p_adj in zip(raw, adj, strict=True):
@@ -196,7 +200,7 @@ def main() -> int:
             for r in csv.DictReader(fh):
                 if runnable(r["model"], r["variety"], int(r["horizon"]), chosen) == r["config"]:
                     calibration.setdefault((r["variety"], int(r["horizon"]), r["model"]), []).append(abs(float(r["forecast"]) - float(r["actual"])))
-    unknown = [m for m in families if m not in models and runnable(m, "", 0, chosen) not in models]
+    unknown = [m for m in families if m not in models and m not in TUNED]
     if unknown:
         print(f"REFUSED: models without an adapter: {unknown}", file=sys.stderr)
         return 2

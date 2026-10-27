@@ -31,3 +31,9 @@ def test_a_missing_variant_refuses():
     r = [x for x in rows({1: (5.0, 4.0), 7: (3.0, 3.0)}, {1: (2.0, 9.0), 7: (8.0, 1.0)}) if x["config"] != "gru@h32_e50"]
     with pytest.raises(SystemExit, match="missing"):
         cc.choose(r, GRIDS)
+
+
+def test_a_cell_where_no_variant_could_forecast_is_left_out_not_an_error():
+    r = [x for x in rows({1: (5.0, 4.0), 7: (3.0, 3.0)}, {1: (2.0, 9.0), 7: (8.0, 1.0)}) if not (x["model"] == "gru" and x["horizon"] == "7")]
+    got = cc.choose(r, GRIDS)
+    assert "7" not in got["gru"]["1121"] and got["gru"]["1121"]["1"] == "gru@h16_e50" and "7" in got["lightgbm"]["1121"]

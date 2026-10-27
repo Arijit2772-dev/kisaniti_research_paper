@@ -80,3 +80,8 @@ def test_chosen_variants_and_conformal_ranges_in_the_test_stage():
     conf = [r for r in res["ranges"] if r["range_method"] == "conformal"]
     assert {(r["model"], r["level"]) for r in conf} == {("naive", 80), ("naive", 95)}
     assert all(r["claim_allowed"] for r in conf) and all(0 <= r["coverage"] <= 1 for r in conf)
+
+
+def test_a_tuned_family_without_a_chosen_variant_gives_no_forecast_instead_of_failing():
+    res = rp.run_stage(world(), "test", ["naive", "gru"], [1], {**rp.BASELINES}, {"1121": {"1": 0.1}}, draws=100, chosen={"gru": {}})
+    assert {m["model"] for m in res["metrics"]} == {"naive"}

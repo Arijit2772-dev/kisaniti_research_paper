@@ -24,6 +24,8 @@ def choose(rows: list[dict[str, str]], grids: dict) -> dict[str, dict[str, dict[
             for h in sorted({int(r["horizon"]) for r in rows}):
                 got = {r["config"]: float(r["mae"]) for r in rows if r["variety"] == variety and int(r["horizon"]) == h and r["model"] == fam}
                 missing = [v for v in order if v not in got]
+                if len(missing) == len(order):
+                    continue  # no variant could forecast here (too few training pairs): the family is not forecast for this cell
                 if missing:
                     raise SystemExit(f"validation results missing for {fam} {variety} h={h}: {missing}")
                 best = min(order, key=lambda v: (got[v], order.index(v)))
