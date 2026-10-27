@@ -16,4 +16,5 @@ C13,The solver reaches the brute-force optimum on every random small instance,pa
 C14,The plan validator agrees with a second rule-based checker on every random edit,paper 4.4,VERIFIED,"4431 of 4431 edits get the same verdict (1052 valid, 3379 invalid)"
 C15,"60 plans, all valid, exact solves proven optimal",paper 4.3,VERIFIED,"60 plans, all valid: True; exact solves proven optimal: 240 of 240"
 C17,The KisanNiti plan is valid in every transport-rate and limit setting,paper 4.3,VERIFIED,"9 settings, KisanNiti plans valid in all: True"
+C19,In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days,paper 4.2,VERIFIED,"lowest MAE at 7 and 14 days (1509, 2026-27 partial): {7: 'naive', 14: 'naive'}"
 C16,Every bibliography DOI resolves to a record with the same title,paper references,VERIFIED,38 of 61 entries match their DOI record; unresolved: []; no DOI (manual): 18

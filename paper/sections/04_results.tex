@@ -189,6 +189,13 @@ Rs~\kn{fc_1121_28_naive_mae} for the naive value), and the validation season sho
 day of the season as a feature, so they may be learning where in the season prices tend to move; this is a hypothesis for the
 next season, not a finding of this study. Basmati 1509 at 60 days had too few training pairs for either model.
 
+The prospective check on the partly observed season 2026--27 was run separately and is labelled partial. It has only
+\kn{pro_1121_1_pairs} pairs at one day for 1121 and \kn{pro_1509_1_pairs} for Basmati 1509, falling to
+\kn{pro_1509_14_pairs} at 14 days, so no test was run on it. For Basmati 1509 the naive value had the lowest MAE at
+7 and 14 days (Rs~\kn{pro_1509_7_naive_mae} and Rs~\kn{pro_1509_14_naive_mae}), while the GRU
+(Rs~\kn{pro_1509_7_gru_mae} and Rs~\kn{pro_1509_14_gru_mae}) and LightGBM (Rs~\kn{pro_1509_7_lightgbm_mae} and
+Rs~\kn{pro_1509_14_lightgbm_mae}) were clearly less accurate; the full season will show whether this holds.
+
 Prediction ranges at 80\% and 95\% were assessed at the three primary horizons. The ranges that the models produce
 themselves (ETS, ARIMA, LightGBM quantiles and Chronos-2) were calibrated in \kn{rng_native_calibrated} of
 \kn{rng_native_total} cases, too wide in \kn{rng_native_over} and too narrow in \kn{rng_native_under}. The split-conformal

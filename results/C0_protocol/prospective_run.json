@@ -1,0 +1,27 @@
+{
+  "stage": "prospective",
+  "variant": "dated_only",
+  "season": "2026-27",
+  "commit": "deea9d3f58d6c5b5ae2db914046db70184a035eb",
+  "index_sha256": "fe20b58f62dd47d0aa670b84ef7b3ed2bb6f808ddb6fde2bf3c38c2ffd67271e",
+  "models": [
+    "naive",
+    "seasonal_naive",
+    "ma5",
+    "ets",
+    "arima",
+    "lightgbm",
+    "gru",
+    "chronos2"
+  ],
+  "horizons": [
+    1,
+    7,
+    14,
+    28,
+    60
+  ],
+  "python": "3.13.1",
+  "run_at": "2026-10-27T18:22:14+00:00",
+  "pairs": 976
+}

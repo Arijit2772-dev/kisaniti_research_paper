@@ -140,6 +140,13 @@ def sensitivity_valid() -> Result:
     return ("VERIFIED" if ok else "FAILED", f"{len(k)} settings, KisanNiti plans valid in all: {bool((k.all_valid_pct == 100).all())}")
 
 
+def prospective_naive() -> Result:
+    m = pd.read_csv(ROOT / "results/C0_protocol/prospective_metrics.csv")
+    x = m[(m.variety == "Basmati 1509") & (m.horizon.isin([7, 14]))]
+    lowest = x.loc[x.groupby("horizon").mae.idxmin()]
+    return ("VERIFIED" if set(lowest.model) == {"naive"} else "FAILED", f"lowest MAE at 7 and 14 days (1509, 2026-27 partial): {dict(zip(lowest.horizon, lowest.model, strict=True))}")
+
+
 def references_exist() -> Result:
     rows = list(csv.DictReader((ROOT / "literature/crossref_check.csv").open()))
     bad = [r["key"] for r in rows if r["status"].startswith(("DOI_NOT_FOUND", "CANNOT_CHECK"))]
@@ -165,6 +172,7 @@ CLAIMS = [
     ("C14", "The plan validator agrees with a second rule-based checker on every random edit", "paper 4.4", validator_agreement),
     ("C15", "60 plans, all valid, exact solves proven optimal", "paper 4.3", policy_run),
     ("C17", "The KisanNiti plan is valid in every transport-rate and limit setting", "paper 4.3", sensitivity_valid),
+    ("C19", "In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days", "paper 4.2", prospective_naive),
     ("C16", "Every bibliography DOI resolves to a record with the same title", "paper references", references_exist),
 ]
 

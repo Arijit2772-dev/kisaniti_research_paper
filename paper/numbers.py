@@ -227,6 +227,17 @@ def cleaning_screens() -> dict[str, str]:
     return out
 
 
+def prospective_results() -> dict[str, str]:
+    """C.0 prospective check, season 2026-27 (partial): pairs and MAE; no test is run on it."""
+    code = {"1121": "1121", "Basmati 1509": "1509"}
+    out: dict[str, str] = {}
+    for r in _csv(RESULTS / "C0_protocol" / "prospective_metrics.csv"):
+        k = f"pro_{code[r['variety']]}_{r['horizon']}"
+        out[f"{k}_{r['model']}_mae"] = f"{float(r['mae']):.0f}"
+        out[f"{k}_pairs"] = r["pairs"]
+    return out
+
+
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
     ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
@@ -240,6 +251,7 @@ LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("3.1 outlier screens and the index", cleaning_screens),
     ("3.3 pairs per horizon (C.0, dates only)", protocol_pairs),
     ("4.2 pre-registered forecasting results", forecast_test_results),
+    ("4.2 prospective check 2026-27 (partial)", prospective_results),
 ]
 
 
