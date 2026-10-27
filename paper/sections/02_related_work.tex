@@ -1,7 +1,44 @@
-% Section 2 -- Related Work. Owned by the literature phase (R1, literature/).
-% Only verified references (DOI opened, claim checked, logged) go here.
+% Section 2 -- Related Work. Converted from related_work.md (R1 literature phase); every citation key was opened and logged in literature/verification_log.md.
+% Two keys (urra, anoop) were read only from indexed abstracts: see the CHECK lines in references.bib before submission.
 \section{Related Work}
 \label{sec:related}
 
-\draftfor{Placeholder. Written from the verified review and comparison matrix in
-\texttt{literature/} (phase R1). Do not port the v2 text without re-checking every claim.}
+\paragraph{Price forecasting with Indian market data.} Most Indian studies take daily or monthly prices from AGMARKNET and compare one family of models against ARIMA. Paul et al. forecast brinjal prices in 17 Odisha markets and found a generalised regression neural network more accurate than ARIMA in most markets ~\cite{paul2022}. Manogna and Mishra worked with exchange spot prices of five oilseed and guar commodities and reported that an LSTM tracked the direction of price changes better than a time-delay network ~\cite{manogna2021}. The largest comparison we found covers 23 commodities in 165 markets from 2010 to 2024, where LSTM and GRU models had the lowest errors ~\cite{manogna}. Nayak et al. added rainfall and temperature to tomato, onion and potato series and found that deep models with these inputs beat statistical and tree-based ones ~\cite{nayak}. Two recent studies are closer to our crops. Bhoi et al. fitted six time-series models to monthly basmati prices from 74 Punjab markets and reported forecasts as probability bands rather than single values ~\cite{bhoi2023}. Balantrapu et al. studied all-India monthly wheat and maize prices and asked what it means for a series to be anchored to the minimum support price (MSP). For wheat, a naive forecast that repeats the last price was almost as good as their best model ~\cite{balantrapu2026}. Our v2 paddy result points the same way.
+
+\paragraph{Graph and pretrained models.} Graph models forecast many related series at once. Özden and Bulut used a spectral temporal graph network on 1,791 days of Turkish vegetable prices and trade volumes ~\cite{ozden}, and Min et al. found that StemGNN and T-GCN beat a stacked LSTM on four South Korean crops when prices and weather were modelled together ~\cite{min}. T-GCN and its attention variant A3T-GCN were built for road traffic ~\cite{zhao,bai}; we use A3T-GCN with mandis as nodes. Pretrained "foundation" forecasters are newer. Chronos is trained on a large mix of public series and gives probabilistic forecasts without task-specific training ~\cite{ansari2024chronos}. A 2026 preprint reports that such models beat classical and deep baselines, and USDA's own forecasts, on monthly US crop prices ~\cite{wang2026tsfm}. We found no test of these models on AGMARKNET data.
+
+\paragraph{Selling time and storage.} Price support shapes how Indian farmers sell. In the 70th round of the national sample survey, only 23.7\% of farmers knew the MSP of their kharif crop and 20.0\% that of their rabi crop ~\cite{aditya2017}. Small farmers were less likely to sell to procurement agencies ~\cite{das2020}, and a later count put the share of sellers reached by MSP at 13\% for paddy and 16\% for wheat ~\cite{gupta2021}. Field studies in Africa explain why farmers sell at harvest. Timely credit let Kenyan farmers store maize and sell later at a 29\% return ~\cite{burke2019}. In Benin, households that stored to sell later stored less when they expected higher storage losses ~\cite{kadjo2018}. Across 30 African countries the lean-season price failed to rise above the harvest price in 15–25\% of years, so holding grain carries real price risk ~\cite{cardell2023}. Tripathi et al. built the only decision tool we found that weighs storage, rent and physical loss against a price forecast; it advises individual producers and was simulated on tomato, onion and potato markets in north India ~\cite{tripathi2023}. Market choice matters as well: Karnataka's unified market platform raised the modal price of paddy by 5.1\% ~\cite{levi2020}.
+
+\paragraph{Storage losses and sensing.} Farm storage losses in North India are small for the first few months. In a 2022 survey by ICRIER, measured farm storage loss was 0.39–0.50\% for wheat in Madhya Pradesh and zero for paddy in Punjab, where farmers sell soon after harvest; the authors expect losses to rise after about three months ~\cite{gulati2024report}. An older Karnataka survey found the largest farm-level losses of rice and wheat at the storage stage ~\cite{basavaraja2007}. Low-cost storage monitors log temperature and humidity and raise alarms. Islam et al. watched hermetic paddy bags remotely for 125 days ~\cite{islam}, and Indian prototypes send SMS alerts from warehouses or switch fans at set thresholds ~\cite{lydia2022,hema2020}. A recent review covers machine learning and IoT for stored grain ~\cite{anuk}. None of these systems passes its readings to a selling decision.
+
+\paragraph{Allocation and fairness.} Mixed-integer models already plan agricultural logistics. Urra-Calfuñir et al. assigned olive harvests to fixed and mobile mills for small growers in Chile ~\cite{urra}. Gámez-Albán et al. routed a cooperative's first-mile pick-ups in Greece ~\cite{gamez}. Anoop et al. allocated food-grain rail freight in India with penalties on rakes, capacity use and weekly limits ~\cite{anoop}. These models minimise cost or maximise total profit and do not say how gains are shared between growers. Operations research offers tools for that. Bertsimas et al. bound the efficiency lost under max-min fairness ~\cite{bertsimas2011}, Ogryczak et al. survey lexicographic max-min (leximin) methods ~\cite{ogryczak2014}, Chen and Hooker show how to write these criteria in a mixed-integer program ~\cite{chen2023fairness}, and Kurokawa et al. used a leximin mechanism to allocate school classrooms with real district data ~\cite{kurokawa2018}. We did not find a fairness criterion in any agricultural allocation paper we read.
+
+\paragraph{FPOs and advice to farmers.} India had 7,374 registered producer companies by March 2019, and the median one had only Rs~1.06 lakh of paid-up capital ~\cite{neti2019}, so tools for FPOs must be cheap to run. Phone advice has a mixed record. SMS price and weather messages to farmers in 100 Maharashtra villages produced no significant change in prices received ~\cite{fafchamps2012}. A voice advisory service for Gujarat cotton farmers changed input use but showed no clear gain in yield or profit ~\cite{cole2021}.
+
+Table~\ref{tab:related} lists only what each paper reports. In the 38 studies reviewed, price forecasting, storage monitoring and allocation were studied separately. No study fed a forecast into a plan that shares mandi capacity among the members of an FPO, and none combined such a plan with a fairness rule or a manager's approval before farmers are told. KisanNiti addresses this combination for Punjab, where basmati is the main crop sold at market prices and nearly all reported prices of common paddy equal the MSP.
+
+\begin{table}[t]
+\centering
+\caption{Features reported by representative studies and implemented in KisanNiti. D: Indian mandi data; M: MSP check; R: forecast ranges; H: hold-or-sell with storage cost; S: storage sensing used in the decision; C: shared mandi capacity; F: fairness criterion; A: manager approval; W: farmer messages. Y: reported; --: not reported in what was read. The KisanNiti row lists what is built and tested at the time of writing (ranges come from baseline forecasts; hold-or-sell is not built).}
+\label{tab:related}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccccccccc}
+\toprule
+Study & D & M & R & H & S & C & F & A & W\\
+\midrule
+Manogna et al.~\cite{manogna} & Y & -- & -- & -- & -- & -- & -- & -- & --\\
+Bhoi et al.~\cite{bhoi2023} & Y & -- & Y & -- & -- & -- & -- & -- & --\\
+Balantrapu et al.~\cite{balantrapu2026} & Y & Y & -- & -- & -- & -- & -- & -- & --\\
+Min et al.~\cite{min} & -- & -- & -- & -- & -- & -- & -- & -- & --\\
+Tripathi et al.~\cite{tripathi2023} & -- & -- & -- & Y & -- & -- & -- & -- & --\\
+Islam et al.~\cite{islam} & -- & -- & -- & -- & -- & -- & -- & -- & --\\
+Anoop et al.~\cite{anoop} & -- & -- & -- & -- & -- & Y & -- & -- & --\\
+Kurokawa et al.~\cite{kurokawa2018} & -- & -- & -- & -- & -- & -- & Y & -- & --\\
+Fafchamps and Minten~\cite{fafchamps2012} & -- & -- & -- & -- & -- & -- & -- & -- & Y\\
+\midrule
+KisanNiti v2 (tested) & Y & Y & -- & -- & -- & Y & -- & -- & --\\
+KisanNiti (this paper) & Y & Y & Y & -- & Y & Y & Y & Y & Y\\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -40,10 +40,14 @@ KisanNiti is the decision-support system we are building for FPO staff in the Pa
 It reads AGMARKNET prices, the FPO's records of member lots and readings from a grain-storage
 sensor, and proposes a selling plan that a manager reviews before farmers are told on WhatsApp
 (Fig.~\ref{fig:architecture}).
-\authornote{Contributions paragraph: write it when the v3 results exist. Name each result
-with its section, e.g.\ the paddy forecasting comparison (Sect.~\ref{sec:results-msp}), the
-basmati comparison by variety, the storage-risk rule, and the fair allocation model. Avoid a
-``First \ldots\ Second \ldots\ Third'' list.}
+The paper makes five contributions. A regime test, the share of reports equal to the support price, tells
+price-bound from market crops and is applied to Paddy (Common) and basmati (Sect.~\ref{sec:results-msp}). For basmati,
+a forecast comparison of eight methods with prediction ranges was fixed in a pre-registered protocol and is
+evaluated once on a held-out season (Sect.~\ref{sec:results-basmati}). An exact allocation model shares mandi limits
+fairly among members and is compared with five simpler selling rules (Sect.~\ref{sec:results-alloc}). A low-cost
+storage-sensing rule is tested on simulated scenarios (Sect.~\ref{sec:results-storage}). Finally, the five stages
+from data to recorded sales are built and tested as one system (Sect.~\ref{sec:results-system}). The claims are limited
+to what each experiment supports; Sect.~\ref{sec:conclusion} lists what is not shown.
 
 Section~\ref{sec:related} reviews related work. Section~\ref{sec:system} describes the system
 and our methods, Sect.~\ref{sec:results} reports the experiments, and Sect.~\ref{sec:conclusion}

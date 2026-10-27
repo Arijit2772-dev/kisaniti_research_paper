@@ -9,7 +9,7 @@
 
 We have not yet run the node in real grain, so we tested the rule on simulated sensor streams for basmati paddy
 stored on a farm near Patiala. Air temperature follows the monthly mean daily maximum and minimum of the IMD station
-at Patiala for 1991--2020~\cite{imd2022}. Shed humidity follows a daily cycle fitted through IMD's two monthly means,
+at Patiala for 1991--2020\authornote{Cite the IMD 1991--2020 climate normals for Patiala: no verified reference on file yet.}. Shed humidity follows a daily cycle fitted through IMD's two monthly means,
 taken at 08:30 and 17:30 IST; we assume shed air equals outdoor air. The grain's temperature follows the shed air with a
 2-day lag, and its water activity drifts slowly towards the shed's daily mean humidity, as it would through a jute bag.
 These are assumptions, listed in \texttt{layers/L3b\_storage\_iot/scenarios.py}. The \kn{stor_scenarios} scenarios

@@ -1,9 +1,30 @@
-% Section 5 -- Conclusion and future work. Written after Section 4 is complete.
+% Section 5 -- Conclusion, limits and future work.
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
 
-\draftfor{Placeholder. State the findings with their numbers, the limits in plain words
-(synthetic FPO, WhatsApp assumption, simulated or bench-only hardware, one state, and no
-held-wheat forecasting because off-season Punjab mandi data are too sparse; other states'
-open-market series or private-trade data are future work) and what
-Paper~2 will add. Do not announce ``two findings stand out''; state them.}
+\draftfor{Drafted by Claude from the results above; the forecasting sentences are completed after the
+pre-registered run. The authors rewrite this section.}
+
+Selling decisions of an FPO depend on whether the crop's price is set by policy or by the market. For
+Paddy (Common) in Punjab it is set by policy: the announced support price was the most accurate forecast, no
+learned model beat it, and the useful work is to share the mandi limits fairly. The exact allocation did
+that, raised the smallest share a farmer receives from \kn{allpol_p1_nearest_min_fulfilment_pct}\% to
+\kn{allpol_kisaniti_min_fulfilment_pct}\% in the synthetic experiment, and recovered part of what a greedy rule gives
+up. For basmati the forecast comparison was fixed in advance; its result, including the possibility that
+nothing beats the naive value, is reported in Sect.~\ref{sec:results-basmati}. The five stages from data to
+recorded sales were built as one system and tested end to end, including an approval that reserves stock exactly
+and a way for the manager to send each farmer the message from his own WhatsApp.
+
+\paragraph{Limits.} The mandi index is a market summary, not the price a farmer received. Index days exist
+only from September to January, five seasons in all, so the forecast comparison can detect only large
+improvements. The cleaned prices have not yet passed the hand check. The FPO in the allocation experiment is
+synthetic, with real prices, so no income gain is claimed. The storage sensor was tested on simulated
+scenarios, and the node has not run in real grain. Held wheat is not forecast because Punjab mandis report too
+few wheat prices outside the procurement window. The system sends nothing by itself: the manager's WhatsApp
+hand-over cannot see delivery, and the Punjabi and Hindi texts have not been checked by a native speaker. Off-plan
+sales are handled by a provisional rule. No user study has been done.
+
+\paragraph{Future work.} A one-week run of the sensor in grain; a hold-or-sell rule with ranges, evaluated
+per season without a significance claim; the allocation comparison with basmati prices and with real transport
+costs; a deployment with one FPO after ethics approval, native-speaker review of the messages and a legal review
+of the privacy controls; and the official messaging channel, which would let one action reach every farmer.

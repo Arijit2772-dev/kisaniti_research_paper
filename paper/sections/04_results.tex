@@ -49,10 +49,130 @@ For Paddy (Common), we therefore use the announced MSP as the price in the selli
 do not train a forecaster. We keep the learned models for basmati paddy, whose prices move
 with the market (Sect.~\ref{sec:results-basmati}).
 
-\subsection{Basmati Paddy}
+\subsection{Basmati Paddy: the Pre-Registered Forecast Comparison}
 \label{sec:results-basmati}
-\draftfor{Placeholder for phase R4: forecasting by variety (e.g.\ 1121, 1509) on the basmati
-season downloads (decision CHAT-32). Held wheat is not forecast; it is a limitation only.}
 
-% 4.2 storage rule on simulated scenarios (M5 hardware session draft)
+\draftfor{The comparison of Sect.~\ref{sec:method-forecast} has \textbf{not been run}. The protocol is a
+draft until the authors approve it and the hand check has fixed the primary index variant; running any
+model on these prices before that would break the pre-registration. This subsection therefore reports
+only what does not depend on forecast error: the data and the number of forecast pairs. The results
+table is generated from \texttt{results/C0\_protocol/test\_season\_results.csv} and stays empty
+(\texttt{??key??}) until that file exists.}
+
+The variety index has \kn{data_index_days_1121} days for 1121 and \kn{data_index_days_1509} days for
+Basmati 1509 over five seasons, because index days exist only from September to January. This limits
+what can be tested. Table~\ref{tab:pairs} shows how many forecast pairs the held-out season offers after
+the rule that an origin needs ten index days of its season. Basmati 1509 has \kn{pairs_1509_h7} pairs
+at 7 days and \kn{pairs_1509_h14} at 14 days, fewer than the 60 first planned, and \kn{pairs_1509_h28} at
+28 days, below the 40 pairs the protocol requires before a coverage claim is made. A power check on
+the earlier seasons (exploratory, disclosed in the protocol) puts the smallest detectable improvement over the
+naive forecast at about 11 to 17\% of its error. A model that improves on the naive value by less than that
+cannot be told apart from it with this much data, and ``the naive forecast is hard to beat'' is a valid and
+reportable outcome.
+
+\begin{table}[t]
+  \centering
+  \caption{Forecast pairs in the held-out season 2025--26 (index with dated rows only): all pairs, and pairs
+  whose origin has at least ten index days of the season.}
+  \label{tab:pairs}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Variety, horizon & 1 day & 7 days & 14 days & 28 days\\
+    \midrule
+    1121, all pairs & \kn{pairs_1121_h1_raw} & \kn{pairs_1121_h7_raw} & \kn{pairs_1121_h14_raw} & \kn{pairs_1121_h28_raw}\\
+    1121, eligible & \kn{pairs_1121_h1} & \kn{pairs_1121_h7} & \kn{pairs_1121_h14} & \kn{pairs_1121_h28}\\
+    1509, all pairs & \kn{pairs_1509_h1_raw} & \kn{pairs_1509_h7_raw} & \kn{pairs_1509_h14_raw} & \kn{pairs_1509_h28_raw}\\
+    1509, eligible & \kn{pairs_1509_h1} & \kn{pairs_1509_h7} & \kn{pairs_1509_h14} & \kn{pairs_1509_h28}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[t]
+  \centering
+  \caption{Test-season MAE (Rs per quintal) by method, variety and horizon. Filled from the results file only.}
+  \label{tab:forecast}
+  \begin{tabular}{lrrr}
+    \toprule
+    Method (1121) & 1 day & 7 days & 14 days\\
+    \midrule
+    Naive & \kn{fc_1121_1_naive_mae} & \kn{fc_1121_7_naive_mae} & \kn{fc_1121_14_naive_mae}\\
+    Seasonal naive & \kn{fc_1121_1_seasonal_naive_mae} & \kn{fc_1121_7_seasonal_naive_mae} & \kn{fc_1121_14_seasonal_naive_mae}\\
+    Five-day average & \kn{fc_1121_1_ma5_mae} & \kn{fc_1121_7_ma5_mae} & \kn{fc_1121_14_ma5_mae}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Allocation: Fair Plans Against Simple Rules}
+\label{sec:results-alloc}
+
+The allocation method was compared with simple selling rules on \kn{allpol_plans} weekly plans: ten random
+draws of a synthetic FPO of 300 members whose lots become ready over six harvest weeks, scored at real
+2025 AGMARKNET prices of Paddy (Common) and real mandi coordinates. Every plan was re-checked by the
+independent validator. The compared rules are the nearest mandi on the first free day, each farmer's
+independent best choice, a plan that maximises only the total net return (utilitarian), one that maximises
+only the smallest share, a greedy water-filling heuristic, the KisanNiti hierarchy, and the same
+hierarchy with the actual prices instead of the forecast (a bound).
+
+\begin{table}[t]
+  \centering
+  \caption{Selling policies on \kn{allpol_plans} synthetic plans at real 2025 prices. Valid: share of plans
+  accepted by the independent validator (a plan is invalid if it exceeds a mandi's daily limit). Net: mean
+  net return in Rs per quintal after transport and waiting costs. Min.\ share: smallest share of a farmer's
+  lot that was sold, averaged over plans. Fairness price: net return given up relative to the utilitarian
+  plan.}
+  \label{tab:alloc}
+  \scriptsize
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    Policy & Valid (\%) & Net & Min.\ share (\%) & Gini & Fairness price & Solve (s)\\
+    \midrule
+    Nearest mandi & \kn{allpol_p1_nearest_all_valid_pct} & \kn{allpol_p1_nearest_net_rs_per_q} & \kn{allpol_p1_nearest_min_fulfilment_pct} & \kn{allpol_p1_nearest_gini_fulfilment} & \kn{allpol_p1_nearest_price_of_fairness_rs_per_q} & \kn{allpol_p1_nearest_seconds_mean}\\
+    Independent best & \kn{allpol_p2_independent_all_valid_pct} & \kn{allpol_p2_independent_net_rs_per_q} & \kn{allpol_p2_independent_min_fulfilment_pct} & \kn{allpol_p2_independent_gini_fulfilment} & -- & \kn{allpol_p2_independent_seconds_mean}\\
+    Utilitarian & \kn{allpol_utilitarian_all_valid_pct} & \kn{allpol_utilitarian_net_rs_per_q} & \kn{allpol_utilitarian_min_fulfilment_pct} & \kn{allpol_utilitarian_gini_fulfilment} & \kn{allpol_utilitarian_price_of_fairness_rs_per_q} & \kn{allpol_utilitarian_seconds_mean}\\
+    Max-min only & \kn{allpol_maxmin_all_valid_pct} & \kn{allpol_maxmin_net_rs_per_q} & \kn{allpol_maxmin_min_fulfilment_pct} & \kn{allpol_maxmin_gini_fulfilment} & \kn{allpol_maxmin_price_of_fairness_rs_per_q} & \kn{allpol_maxmin_seconds_mean}\\
+    Greedy & \kn{allpol_greedy_all_valid_pct} & \kn{allpol_greedy_net_rs_per_q} & \kn{allpol_greedy_min_fulfilment_pct} & \kn{allpol_greedy_gini_fulfilment} & \kn{allpol_greedy_price_of_fairness_rs_per_q} & \kn{allpol_greedy_seconds_mean}\\
+    KisanNiti & \kn{allpol_kisaniti_all_valid_pct} & \kn{allpol_kisaniti_net_rs_per_q} & \kn{allpol_kisaniti_min_fulfilment_pct} & \kn{allpol_kisaniti_gini_fulfilment} & \kn{allpol_kisaniti_price_of_fairness_rs_per_q} & \kn{allpol_kisaniti_seconds_mean}\\
+    Actual-price bound & \kn{allpol_perfect_foresight_all_valid_pct} & \kn{allpol_perfect_foresight_net_rs_per_q} & \kn{allpol_perfect_foresight_min_fulfilment_pct} & \kn{allpol_perfect_foresight_gini_fulfilment} & \kn{allpol_perfect_foresight_price_of_fairness_rs_per_q} & \kn{allpol_perfect_foresight_seconds_mean}\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Independent choices break a mandi's daily limit in \kn{allpol_p2_independent_runs_with_violation_pct}\% of
+the plans, so none of them is a valid plan. The nearest-mandi rule respects the limits but leaves the
+least-served farmer with a share of \kn{allpol_p1_nearest_min_fulfilment_pct}\%, and the utilitarian plan does
+the same (\kn{allpol_utilitarian_min_fulfilment_pct}\%), because maximising the total ignores who is left out. The
+KisanNiti hierarchy raises the smallest share to \kn{allpol_kisaniti_min_fulfilment_pct}\%, the highest that the
+mandi limits allow, with a Gini coefficient of \kn{allpol_kisaniti_gini_fulfilment}, at a cost of
+Rs~\kn{allpol_kisaniti_price_of_fairness_rs_per_q} per quintal against the utilitarian plan. The greedy rule reaches the same
+smallest share but gives up Rs~\kn{allpol_greedy_price_of_fairness_rs_per_q} per quintal, so the exact method
+recovers the difference. Using actual instead of forecast prices changes nothing, which is expected: the
+prices of Paddy (Common) hardly differ between mandis (Sect.~\ref{sec:results-msp}), so the plan is decided
+by distance, limits and fairness, not by price. Of the \kn{allpol_exact_solves} exact solves,
+\kn{allpol_exact_proven} were proven optimal. Three weighted-sum alternatives were also tried in a pilot of six
+plans; all reached the 300-second time limit without a proof of optimality and are therefore left out of
+Table~\ref{tab:alloc}. The experiment uses a synthetic FPO, so it shows properties of the method and not a
+gain for any real farmer; the comparison with basmati prices, where mandis differ, is future work.
+\authornote{Add the solver comparison and the sensitivity to transport cost and limits when they are run.}
+
+
+% 4.4 storage rule on simulated scenarios (M5 hardware session draft)
 \input{../sections/04_2_storage.tex}
+
+\subsection{The Built System}
+\label{sec:results-system}
+
+The five stages were built as one product and tested together. The backend, the shared algorithms, the sensor
+ingestion and the interface contracts hold \kn{sys_tests_total} automated tests (backend \kn{sys_tests_backend},
+core \kn{sys_tests_core}, ingestion \kn{sys_tests_ingestion}, contract examples \kn{sys_tests_contracts}), which
+include parallel approvals on PostgreSQL, isolation between two FPOs, append-only records and the exact
+rendering of every message text. The interface is fixed by \kn{sys_slices} versioned contracts with
+\kn{sys_examples_valid} valid and \kn{sys_examples_invalid} invalid examples that every change must still satisfy. A single command
+runs \kn{sys_chain_steps} steps on two new fictional FPOs through the same interface the website uses: data,
+stock, a simulated storage sensor, plan, edit, approval, messages, the manager's hand-over to WhatsApp, sales, release,
+a ledger audit and isolation. Each step is checked against an independent recomputation of the amounts, the
+rounding, the stock ledger and the message texts, and the run stops at the first deviation. A full run takes about
+\kn{sys_chain_seconds} seconds and passed all \kn{sys_chain_passed} steps. To show that the run can fail, a
+corrupted ledger entry and deliberately planted errors (rounding down, a wrong weighted price, a message
+that loses its last character) were each detected. All farmers, lots and sales in these runs are fictional. No
+user study has been done, no real message was sent, and the Punjabi and Hindi texts have not yet been read by a native speaker.
+

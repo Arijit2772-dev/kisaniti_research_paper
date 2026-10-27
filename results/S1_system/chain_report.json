@@ -1,0 +1,107 @@
+{
+  "run": "0da881de",
+  "api": "http://localhost:8000",
+  "commit": "f2041c1",
+  "started_at": "2026-10-27T17:16:29.009996+00:00",
+  "sabotage": null,
+  "steps": [
+    {
+      "step": "preflight",
+      "ok": true,
+      "seconds": 0.65
+    },
+    {
+      "step": "fpos",
+      "ok": true,
+      "seconds": 10.86
+    },
+    {
+      "step": "data",
+      "ok": true,
+      "seconds": 0.11
+    },
+    {
+      "step": "stock",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "step": "sensor",
+      "ok": true,
+      "seconds": 2.63
+    },
+    {
+      "step": "plan",
+      "ok": true,
+      "seconds": 0.2
+    },
+    {
+      "step": "review",
+      "ok": true,
+      "seconds": 0.07
+    },
+    {
+      "step": "approval",
+      "ok": true,
+      "seconds": 0.07
+    },
+    {
+      "step": "messages",
+      "ok": true,
+      "seconds": 2.39
+    },
+    {
+      "step": "handover",
+      "ok": true,
+      "seconds": 0.17
+    },
+    {
+      "step": "sales",
+      "ok": true,
+      "seconds": 0.19
+    },
+    {
+      "step": "close",
+      "ok": true,
+      "seconds": 0.08
+    },
+    {
+      "step": "ledger-audit",
+      "ok": true,
+      "seconds": 0.04
+    },
+    {
+      "step": "isolation",
+      "ok": true,
+      "seconds": 0.09
+    }
+  ],
+  "ok": true,
+  "entities": {
+    "fpo_a": "fpo_01M5Z5T56G411SP2317QCZA6B4",
+    "fpo_b": "fpo_01M5Z5TBG0SGXKC3YT66MVB7ME",
+    "plan": "pln_01M5Z5TGNXFB48BKHS5DX4HXE7",
+    "device": "kn-chain-0da881de",
+    "lots": [
+      "lot_01M5Z5TDWY9MRMJFQFPK222SC1",
+      "lot_01M5Z5TE02SY0T025EAG2778JK",
+      "lot_01M5Z5TE1EXTM357SK3GZE5VB0",
+      "lot_01M5Z5TE2423Q93NEXH41RW9PJ"
+    ],
+    "contracts": [
+      "shared/v1",
+      "access/v1",
+      "devices/v1",
+      "org/v1",
+      "market/v1",
+      "plan/v1",
+      "approval/v1",
+      "messaging/v1",
+      "sales/v1",
+      "handover/v1"
+    ],
+    "mode": "DEMO",
+    "price_dataset_status": "PENDING_HAND_CHECK",
+    "fixture_prices_seeded": false
+  }
+}

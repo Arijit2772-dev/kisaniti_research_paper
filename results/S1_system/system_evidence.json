@@ -1,0 +1,54 @@
+{
+  "commits": {
+    "product": "f2041c1",
+    "research": "92007bb"
+  },
+  "tests_collected": {
+    "backend": 319,
+    "core": 563,
+    "ingestion": 49,
+    "contracts": 441
+  },
+  "contract_slices": [
+    "access",
+    "allocation",
+    "approval",
+    "devices",
+    "handover",
+    "market",
+    "messaging",
+    "org",
+    "plan",
+    "sales",
+    "sensor",
+    "shared"
+  ],
+  "contract_examples": {
+    "valid": 137,
+    "invalid": 223
+  },
+  "migrations": 12,
+  "chain": {
+    "ok": true,
+    "full_run": true,
+    "steps": [
+      "preflight",
+      "fpos",
+      "data",
+      "stock",
+      "sensor",
+      "plan",
+      "review",
+      "approval",
+      "messages",
+      "handover",
+      "sales",
+      "close",
+      "ledger-audit",
+      "isolation"
+    ],
+    "steps_passed": 14,
+    "product_commit": "f2041c1",
+    "seconds": 17.8
+  }
+}
