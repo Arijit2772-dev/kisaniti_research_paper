@@ -213,7 +213,9 @@ def _chronos(history: Sequence[ek.Obs]) -> pd.DataFrame:
     key = (origin, len(history))
     if key not in _CH_CACHE:
         import chronos
+        import torch
 
+        torch.set_num_threads(1)  # one thread per worker process; the runner parallelises over jobs
         if not _PIPE:
             _PIPE.append(chronos.Chronos2Pipeline.from_pretrained("amazon/chronos-2", device_map="cpu"))
         d = _daily_frame(_season_obs(history), origin, fill=False)
