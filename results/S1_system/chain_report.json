@@ -1,92 +1,92 @@
 {
-  "run": "0da881de",
+  "run": "7efcc9de",
   "api": "http://localhost:8000",
   "commit": "f2041c1",
-  "started_at": "2026-10-27T17:16:29.009996+00:00",
+  "started_at": "2026-10-27T18:56:42.506656+00:00",
   "sabotage": null,
   "steps": [
     {
       "step": "preflight",
       "ok": true,
-      "seconds": 0.65
+      "seconds": 0.72
     },
     {
       "step": "fpos",
       "ok": true,
-      "seconds": 10.86
+      "seconds": 19.13
     },
     {
       "step": "data",
       "ok": true,
-      "seconds": 0.11
+      "seconds": 0.2
     },
     {
       "step": "stock",
       "ok": true,
-      "seconds": 0.3
+      "seconds": 0.39
     },
     {
       "step": "sensor",
       "ok": true,
-      "seconds": 2.63
+      "seconds": 7.46
     },
     {
       "step": "plan",
       "ok": true,
-      "seconds": 0.2
+      "seconds": 0.22
     },
     {
       "step": "review",
       "ok": true,
-      "seconds": 0.07
+      "seconds": 0.09
     },
     {
       "step": "approval",
       "ok": true,
-      "seconds": 0.07
+      "seconds": 0.18
     },
     {
       "step": "messages",
       "ok": true,
-      "seconds": 2.39
+      "seconds": 5.03
     },
     {
       "step": "handover",
       "ok": true,
-      "seconds": 0.17
+      "seconds": 0.39
     },
     {
       "step": "sales",
       "ok": true,
-      "seconds": 0.19
+      "seconds": 0.38
     },
     {
       "step": "close",
       "ok": true,
-      "seconds": 0.08
+      "seconds": 0.25
     },
     {
       "step": "ledger-audit",
       "ok": true,
-      "seconds": 0.04
+      "seconds": 0.16
     },
     {
       "step": "isolation",
       "ok": true,
-      "seconds": 0.09
+      "seconds": 0.56
     }
   ],
   "ok": true,
   "entities": {
-    "fpo_a": "fpo_01M5Z5T56G411SP2317QCZA6B4",
-    "fpo_b": "fpo_01M5Z5TBG0SGXKC3YT66MVB7ME",
-    "plan": "pln_01M5Z5TGNXFB48BKHS5DX4HXE7",
-    "device": "kn-chain-0da881de",
+    "fpo_a": "fpo_01M5ZBHPSDFM6KYT4K155E3H9Q",
+    "fpo_b": "fpo_01M5ZBJ1THSXT1WQGTQ605JCJN",
+    "plan": "pln_01M5ZBJE9MHSSP59DGM0P45DGE",
+    "device": "kn-chain-7efcc9de",
     "lots": [
-      "lot_01M5Z5TDWY9MRMJFQFPK222SC1",
-      "lot_01M5Z5TE02SY0T025EAG2778JK",
-      "lot_01M5Z5TE1EXTM357SK3GZE5VB0",
-      "lot_01M5Z5TE2423Q93NEXH41RW9PJ"
+      "lot_01M5ZBJ6R4R8CQC0WQ5FV1E0NK",
+      "lot_01M5ZBJ6TZCQA4PVGST1Q5CQNV",
+      "lot_01M5ZBJ6W7F5DBCSQAN6YYRNHW",
+      "lot_01M5ZBJ6X1BFZ0NEN2MQQYBVGZ"
     ],
     "contracts": [
       "shared/v1",

@@ -189,6 +189,11 @@ def forecast_test_results() -> dict[str, str]:
     inf = _csv(base / "test_season_inference.csv")
     out["inf_total"], out["inf_better"] = str(len(inf)), str(sum(r["verdict"] == "BETTER" for r in inf))
     out["inf_worse_sig"] = str(sum(float(r["p_holm"]) < 0.05 and float(r["relative_change"]) > 0 for r in inf))
+    excl = [float(r["ci_low"]) > -float(r["smallest_gain"]) for r in inf]
+    out["inf_excl_gain"], out["inf_inconclusive"] = str(sum(excl)), str(len(inf) - sum(excl))
+    out["inf_h1_1121_inconclusive"] = str(sum(1 for r, e in zip(inf, excl, strict=True) if not e and r["variety"] == "1121" and r["horizon"] == "1"))
+    widths = sorted(float(r["ci_high"]) - float(r["ci_low"]) for r in inf)
+    out["inf_width_median"] = f"{100 * (widths[len(widths) // 2 - 1] + widths[len(widths) // 2]) / 2:.0f}"
     return out
 
 

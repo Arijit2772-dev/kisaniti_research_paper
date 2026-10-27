@@ -90,7 +90,10 @@ Under the pre-registered rule, none of the \kn{inf_total} comparisons found a me
 the Holm-adjusted $p$ was \kn{inf_1121_1_gru_p}. The only methods that differed significantly from the naive value were worse:
 the seasonal naive forecast was significantly worse in \kn{inf_worse_sig} comparisons (Basmati 1509 at one day: change
 \kn{inf_1509_1_seasonal_naive_rel}\%, adjusted $p$ \kn{inf_1509_1_seasonal_naive_p}), because one season's price level says little
-about the next. The naive value is therefore a strong forecast for prices that move this little from day to day, and the
+about the next. The result is not that all methods are equal: in \kn{inf_excl_gain} of the \kn{inf_total} comparisons the interval excludes an improvement as
+large as the smallest detectable gain, but the other \kn{inf_inconclusive} are inconclusive rather than negative, notably all
+\kn{inf_h1_1121_inconclusive} non-seasonal methods at one day for 1121, where improvements of up to about a quarter fit the data (median interval
+width \kn{inf_width_median} points). The naive value is therefore a strong forecast for prices that move this little from day to day, and the
 promotion rule keeps it: the product uses the naive value with ranges and states that the baseline is enough.
 
 Secondary and descriptive horizons are reported without a test. At 28 days the GRU and LightGBM had a lower MAE than the naive value for
@@ -164,23 +167,21 @@ at 10 farmers, because its integer scaling becomes too large beyond that, and th
 \subsection{Checking the Manager's Edits}
 \label{sec:results-edits}
 
-A manager's edit must be accepted exactly when it keeps the plan valid. An independent validator re-checks every revision, and a second
-checker written directly from the rules (admissible choice, no duplicate line, whole increments, no lot over-allocated or, when the whole lot
-must be sold, left over, no mandi over its strict limit) was compared with it on \kn{val_edits} random edits of \kn{val_instances} solved
-instances, from harmless changes to a single broken rule (\kn{val_valid} valid, \kn{val_invalid} invalid). The two gave the same verdict on
-\kn{val_agree} of them.
+A manager's edit must be accepted exactly when it keeps the plan valid. A second checker written directly from the rules (admissible choice, no
+duplicate line, whole increments, no lot over-allocated or, when the whole lot must be sold, left over, no mandi over its strict limit) gave the
+same verdict as the independent validator on \kn{val_agree} of \kn{val_edits} random edits of \kn{val_instances} solved instances (\kn{val_valid} valid,
+\kn{val_invalid} invalid, from harmless changes to a single broken rule).
 
 \input{../sections/04_2_storage.tex}
 
 \subsection{The Built System}
 \label{sec:results-system}
 
-The backend, shared algorithms, sensor ingestion and interface contracts hold \kn{sys_tests_total} automated tests (including parallel
-approvals on PostgreSQL, isolation between FPOs, append-only records and exact message texts) and \kn{sys_slices} versioned contracts with
-\kn{sys_examples_valid} valid and \kn{sys_examples_invalid} invalid examples. A single command runs \kn{sys_chain_steps} steps on two new
-fictional FPOs through the interface the website uses (data, stock, a simulated sensor, plan, edit, approval, messages, the manager's
-hand-over to WhatsApp, sales, release, a ledger audit and isolation), checks each step against an independent recomputation of amounts,
-rounding, ledger and message texts, and stops at the first deviation; a full run takes about \kn{sys_chain_seconds} seconds and passed all
-\kn{sys_chain_passed} steps. A corrupted ledger entry and planted errors (rounding down, a wrong weighted price, a message losing its last
-character) were each detected. All farmers, lots and sales are fictional; no user study was done, no real message was sent, and the Punjabi
-and Hindi texts have not been read by a native speaker.
+The system holds \kn{sys_tests_total} automated tests (including parallel approvals on PostgreSQL, isolation between FPOs, append-only records and
+exact message texts) and \kn{sys_slices} versioned contracts with \kn{sys_examples_valid} valid and \kn{sys_examples_invalid} invalid examples. A
+single command runs \kn{sys_chain_steps} steps on two new fictional FPOs through the interface the website uses (data, stock, a simulated sensor,
+plan, edit, approval, messages, the manager's hand-over to WhatsApp, sales, release, a ledger audit and isolation), checks each against an
+independent recomputation, and stops at the first deviation; it passed all \kn{sys_chain_passed} steps in about \kn{sys_chain_seconds} seconds, and a
+corrupted ledger entry and planted errors (rounding down, a wrong weighted price, a message losing its last character) were each detected. All
+farmers, lots and sales are fictional; no user study was done, no real message was sent, and the Punjabi and Hindi texts have not been read by a
+native speaker.
