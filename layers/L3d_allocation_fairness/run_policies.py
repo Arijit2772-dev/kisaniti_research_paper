@@ -36,8 +36,8 @@ LABELS = {
 }
 
 
-def one(args: tuple[int, int, dict]) -> list[dict]:
-    seed, week, params = args
+def one(args: tuple[int, int, dict, bool]) -> list[dict]:
+    seed, week, params, with_weighted = args
     dates, prices = price_panel()
     coords = mandi_coords()
     persona = make_persona(seed)
@@ -57,7 +57,7 @@ def one(args: tuple[int, int, dict]) -> list[dict]:
     for key, h in (("utilitarian", Hierarchy.UTILITARIAN), ("maxmin", Hierarchy.MAXMIN), ("kisaniti", Hierarchy.KISANITI)):
         t = time.perf_counter(); r = solve(inst.inp, hierarchy=h, time_limit=300)
         record(key, r.plan, time.perf_counter() - t, f"{r.termination}/{r.optimality}")
-    for key, w in WEIGHT_SETS.items():
+    for key, w in WEIGHT_SETS.items() if with_weighted else []:
         t = time.perf_counter(); r = solve(inst.inp, hierarchy=Hierarchy.WEIGHTED, weights=w, time_limit=300)
         record(key, r.plan, time.perf_counter() - t, f"{r.termination}/{r.optimality}")
     pf = build_instance(persona, week, dates, prices, coords, rate=params["rate"], wait=params["wait"],
@@ -73,6 +73,8 @@ def summarise(df: pd.DataFrame) -> pd.DataFrame:
     kis = df[df.policy_key == "kisaniti"].set_index(["seed", "week"])
     out = []
     for key in LABELS:
+        if key not in set(df.policy_key):
+            continue
         d = df[df.policy_key == key].set_index(["seed", "week"])
         pof = (base.expected_net_rs - d.expected_net_rs) / d.allocated_q
         gain = (d.actual_net_rs - p1.actual_net_rs) / d.allocated_q
@@ -96,16 +98,19 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", type=int, default=10)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--skip-weighted", action="store_true",
+                    help="leave out the three weighted-sum policies (each runs to the 300 s limit; open decision E.0)")
+    ap.add_argument("--tag", default="", help="suffix of the result file names, e.g. _no_weighted")
     a = ap.parse_args()
     RESULTS.mkdir(parents=True, exist_ok=True)
     params = dict(BASE)
-    jobs = [(s, w, params) for s in range(a.seeds) for w in range(HARVEST_WEEKS)]
+    jobs = [(s, w, params, not a.skip_weighted) for s in range(a.seeds) for w in range(HARVEST_WEEKS)]
     with ProcessPoolExecutor(a.workers) as ex:
         rows = [r for part in ex.map(one, jobs) for r in part]
     df = pd.DataFrame(rows)
-    df.to_csv(RESULTS / "allocation_policies_runs.csv", index=False)
+    df.to_csv(RESULTS / f"allocation_policies_runs{a.tag}.csv", index=False)
     s = summarise(df)
-    s.round(4).to_csv(RESULTS / "allocation_policies_summary.csv", index=False)
+    s.round(4).to_csv(RESULTS / f"allocation_policies_summary{a.tag}.csv", index=False)
     print(s[["policy_key", "allocated_pct", "net_rs_per_q", "min_fulfilment_pct", "gini_fulfilment",
              "price_of_fairness_rs_per_q", "runs_with_violation_pct", "seconds_mean"]].round(3).to_string(index=False))
     print(json.dumps({"runs": len(df), "statuses": df.status.value_counts().to_dict()}, indent=1))
