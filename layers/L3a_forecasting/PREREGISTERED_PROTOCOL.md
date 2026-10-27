@@ -110,6 +110,8 @@ For each variety and primary horizon the product uses the model that meets §8 a
 - A5. LightGBM uses its native training interface (no extra dependency); the GRU window is the last seven index days of the season including the origin.
 - A6. Grid: LightGBM num_leaves {7, 15} x n_estimators {100, 300} at learning rate 0.05; GRU hidden {16, 32} x epochs {50, 100}. Nothing else is tuned.
 
+**28 October 2026, after the primary test result, before any sensitivity run:** the sensitivity analyses of §2 and §13 item 18 are run as stage `sensitivity` with five index variants (`with_blank`, the two town-merged variants, and dated-only with at least 2 and at least 4 mandis per day; checksums in `config/sensitivity_checksums.json`). They use the configuration already chosen on the primary validation, report point accuracy, the same 42 comparisons with Holm correction and native ranges (no conformal ranges, whose widths come from the primary index), and never replace the primary result. The runner refuses a sensitivity run until the primary test result exists.
+
 ## 13. Implementation details fixed at the freeze
 
 The draft left these open; each was chosen before any model was run, for the reason given. Choices 1 to 8 are the owner's approved list (`EVALKIT_ASSUMPTIONS.md`); 9 to 18 were found while writing the model code and are fixed here by the same approval of "freeze it, then wire models 4 to 8".

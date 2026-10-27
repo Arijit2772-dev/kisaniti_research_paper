@@ -27,7 +27,7 @@ class Facts:
 
 def check(stage: str, f: Facts) -> None:
     """Raise GateRefused unless `stage` ('validation', 'test' or 'prospective') may run."""
-    if stage not in ("validation", "test", "prospective"):
+    if stage not in ("validation", "test", "prospective", "sensitivity"):
         raise GateRefused(f"unknown stage {stage!r}")
     if not any(s.startswith(FREEZE_PREFIX) and not s.startswith(CONFIG_PREFIX) for s in f.commit_subjects):
         raise GateRefused(f"the protocol is not frozen: no commit whose subject starts with {FREEZE_PREFIX!r}")
@@ -39,8 +39,10 @@ def check(stage: str, f: Facts) -> None:
         raise GateRefused("the index file differs from the frozen checksum")
     if not f.grids_present:
         raise GateRefused("config/grids.json is missing: the grids must be written before the first validation run")
-    if stage in ("test", "prospective"):
+    if stage in ("test", "prospective", "sensitivity"):
         if not any(s.startswith(CONFIG_PREFIX) for s in f.commit_subjects):
             raise GateRefused(f"the configuration is not frozen: no commit whose subject starts with {CONFIG_PREFIX!r}")
     if stage == "test" and f.test_results_exist:
         raise GateRefused("the test season has already been run once; it is evaluated exactly once")
+    if stage == "sensitivity" and not f.test_results_exist:
+        raise GateRefused("a sensitivity run needs the primary test result first: it never replaces it")

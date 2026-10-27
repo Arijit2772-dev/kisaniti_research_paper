@@ -69,3 +69,11 @@ def test_the_test_season_runs_once():
         pg.check("test", facts(test_results_exist=True))
     pg.check("prospective", facts(test_results_exist=True))  # a separate, later check is allowed
     pg.check("validation", facts(test_results_exist=True))
+
+
+def test_sensitivity_runs_need_the_primary_result_and_the_frozen_configuration():
+    pg.check("sensitivity", facts(test_results_exist=True))
+    with pytest.raises(pg.GateRefused, match="primary test result"):
+        pg.check("sensitivity", facts(test_results_exist=False))
+    with pytest.raises(pg.GateRefused, match="configuration is not frozen"):
+        pg.check("sensitivity", facts(commit_subjects=("C.0 freeze: protocol approved",), test_results_exist=True))

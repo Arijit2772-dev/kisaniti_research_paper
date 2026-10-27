@@ -28,7 +28,7 @@ ROOT = HERE.parents[1]
 OUT = ROOT / "results" / "C0_protocol"
 CONFIG = HERE / "config"
 SEASONS = ["2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27"]
-STAGE_SEASON = {"validation": "2024-25", "test": "2025-26", "prospective": "2026-27"}
+STAGE_SEASON = {"validation": "2024-25", "test": "2025-26", "prospective": "2026-27", "sensitivity": "2025-26"}
 BASELINES: dict[str, ek.Model] = {"naive": ek.naive, "seasonal_naive": ek.seasonal_naive, "ma5": ek.moving_average5}
 
 
@@ -127,7 +127,7 @@ def run_stage(
                     los[lvl], his[lvl] = [f.forecast - w for f in fs], [f.forecast + w for f in fs]
             ranges += range_rows(variety, h, fam, "conformal", season, ys, los, his)
     inference: list[dict[str, object]] = []
-    if stage == "test":
+    if stage in ("test", "sensitivity"):
         raw = []
         for variety in series_by_variety:
             for h in (x for x in horizons if x in (1, 7, 14)):  # the primary family (section 8)
@@ -169,12 +169,15 @@ def git(*args: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", required=True, choices=list(STAGE_SEASON))
-    ap.add_argument("--variant", default="dated_only", choices=["dated_only", "with_blank"])
+    ap.add_argument("--variant", default="dated_only")
     ap.add_argument("--workers", type=int, default=1)
     a = ap.parse_args()
     index = ROOT / "data" / "processed" / "basmati" / f"index_{a.variant}.csv"
-    sums = CONFIG / "data_checksums.json"
-    frozen = json.loads(sums.read_text()).get(index.name) if sums.exists() else None
+    frozen = {}
+    for name in ("data_checksums.json", "sensitivity_checksums.json"):
+        if (CONFIG / name).exists():
+            frozen.update(json.loads((CONFIG / name).read_text()))
+    frozen = frozen.get(index.name)
     facts = pg.Facts(
         commit_subjects=tuple(git("log", "--format=%s").splitlines()),
         dirty_paths=tuple(ln[3:] for ln in git("status", "--porcelain", "--", "layers/L3a_forecasting").splitlines()),
@@ -200,24 +203,29 @@ def main() -> int:
             for r in csv.DictReader(fh):
                 if runnable(r["model"], r["variety"], int(r["horizon"]), chosen) == r["config"]:
                     calibration.setdefault((r["variety"], int(r["horizon"]), r["model"]), []).append(abs(float(r["forecast"]) - float(r["actual"])))
+        if a.stage == "sensitivity":
+            calibration = None  # conformal widths come from the primary index only; sensitivity runs report point accuracy and native ranges
     unknown = [m for m in families if m not in models and m not in TUNED]
     if unknown:
         print(f"REFUSED: models without an adapter: {unknown}", file=sys.stderr)
         return 2
     res = run_stage(load_index(index), a.stage, families, horizons, None if a.workers > 1 else models, grids.get("smallest_detectable_gain"), chosen=chosen, calibration=calibration, workers=a.workers)
     OUT.mkdir(parents=True, exist_ok=True)
-    write_csv(OUT / f"{a.stage}_forecasts.csv", res["forecasts"])
-    write_csv(OUT / f"{a.stage}_metrics.csv", res["metrics"])
-    write_csv(OUT / f"{a.stage}_ranges.csv", res["ranges"])
+    tag = a.stage if a.stage != "sensitivity" else f"sensitivity_{a.variant}"
+    write_csv(OUT / f"{tag}_forecasts.csv", res["forecasts"])
+    write_csv(OUT / f"{tag}_metrics.csv", res["metrics"])
+    write_csv(OUT / f"{tag}_ranges.csv", res["ranges"])
     if a.stage == "test":
         write_csv(OUT / "test_season_results.csv", res["metrics"])
         write_csv(OUT / "test_season_inference.csv", res["inference"])
-    (OUT / f"{a.stage}_run.json").write_text(json.dumps({
+    if a.stage == "sensitivity":
+        write_csv(OUT / f"{tag}_inference.csv", res["inference"])
+    (OUT / f"{tag}_run.json").write_text(json.dumps({
         "stage": a.stage, "variant": a.variant, "season": STAGE_SEASON[a.stage], "commit": git("rev-parse", "HEAD").strip(),
         "index_sha256": facts.data_sha256, "models": families, "horizons": horizons, "python": sys.version.split()[0],
         "run_at": datetime.now(UTC).isoformat(timespec="seconds"), "pairs": len(res["forecasts"]),
     }, indent=2) + "\n")
-    print(f"{a.stage}: {len(res['forecasts'])} forecast rows, {len(res['metrics'])} metric rows written to {OUT}")
+    print(f"{tag}: {len(res['forecasts'])} forecast rows, {len(res['metrics'])} metric rows written to {OUT}")
     return 0
 
 

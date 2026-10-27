@@ -1,0 +1,14 @@
+{
+  "comparisons": 42,
+  "metric_rows": 78,
+  "max_abs_difference": {
+    "mae": 8.526512829121202e-14,
+    "dm": 1.509903313490213e-14,
+    "p_raw": 9.103828801926284e-15,
+    "p_holm": 9.43689570931383e-16,
+    "rel": 4.2674197509029455e-16,
+    "ci": 0.05049327017446589
+  },
+  "better_by_independent_rule": 0,
+  "agrees": true
+}
