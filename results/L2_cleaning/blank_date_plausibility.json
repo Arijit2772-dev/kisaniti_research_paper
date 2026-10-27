@@ -1,0 +1,13 @@
+{
+  "pairs_adjacent_day_control": 211,
+  "pairs_same_day_one_inferred": 486,
+  "ratio_median_adjacent_day_control": 1.167,
+  "ratio_median_one_inferred": 1.177,
+  "ratio_iqr_adjacent_day_control": 0.166,
+  "ratio_iqr_one_inferred": 0.145,
+  "ks_statistic": 0.136,
+  "ks_p": 0.008,
+  "inferred_rows": 519,
+  "inferred_rows_on_a_key_with_another_row": 2,
+  "note": "plausibility only; the hand check against the portal (B.2) is still the test of the rule"
+}

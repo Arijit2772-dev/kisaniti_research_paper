@@ -17,4 +17,5 @@ C14,The plan validator agrees with a second rule-based checker on every random e
 C15,"60 plans, all valid, exact solves proven optimal",paper 4.3,VERIFIED,"60 plans, all valid: True; exact solves proven optimal: 240 of 240"
 C17,The KisanNiti plan is valid in every transport-rate and limit setting,paper 4.3,VERIFIED,"9 settings, KisanNiti plans valid in all: True"
 C19,In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days,paper 4.2,VERIFIED,"lowest MAE at 7 and 14 days (1509, 2026-27 partial): {7: 'naive', 14: 'naive'}"
+C20,Every plan a solver returned in the scaling grid was valid; HiGHS and SCIP proved optimality up to 100 farmers,paper 4.3,VERIFIED,"51 returned plans, all valid: True; HiGHS and SCIP proven optimal up to 100 farmers: True"
 C16,Every bibliography DOI resolves to a record with the same title,paper references,VERIFIED,38 of 61 entries match their DOI record; unresolved: []; no DOI (manual): 18

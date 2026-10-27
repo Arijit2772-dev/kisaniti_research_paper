@@ -147,6 +147,14 @@ def prospective_naive() -> Result:
     return ("VERIFIED" if set(lowest.model) == {"naive"} else "FAILED", f"lowest MAE at 7 and 14 days (1509, 2026-27 partial): {dict(zip(lowest.horizon, lowest.model, strict=True))}")
 
 
+def scaling_valid() -> Result:
+    d = pd.read_csv(ROOT / "results/L3d_allocation/allocation_scaling.csv")
+    returned = d[d.status != "NOT_APPLICABLE/NONE"]
+    ok = bool(returned.valid.all()) and len(returned) > 40
+    proven = d[(d.solver.isin(["highs", "scip"])) & (d.farmers <= 100)].status.str.endswith("PROVEN_OPTIMAL").all()
+    return ("VERIFIED" if ok and proven else "FAILED", f"{len(returned)} returned plans, all valid: {ok}; HiGHS and SCIP proven optimal up to 100 farmers: {bool(proven)}")
+
+
 def references_exist() -> Result:
     rows = list(csv.DictReader((ROOT / "literature/crossref_check.csv").open()))
     bad = [r["key"] for r in rows if r["status"].startswith(("DOI_NOT_FOUND", "CANNOT_CHECK"))]
@@ -173,6 +181,7 @@ CLAIMS = [
     ("C15", "60 plans, all valid, exact solves proven optimal", "paper 4.3", policy_run),
     ("C17", "The KisanNiti plan is valid in every transport-rate and limit setting", "paper 4.3", sensitivity_valid),
     ("C19", "In the partial 2026-27 season the naive value has the lowest MAE for Basmati 1509 at 7 and 14 days", "paper 4.2", prospective_naive),
+    ("C20", "Every plan a solver returned in the scaling grid was valid; HiGHS and SCIP proved optimality up to 100 farmers", "paper 4.3", scaling_valid),
     ("C16", "Every bibliography DOI resolves to a record with the same title", "paper references", references_exist),
 ]
 

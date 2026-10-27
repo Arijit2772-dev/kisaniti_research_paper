@@ -238,6 +238,15 @@ def prospective_results() -> dict[str, str]:
     return out
 
 
+def blank_date_plausibility() -> dict[str, str]:
+    """B.2c: do rows with an inferred date behave like own-dated rows? (plausibility only; not the hand check)"""
+    d = _json(RESULTS / "L2_cleaning" / "blank_date_plausibility.json")
+    return {"bd_pairs": str(d["pairs_same_day_one_inferred"]), "bd_control": str(d["pairs_adjacent_day_control"]),
+            "bd_ratio_inf": f"{d['ratio_median_one_inferred']:.2f}", "bd_ratio_ctl": f"{d['ratio_median_adjacent_day_control']:.2f}",
+            "bd_iqr_inf": f"{d['ratio_iqr_one_inferred']:.2f}", "bd_iqr_ctl": f"{d['ratio_iqr_adjacent_day_control']:.2f}",
+            "bd_rows": str(d["inferred_rows"]), "bd_dups": str(d["inferred_rows_on_a_key_with_another_row"])}
+
+
 LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("R0 reproduction of v2", r0_reproduction),
     ("3.6 / 4.4 allocation: solver against brute force", allocation_oracle),
@@ -249,6 +258,7 @@ LOADERS: list[tuple[str, Callable[[], dict[str, str]]]] = [
     ("3 / 4.5 the built system", system_evidence),
     ("3.1 basmati data and cleaning", data_cleaning),
     ("3.1 outlier screens and the index", cleaning_screens),
+    ("3.1 blank-date plausibility", blank_date_plausibility),
     ("3.3 pairs per horizon (C.0, dates only)", protocol_pairs),
     ("4.2 pre-registered forecasting results", forecast_test_results),
     ("4.2 prospective check 2026-27 (partial)", prospective_results),

@@ -105,3 +105,6 @@ First checked by the hardware session (layers/L3b_storage_iot/README.md, "Refere
 | sht3x | Sensirion PDF, December 2022 – Version 7 | SHT30 ±2 %RH, ±0.2 °C typical; command 0x2400 | ±2 %RH holds only in the mid range (±3–4 %RH near 90–100 %RH, Fig. 2); 0x24/0x00 = high repeatability, no clock stretching | OK; say "typical, mid-range" in the paper |
 
 Still missing (hardware session): a direct IMD 1991–2020 climate-normals citation for Patiala.
+
+## 28 Oct 2026: imd2022
+Opened the PDF (30 MB, 844 pages, "Ninth Edition (2022)"). The Patiala (42101) table is on PDF pages 635-636; the twelve monthly mean relative humidity values at 17:30 IST (70, 62, 53, 33, 32, 46, 69, 75, 71, 59, 59, 69) equal the values used in layers/L3b_storage_iot/scenarios.py. Entry added to paper/template/references.bib.

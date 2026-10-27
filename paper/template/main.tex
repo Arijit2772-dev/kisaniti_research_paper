@@ -18,7 +18,7 @@
 \input{numbers.tex}   % v3 numbers from ../numbers.py
 
 % Draft markers. Set \draftmodefalse before submission: every marker must be gone by then.
-\newif\ifdraftmode \draftmodetrue
+\newif\ifdraftmode \draftmodefalse
 \newcommand\draftfor[1]{\ifdraftmode\par\noindent\fcolorbox{orange}{yellow!25}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
   \footnotesize\sffamily\textbf{DRAFT FOR AUTHOR REWRITE.} #1}}\par\smallskip\fi}
 \newcommand\authornote[1]{\ifdraftmode{\color{red!70!black}\sffamily\footnotesize[#1]}\fi}

@@ -1,0 +1,34 @@
+% Section 4.4 -- storage rule on simulated scenarios (condensed 28 Oct 2026).
+\subsection{Storage Rule on Simulated Scenarios}
+\label{sec:results-storage}
+
+The node has not run in real grain, so the rule was tested on simulated streams for basmati paddy stored near Patiala.
+Air temperature and humidity follow the monthly means of the IMD station at Patiala for 1991--2020~\cite{imd2022} (08:30 and
+17:30 IST for humidity); shed air is assumed equal to outdoor air, grain temperature follows it with a 2-day lag and water
+activity drifts slowly towards the shed's daily mean humidity. These assumptions are listed in the repository. The
+\kn{stor_scenarios} scenarios cover dry grain held from November to February, a monsoon hold, a lot probed straight after
+harvest and sun-dried on day 8, the monsoon with Wi-Fi and power outages, a probe hanging in shed air, and grain at
+$a_w\approx0.65$; each ran with \kn{stor_seeds} noise seeds and with sensor biases of $\pm2$\,\%RH. STORAGE-DEMO-0.1 was compared
+with three simpler rules (latest reading only, shed-air humidity, temperature alone), each scored against the category that the
+rule's definition gives for the noise-free grain at the same hour. This measures how far noise, outages and shortcuts move a
+rule from its definition; it does not show that the definition predicts spoilage.
+
+Without bias, STORAGE-DEMO-0.1 agreed with the intended category in \kn{stor_s3_demo_agree}--\kn{stor_s2_demo_agree}\,\% of known
+hours in the four in-grain scenarios and changed category at most \kn{stor_demo_flips_max} times a week. The latest-reading rule
+agreed about as often but changed \kn{stor_instant_flips_min}--\kn{stor_instant_flips_max} times a week, and shed-air humidity was a poor
+stand-in for the grain (agreement \kn{stor_shed_agree_min}--\kn{stor_shed_agree_max}\,\%). Temperature alone gave no HIGH hour in the winter
+hold, when moisture rather than heat was the problem. The costs are delay and unknowns: the 24-hour median reported HIGH about
+\kn{stor_s2_demo_highdelay}\,h after the intended category, the first day after insertion is UNKNOWN, and with the outages the
+rule was UNKNOWN for \kn{stor_s4_demo_unknown}\,\% of the hours against \kn{stor_s4_instant_unknown}\,\% for the latest-reading
+rule. A sensor error of $\pm2$\,\%RH mattered about as much as the choice of rule: with $+2$\,\%RH up to
+\kn{stor_demo_falsehigh_biasplus_max}\,\% of hours were a false HIGH and with $-2$\,\%RH up to \kn{stor_demo_missedhigh_biasminus_max}\,\%
+a missed HIGH, so a salt calibration~\cite{greenspan1977} is required before real readings are interpreted.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\textwidth]{fig_storage_scenarios.pdf}
+  \caption{Simulated storage scenarios (seed 0): probe and shed humidity with the 65 and 70\,\% limits, and the category per
+  hour for the intended definition, STORAGE-DEMO-0.1 and three simpler rules. (a) Monsoon hold; (b) fresh lot, sun-dried on day
+  8; (c) monsoon with outages (grey); (d) probe in shed air. Simulated data; categories describe conditions, not spoilage.}
+  \label{fig:storage}
+\end{figure}

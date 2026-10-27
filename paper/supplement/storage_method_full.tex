@@ -1,0 +1,32 @@
+% Section 3.4 -- storage sensing and risk rule (condensed 28 Oct 2026; full description in firmware/ and layers/L3b_storage_iot/).
+\subsection{Storage Sensing and Risk Rule}
+\label{sec:method-storage}
+
+Basmati paddy is stored on the farm in jute bags, often for months. One protected SHT30 temperature and humidity probe
+(typical tolerance $\pm2$\,\%RH between 20 and 80\,\%RH~\cite{sht3x}) is placed inside a bag and read every five minutes by an
+ESP32 board~\cite{esp32} outside it (Fig.~\ref{fig:hardware}). The firmware checks the sensor's CRC, never sends a failed read
+as zero, and numbers every message so that a repeated delivery is recognised. Messages travel over the farm's phone
+hotspot by MQTT with TLS and a separate password and topic permission per device; a reading stays in a 288-sample (24\,h)
+buffer until the server confirms that it has stored it, once per (device, boot, sequence). The same firmware runs in the
+Wokwi simulator~\cite{wokwi}; readings from that twin are labelled synthetic.
+
+Grain exchanges moisture with the air between its kernels until the two balance, and that air's relative humidity divided
+by 100 is its water activity $a_w$. Storage fungi need at least 65\,\% relative humidity~\cite{gwinner1996}, and grain
+kept below 65 to 70\,\% degrades slowly~\cite{delucia1994}. The rule takes the median humidity and temperature of the last
+24\,h and returns LOW for $a_w<0.65$, MEDIUM for $0.65\le a_w<0.70$ and HIGH for $a_w\ge0.70$. The level rises as soon as the
+median crosses a limit and falls only after it has stayed 2 points below the limit for 48\,h. Cold grain
+($<10\,^\circ$C) moves one level down; warm, damp grain ($\ge25\,^\circ$C, $a_w\ge0.60$) moves from LOW to MEDIUM. The rule returns
+UNKNOWN, with reasons, when the probe is registered as hanging in shed air, in the first 6\,h after insertion, when the newest
+reading is older than 15 minutes, or when fewer than 75\,\% of the expected readings are usable. It does not report moisture
+content and does not detect spoilage; it says whether the air in one bag favours mould and insects. The 6-hour settling
+time and the 2-point margin are desk-research assumptions.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig3_hardware.pdf}
+  \caption{Storage node and data path. An SHT30 probe in a bag of basmati paddy is read every 5 minutes by an ESP32 (1);
+  readings travel by MQTT with TLS (2); the server validates them, stores each once and applies the storage rule (3), whose
+  category feeds the planner (4). The Wokwi twin runs the same firmware. Dashed grey parts are not built. $a_w$: water
+  activity.}
+  \label{fig:hardware}
+\end{figure}

@@ -1,67 +1,13 @@
-% Section 3.4 -- Storage sensing and the storage-condition rule (phase R5, M5 hardware session).
-% Draft written by Claude from the built code and the results in results/L3b_storage/.
-% An author must rewrite it in their own words (paper/WRITING_GUIDE.md, section 4).
+% Section 3.4 -- storage sensing and risk rule (short form; the full description, scenarios and figures are in the repository:
+% firmware/, layers/L3b_storage_iot/, paper/sections/_supplement_storage.tex).
 \subsection{Storage Sensing and Risk Rule}
 \label{sec:method-storage}
 
-\draftfor{Claude draft, 22 Oct 2026. Rewrite in the authors' words. The node in Fig.~\ref{fig:hardware} is not
-assembled yet (kit not bought); everything marked built has been compiled and tested, and the rule has been run
-only on simulated readings (Sect.~\ref{sec:results-storage}).}
-
-Basmati paddy is stored on the farm in jute bags until it is sold, often for months. To give the selling plan a
-signal about storage conditions, we place one probe inside a bag and read the air between the kernels.
-Figure~\ref{fig:hardware} shows the path from that probe to the planner.
-
-\paragraph{Node.} The probe is a protected SHT30 humidity and temperature sensor. Its typical tolerance is
-$\pm2$\,\%RH between 20 and 80\,\%RH, widening to $\pm3$--4\,\%RH near the ends of the range, and
-$\pm0.2$\,$^\circ$C from 0 to 65\,$^\circ$C~\cite{sht3x}; the limits used below (65 and 70\,\%RH) lie in the
-$\pm2$\,\%RH band. It is connected over I$^2$C (GPIO~21 and 22, 4.7\,k$\Omega$
-pull-ups) to an ESP32-WROOM-32 board~\cite{esp32} that stays outside the bag. Every 5 minutes the firmware takes one
-single-shot, high-repeatability reading and checks the CRC byte that the sensor sends with each value. A failed read
-is sent as an empty value with its error code, never as zero. Each message carries the device identifier, a random
-boot identifier and a sequence number; together these identify a reading uniquely, so a repeated delivery can be
-recognised. Readings taken before the clock is synchronised get their time later from the board's uptime, or stay
-without a time.
-
-\paragraph{Transport and storage.} The node sends JSON messages over the farm's phone hotspot to an MQTT broker on
-the FPO's laptop, using TLS with a separate password and topic permission for each device. A reading stays in a
-288-sample buffer in the board's memory (24\,h) until the server reports that it has stored it; a broker
-acknowledgement alone is not enough. The server checks each message against a JSON schema, stores it once per
-(device, boot, sequence) and then sends the acknowledgement. The buffer is in RAM, so a power cut loses the readings
-that were not yet sent. The same firmware runs in the Wokwi simulator~\cite{wokwi}; Wokwi has no SHT3x part, so we
-wrote a small custom chip that answers the sensor's I$^2$C commands with the same CRC, which lets anyone run the node
-without hardware. Readings from this twin are labelled synthetic.
-
-\paragraph{Storage rule (STORAGE-DEMO-0.1).} Grain exchanges moisture with the air between its kernels until the
-two are in equilibrium; that air's relative humidity divided by 100 is the grain's water activity $a_w$. The storage
-limits in the literature are stated on this scale: storage fungi need a relative humidity of at least 65\,\% and grow
-between about 10 and 40\,$^\circ$C~\cite{gwinner1996}, and grain kept in equilibrium with air below 65--70\,\% RH
-degrades slowly~\cite{delucia1994}. The rule therefore takes the median
-relative humidity and temperature of the last 24\,h and assigns LOW for $a_w<0.65$, MEDIUM for $0.65\le a_w<0.70$ and
-HIGH for $a_w\ge0.70$. The level rises as soon as the median crosses a limit, but falls only after the median has
-stayed at least 2 points below the limit for 48\,h, so that a reading near 65\,\% does not switch back and forth. Grain
-below 10\,$^\circ$C is moved one level down; grain at 25\,$^\circ$C or warmer with $a_w\ge0.60$ is moved from LOW to
-MEDIUM. A separate note says whether the temperature favours insects ($\ge25$\,$^\circ$C), slows them (15--25) or
-stops most activity ($<15$); it does not change the level.
-
-The rule returns UNKNOWN, with the reasons, when the probe is registered as hanging in shed air, during the first 6\,h
-after the probe is pushed into a bag, when the newest usable reading is older than 15 minutes, or when fewer than
-75\,\% of the expected readings of the last 24\,h are usable. The same thresholds apply to basmati paddy and to wheat,
-because they are limits on water activity rather than on a crop's moisture content. The rule does not report moisture
-content, which would need sorption-isotherm constants that we could not verify, and it does not detect spoilage. It
-says whether the air in one bag favours mould and insects. The rule is part of the shared core package that the
-product also uses, and is covered by unit, boundary and property tests.
-
-\authornote{Settling time (6\,h) and the 2-point margin are desk-research assumptions. Replace them with the bench
-values from \texttt{firmware/BUILD\_GUIDE.md} (H4) once measured, and cite the result.}
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\textwidth]{fig3_hardware.pdf}
-  \caption{Storage node and data path. An SHT30 probe in a bag of basmati paddy is read every 5 minutes by an ESP32
-  (1); readings travel over the hotspot by MQTT with TLS (2); the server validates them, stores each reading once and
-  applies the storage rule STORAGE-DEMO-0.1 (3), whose category feeds the planner and the screens (4). The Wokwi twin
-  runs the same firmware against an emulated sensor. Dashed grey parts are not yet built. I$^2$C: inter-integrated
-  circuit bus; TLS: transport layer security; ACL: access-control list; $a_w$: water activity.}
-  \label{fig:hardware}
-\end{figure}
+One protected SHT30 temperature and humidity probe (SHT30) is placed in a bag of grain and read every five minutes by an ESP32
+board; readings are sent by MQTT with TLS, kept in a 24-hour buffer until the server confirms it has stored each one
+once, and assessed hourly. Grain balances its moisture with the air between the kernels, and that air's relative humidity divided by
+100 is its water activity $a_w$. Storage fungi need at least 65\,\% relative humidity~\cite{gwinner1996}, and grain below 65 to 70\,\% degrades slowly~\cite{delucia1994}. The rule takes the median
+humidity and temperature of the last 24\,h and returns LOW for $a_w<0.65$, MEDIUM for $0.65\le a_w<0.70$ and HIGH from $0.70$; the
+level rises at once but falls only after 48\,h at least 2 points below the limit; it returns UNKNOWN, with reasons, when the probe
+hangs in shed air, in the first 6\,h, or when readings are old or missing. It says whether the air in a bag favours mould and insects;
+it does not measure moisture content or detect spoilage.
