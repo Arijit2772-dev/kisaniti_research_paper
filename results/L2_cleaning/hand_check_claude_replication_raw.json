@@ -1,0 +1,314 @@
+{
+ "HC01": {
+  "web": [
+   "2021-10-31",
+   1,
+   700,
+   900,
+   800
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC02": {
+  "web": [
+   "2021-10-30",
+   52,
+   2990,
+   0,
+   3410
+  ],
+  "merged": "no",
+  "agrees": "no",
+  "notes": "Web shows maximum price 0.00; the file has no maximum (zero treated as not reported and flagged). Date, arrivals, minimum and modal agree."
+ },
+ "HC03": {
+  "web": [
+   "2021-10-19",
+   4.5,
+   2700,
+   3000,
+   2900
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC04": {
+  "web": [
+   "2021-10-25",
+   850,
+   2725,
+   3240,
+   3025
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under 25/10/2021 (merged date cell) with the same prices. Web shows arrivals 850 for each of the two varieties; the exported file holds the date total 1700 on the first row only, so arrivals differ in display."
+ },
+ "HC05": {
+  "web": [
+   "2021-10-22",
+   193,
+   2700,
+   2970,
+   2850
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC06": {
+  "web": [
+   "2021-11-25",
+   1690,
+   3525,
+   3880,
+   3700
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC07": {
+  "web": [
+   "2021-11-05",
+   50,
+   2700,
+   3100,
+   3000
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows; the file holds the date total. (web 50 per row, file 100)"
+ },
+ "HC08": {
+  "web": [
+   "2021-11-29",
+   428.1,
+   3500,
+   4000,
+   3750
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows; the file holds the date total. (web 428.1 per row, file 856.2)"
+ },
+ "HC09": {
+  "web": [
+   "2021-12-07",
+   298.5,
+   3400,
+   4000,
+   3700
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows (298.5 per row); the file holds the date total 597."
+ },
+ "HC10": {
+  "web": [
+   "2022-01-21",
+   8,
+   5500,
+   6500,
+   6000
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC11": {
+  "web": [
+   "2022-09-25",
+   182,
+   2800,
+   0,
+   3100
+  ],
+  "merged": "no",
+  "agrees": "no",
+  "notes": "Web shows maximum price 0.00; the file has no maximum (zero treated as not reported and flagged). Date, arrivals, minimum and modal agree."
+ },
+ "HC12": {
+  "web": [
+   "2022-10-05",
+   10,
+   2060,
+   2060,
+   2060
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC13": {
+  "web": [
+   "2022-10-14",
+   1725,
+   2060,
+   2060,
+   2060
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC14": {
+  "web": [
+   "2022-10-17",
+   30.5,
+   3200,
+   3450,
+   3300
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC15": {
+  "web": [
+   "2022-10-19",
+   800,
+   3280,
+   3810,
+   3560
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's three variety rows; the file holds the date total (2400 = 3 x 800)."
+ },
+ "HC16": {
+  "web": [
+   "2022-10-29",
+   782,
+   3160,
+   3900,
+   3490
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's three variety rows; the file holds the date total (2346 = 3 x 782)."
+ },
+ "HC17": {
+  "web": [
+   "2022-11-05",
+   201,
+   2016,
+   2016,
+   2016
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC18": {
+  "web": [
+   "2022-11-17",
+   100,
+   3390,
+   4325,
+   3870
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's three variety rows; the file holds the date total (300 = 3 x 100)."
+ },
+ "HC19": {
+  "web": [
+   "2022-11-23",
+   200,
+   3500,
+   3990,
+   3790
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's three variety rows; the file holds the date total (600 = 3 x 200)."
+ },
+ "HC20": {
+  "web": [
+   "2022-12-03",
+   185.4,
+   3600,
+   4090,
+   3880
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC21": {
+  "web": [
+   "2023-09-16",
+   188,
+   3400,
+   3650,
+   3540
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC22": {
+  "web": [
+   "2023-09-25",
+   23,
+   3425,
+   3675,
+   3530
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC23": {
+  "web": [
+   "2023-10-17",
+   14.5,
+   3900,
+   3900,
+   3900
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows; the file holds the date total (29 = 2 x 14.5)."
+ },
+ "HC24": {
+  "web": [
+   "2023-10-24",
+   150,
+   2970,
+   3940,
+   3640
+  ],
+  "merged": "no",
+  "agrees": "yes",
+  "notes": ""
+ },
+ "HC25": {
+  "web": [
+   "2023-10-27",
+   285,
+   3000,
+   3650,
+   3300
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows; the file holds the date total (570 = 2 x 285)."
+ },
+ "HC26": {
+  "web": [
+   "2023-11-14",
+   350,
+   3000,
+   3800,
+   3600
+  ],
+  "merged": "yes",
+  "agrees": "no",
+  "notes": "Shown as a continuation row under the same date (merged date cell) with the same prices. Web shows arrivals split equally between the date's variety rows; the file holds the date total (700 = 2 x 350)."
+ }
+}
