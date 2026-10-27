@@ -52,12 +52,10 @@ with the market (Sect.~\ref{sec:results-basmati}).
 \subsection{Basmati Paddy: the Pre-Registered Forecast Comparison}
 \label{sec:results-basmati}
 
-\draftfor{The comparison of Sect.~\ref{sec:method-forecast} has \textbf{not been run}. The protocol is a
-draft until the authors approve it and the hand check has fixed the primary index variant; running any
-model on these prices before that would break the pre-registration. This subsection therefore reports
-only what does not depend on forecast error: the data and the number of forecast pairs. The results
-table is generated from \texttt{results/C0\_protocol/test\_season\_results.csv} and stays empty
-(\texttt{??key??}) until that file exists.}
+\draftfor{The comparison was run once on the held-out season after the protocol and the configuration were frozen
+(commits \texttt{C.0 freeze} and \texttt{C.0 configuration freeze} in the project repository). The primary index is the
+dated-only variant; the hand check of the blank-date rule is still open and cannot change the primary result.
+Everything below is read from \texttt{results/C0\_protocol/} by script.}
 
 How much the cleaning rule matters was measured before any forecast was run. Four outlier screens (a past-only
 median-absolute-deviation rule with $k=3$ and $k=5$, a Hampel filter, and an interquartile-range rule) flag between
@@ -174,10 +172,30 @@ reportable outcome.
   \end{tabular}
 \end{table}
 
-\draftfor{Text for this subsection is written only after the single test-season run, from the tables above: which methods
-were distinguishable from the naive value at which horizon, how the ranges covered (Sect.~\ref{sec:method-forecast}), and the
-prospective 2026--27 check reported separately and labelled partial. If no method is distinguishable from the naive
-forecast, the paper says so; the protocol names that a valid outcome.}
+Under the pre-registered rule, none of the \kn{inf_total} comparisons found a method better than the naive value
+(\kn{inf_better} better). The largest raw improvement was that of the GRU at one day for 1121, a change in MAE of
+\kn{inf_1121_1_gru_rel}\% (Rs~\kn{fc_1121_1_gru_mae} against Rs~\kn{fc_1121_1_naive_mae}). Its bootstrap interval excluded zero,
+but the Holm-adjusted $p$ was \kn{inf_1121_1_gru_p}, so the rule does not call it better. The only methods that differed
+significantly from the naive value were worse: the seasonal naive forecast, which repeats the previous season's level,
+was significantly worse in \kn{inf_worse_sig} comparisons (for example Basmati 1509 at one day, a change of
+\kn{inf_1509_1_seasonal_naive_rel}\%, adjusted $p$ \kn{inf_1509_1_seasonal_naive_p}), because the price level of one
+season says little about the next. For prices that move this little from one index day to the next, the naive value is
+therefore a strong forecast, and the promotion rule keeps it: the product uses the naive value with ranges and states that
+the baseline is enough.
+
+The secondary and descriptive horizons point the other way, and are reported without a test. At 28 days the GRU and
+LightGBM had a lower MAE than the naive value for 1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against
+Rs~\kn{fc_1121_28_naive_mae} for the naive value), and the validation season showed the same pattern. Both models use the
+day of the season as a feature, so they may be learning where in the season prices tend to move; this is a hypothesis for the
+next season, not a finding of this study. Basmati 1509 at 60 days had too few training pairs for either model.
+
+Prediction ranges at 80\% and 95\% were assessed at the three primary horizons. The ranges that the models produce
+themselves (ETS, ARIMA, LightGBM quantiles and Chronos-2) were calibrated in \kn{rng_native_calibrated} of
+\kn{rng_native_total} cases, too wide in \kn{rng_native_over} and too narrow in \kn{rng_native_under}. The split-conformal
+ranges, which take their width from the residuals of the single validation season, were calibrated in only
+\kn{rng_conf_calibrated} of \kn{rng_conf_total} cases and too wide in \kn{rng_conf_over}: the validation season was more
+volatile than the test season, and one season is too little to calibrate a range. Coverage claims need at least 40 test pairs;
+Basmati 1509 at 28 days has fewer (Table~\ref{tab:pairs}) and none is made.
 
 \subsection{Allocation: Fair Plans Against Simple Rules}
 \label{sec:results-alloc}

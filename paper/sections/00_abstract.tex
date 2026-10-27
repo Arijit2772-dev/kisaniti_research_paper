@@ -1,8 +1,6 @@
 % Abstract and keywords. Every number is a \kn{} macro; the forecasting result is added only after the pre-registered run.
 \begin{abstract}
-\draftfor{Drafted by Claude from verified results only. The sentence on the basmati forecast comparison is a
-marker: it is replaced by the result of the single pre-registered test-season run, whatever that result is.
-The authors rewrite the abstract in their own words.}
+\draftfor{Drafted by Claude from verified results only; the authors rewrite the abstract in their own words.}
 A Farmer Producer Organization (FPO) has to decide where, when and how much of its members' produce is sold,
 and the tools that exist treat forecasting, storage and logistics separately. KisanNiti connects them in five
 stages that an FPO manager follows: collecting and cleaning prices and farmer records, proposing a selling
@@ -11,7 +9,8 @@ separates price-bound from market crops. For Paddy (Common) in Punjab, at least 
 prices in every season from \kn{season_first} to \kn{season_last} equal the minimum support price, and a rule that
 predicts the support price had the lowest error (Rs~\kn{mae_msp_mean} per quintal); no learned model beat it.
 For basmati, whose prices move, a forecast comparison of eight methods was fixed in a pre-registered protocol
-before any test result existed. \textbf{[Result of the held-out season to be inserted.]}
+before any test result existed. On the held-out season, none of \kn{inf_total} comparisons with the naive forecast at 1, 7 and 14 days
+found a method better after correcting for multiple comparisons; the one clearly different method, a seasonal naive rule, was worse.
 An exact fair-allocation model shares each mandi's daily limit among members: in \kn{allpol_plans} synthetic
 plans at real prices, every plan was valid and the smallest share a farmer received rose from
 \kn{allpol_p1_nearest_min_fulfilment_pct}\% under the nearest-mandi rule to \kn{allpol_kisaniti_min_fulfilment_pct}\%, at a cost of

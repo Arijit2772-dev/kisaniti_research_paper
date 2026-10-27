@@ -95,8 +95,18 @@ def protocol_pair_counts() -> Result:
 
 
 def forecasts_run() -> Result:
-    p = ROOT / "results" / "C0_protocol" / "test_season_results.csv"
-    return ("VERIFIED" if p.exists() else "PENDING_RUN", "no model comparison has been run on the price index; the protocol is a draft")
+    p = ROOT / "results" / "C0_protocol" / "test_season_inference.csv"
+    if not p.exists():
+        return ("PENDING_RUN", "the test season has not been run")
+    d = pd.read_csv(p)
+    better = d[d.verdict == "BETTER"]
+    return ("VERIFIED" if len(better) == 0 and len(d) == 42 else "FAILED", f"{len(d)} comparisons with naive at 1, 7, 14 days; {len(better)} judged better by the pre-registered rule")
+
+
+def only_seasonal_naive_worse() -> Result:
+    d = pd.read_csv(ROOT / "results" / "C0_protocol" / "test_season_inference.csv")
+    worse = d[(d.p_holm < 0.05) & (d.relative_change > 0)]
+    return ("VERIFIED" if len(worse) == 3 and set(worse.model) == {"seasonal_naive"} else "FAILED", f"significantly worse than naive: {sorted(zip(worse.variety, worse.horizon, worse.model, strict=True))}")
 
 
 def oracle_agreement() -> Result:
@@ -149,7 +159,8 @@ CLAIMS = [
     ("C09", "Smallest detectable gain is 11-13% (1121) and 12-17% (1509)", "protocol 8", power_gain),
     ("C10", "Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)", "THE_ONE_PAPER 1", basmati_movement),
     ("C11", "At least 60 test-season pairs per variety at every primary horizon", "protocol 4", protocol_pair_counts),
-    ("C12", "A forecasting model beats naive on basmati", "future paper claim", forecasts_run),
+    ("C12", "No forecasting model beats the naive value on basmati under the pre-registered rule (42 comparisons)", "paper 4.2", forecasts_run),
+    ("C18", "The only methods significantly different from naive are worse, and all are seasonal naive", "paper 4.2", only_seasonal_naive_worse),
     ("C13", "The solver reaches the brute-force optimum on every random small instance", "paper 4.3", oracle_agreement),
     ("C14", "The plan validator agrees with a second rule-based checker on every random edit", "paper 4.4", validator_agreement),
     ("C15", "60 plans, all valid, exact solves proven optimal", "paper 4.3", policy_run),

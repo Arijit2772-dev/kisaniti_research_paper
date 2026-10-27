@@ -10,7 +10,8 @@ C08,The hand-check sheet has 56 rows,STATUS R3,VERIFIED,56 rows in the sheet (th
 C09,Smallest detectable gain is 11-13% (1121) and 12-17% (1509),protocol 8,VERIFIED,"detectable gains {'1121': [13.3, 10.8], 'Basmati 1509': [12.5, 17.2]} (exploratory run, protocol section 1)"
 C10,"Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)",THE_ONE_PAPER 1,FAILED,"1121 median daily change of the index 100.0; same-day gap across mandis median 950.0, mean 997, max 2750.0; the plan text says 50 and 1,468"
 C11,At least 60 test-season pairs per variety at every primary horizon,protocol 4,FAILED,"primary horizons under 60 test pairs after the eligibility rule: [('Basmati 1509', '7', '57'), ('Basmati 1509', '14', '51')]"
-C12,A forecasting model beats naive on basmati,future paper claim,PENDING_RUN,no model comparison has been run on the price index; the protocol is a draft
+C12,No forecasting model beats the naive value on basmati under the pre-registered rule (42 comparisons),paper 4.2,VERIFIED,"42 comparisons with naive at 1, 7, 14 days; 0 judged better by the pre-registered rule"
+C18,"The only methods significantly different from naive are worse, and all are seasonal naive",paper 4.2,VERIFIED,"significantly worse than naive: [('1121', 1, 'seasonal_naive'), ('Basmati 1509', 1, 'seasonal_naive'), ('Basmati 1509', 7, 'seasonal_naive')]"
 C13,The solver reaches the brute-force optimum on every random small instance,paper 4.3,VERIFIED,1728 of 1728 runs equal the brute-force optimum (324 instances)
 C14,The plan validator agrees with a second rule-based checker on every random edit,paper 4.4,VERIFIED,"4431 of 4431 edits get the same verdict (1052 valid, 3379 invalid)"
 C15,"60 plans, all valid, exact solves proven optimal",paper 4.3,VERIFIED,"60 plans, all valid: True; exact solves proven optimal: 240 of 240"

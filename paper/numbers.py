@@ -179,6 +179,16 @@ def forecast_test_results() -> dict[str, str]:
     for r in _csv(base / "test_ranges.csv"):
         k = f"rng_{code[r['variety']]}_{r['horizon']}_{r['model']}_{r['range_method']}_{r['level']}"
         out[f"{k}_cov"], out[f"{k}_width"] = f"{100 * float(r['coverage']):.0f}", f"{float(r['mean_width']):.0f}"
+    prim = [r for r in _csv(base / "test_ranges.csv") if r["horizon"] in ("1", "7", "14")]
+    for method, tag in (("native", "native"), ("conformal", "conf")):
+        sel = [r for r in prim if r["range_method"] == method]
+        out[f"rng_{tag}_total"] = str(len(sel))
+        out[f"rng_{tag}_calibrated"] = str(sum(r["calibrated"] == "True" for r in sel))
+        out[f"rng_{tag}_over"] = str(sum(float(r["coverage_ci_low"]) > int(r["level"]) / 100 for r in sel))  # interval wholly above nominal
+        out[f"rng_{tag}_under"] = str(sum(float(r["coverage_ci_high"]) < int(r["level"]) / 100 for r in sel))
+    inf = _csv(base / "test_season_inference.csv")
+    out["inf_total"], out["inf_better"] = str(len(inf)), str(sum(r["verdict"] == "BETTER" for r in inf))
+    out["inf_worse_sig"] = str(sum(float(r["p_holm"]) < 0.05 and float(r["relative_change"]) > 0 for r in inf))
     return out
 
 
