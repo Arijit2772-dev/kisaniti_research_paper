@@ -53,7 +53,18 @@ or the model's quantiles. Accuracy is the mean absolute error (MAE) in Rs per qu
 Diebold--Mariano test with the Harvey--Leybourne--Newbold correction, Holm-corrected over all 42 comparisons, with a block-bootstrap interval of
 the relative change in MAE. A model counts as better only if the adjusted $p<0.05$, the interval excludes zero and the gain exceeds the smallest
 the sample can detect (13.3\% for 1121, 17.2\% for 1509); otherwise the system keeps the naive value. The protocol and its choices were frozen before the run, the code is tested on synthetic series, and a gate in the runner refuses any run before
-the freeze, on changed code or data, or a second test run.
+the freeze, on changed code or data, or a second test run. Figure~\ref{fig:protocol} summarizes the protocol from the price files to the
+decision rule.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig_forecast_protocol.pdf}
+  \caption{Pre-registered basmati forecast comparison. AGMARKNET price files~\cite{agmarknet} are cleaned into a daily index (1); seasons
+  are split in time order and the 2025--26 season is held out and run once, after the protocol is frozen (2); eight methods forecast
+  1, 7 and 14 days ahead with 80\% and 95\% ranges (3); and a method replaces the naive forecast only if it passes every part of the
+  decision rule (4). HLN: Harvey--Leybourne--Newbold.}
+  \label{fig:protocol}
+\end{figure}
 
 \paragraph{Fair allocation.} A plan gives each lot a mandi, a day and a quantity, and each mandi has a daily limit shared by all
 members. An exact mixed-integer program with a fixed hierarchy allocates as much as possible, then maximizes the smallest share any

@@ -107,8 +107,8 @@ narrow in \kn{rng_native_under}. The split-conformal ranges, calibrated on the r
 \label{sec:results-alloc}
 
 Before any comparison, the solver was checked against a brute-force enumeration that shares only the input types and the exact
-objective with it. On \kn{alloc_oracle_instances} random small instances, three solver back ends (HiGHS, Solving Constraint Integer Programs (SCIP) and the
-CP-SAT solver of Google OR-Tools) and two leximin
+objective with it. On \kn{alloc_oracle_instances} random small instances, three solver back ends (HiGHS~\cite{highs}, the
+Solving Constraint Integer Programs (SCIP) solver and the CP-SAT solver of Google OR-Tools) and two leximin
 methods, \kn{alloc_oracle_agree} of \kn{alloc_oracle_cases} runs reached exactly the enumeration's complete objective. The method was then compared with simple rules on
 \kn{allpol_plans} weekly plans: ten draws of a synthetic 300-member FPO whose lots become ready over six weeks, scored at real 2025
 AGMARKNET prices~\cite{agmarknet} of Paddy (Common) and real mandi coordinates (road distance taken as 1.3 times the straight line), every plan re-checked by the independent validator. The rules are the nearest mandi, each farmer's independent best choice, a plan that maximizes only total net return (utilitarian) or
@@ -150,7 +150,19 @@ setting. The smallest share it secures rises with the limit, from \kn{alloc_sens
 no plan can sell more than the mandis can take; its gain over the nearest-mandi rule is Rs~\kn{alloc_sens_kis_gain_vs_p1_min} to
 Rs~\kn{alloc_sens_kis_gain_vs_p1_max} per quintal and its price of fairness Rs~\kn{alloc_sens_kis_pof_min} to Rs~\kn{alloc_sens_kis_pof_max}. The greedy
 heuristic gave up more than the exact plan in \kn{alloc_sens_greedy_costlier} of \kn{alloc_sens_settings} settings. The nearest-mandi rule left some
-farmer without any sale whenever the limit was 300 quintals or less.
+farmer without any sale whenever the limit was 300 quintals or less. Figure~\ref{fig:sensitivity} shows both effects: the smallest share
+of the exact plan rises with the limit and is independent of the rate, while the net return it gives up grows with the transport rate
+and stays below that of the greedy heuristic.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig_allocation_sensitivity.pdf}
+  \caption{Allocation under nine settings of transport rate and mandi-day limit, \kn{allpol_plans} synthetic plans each. (a) Smallest
+  share of a lot sold; it is the same for every transport rate. (b) Net return given up against the utilitarian plan (price of
+  fairness) by the exact KisanNiti plan (solid) and the greedy heuristic (dashed).}
+  \label{fig:sensitivity}
+\end{figure}
+
 Solve times were measured on random instances of 10 to 1,000 farmers (5 to 25 mandis, 3 to 14 days, a 60-second limit, three seeds each).
 HiGHS and SCIP proved optimality on every instance up to 100 farmers (median \kn{alloc_scaling_highs_100_median_s} and
 \kn{alloc_scaling_scip_100_median_s} seconds at 100) and reached the limit with a feasible plan at 300 and 1,000. CP-SAT proved optimality only
@@ -178,4 +190,14 @@ plan, edit, approval, messages, the manager's hand-over to WhatsApp, sales, rele
 independent recomputation, and stops at the first deviation; it passed all \kn{sys_chain_passed} steps in about \kn{sys_chain_seconds} seconds, and a
 corrupted ledger entry and planted errors (rounding down, a wrong weighted price, a message losing its last character) were each detected. All
 farmers, lots and sales in this run are fictional, and no message was sent to a real farmer. The English, Punjabi and Hindi message texts
-were checked by independent reviewers.
+were checked by independent reviewers. Figure~\ref{fig:app} shows three screens of the manager app after this run: the approved
+revision of a plan, the approved plan as a Punjabi message to one farmer, and the planned against the actual sale.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig_app_screens.pdf}
+  \caption{Manager app on a phone after the end-to-end run on a fictional FPO. (a) The manager's edit is stored as revision 2 and
+  approved. (b) The approved plan written in Punjabi for one farmer, built from a reviewed template. (c) The sale recorded from the
+  J-form, compared with the plan.}
+  \label{fig:app}
+\end{figure}

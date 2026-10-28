@@ -8,6 +8,9 @@ Writes paper/figures/fig3_hardware[_draft].{pdf,svg,png}.
 STATUS is the single place that says what exists (22 Oct 2026): firmware, Wokwi twin with the emulated SHT3x chip,
 TLS broker, ingestion and STORAGE-DEMO-0.1 are built and tested; the physical node is not assembled yet (kit not
 bought), and the dashboard, WhatsApp delivery and the storage input to the planner are not built.
+Update 28 Oct 2026: the planner uses the storage risk (a High-risk lot gets priority; plan "Why this plan" in the product
+chain run) and the manager app's Storage sensors page shows readings and placement, so both are now built. The
+physical node and storage advice on WhatsApp are still not built.
 """
 from __future__ import annotations
 
@@ -23,7 +26,7 @@ STATUS = {
     "probe": "planned", "esp32": "planned", "twin": "built",
     "hotspot": "planned", "broker": "built", "ack": "built",
     "validate": "built", "store": "built", "rule": "built",
-    "planner": "planned", "dashboard": "planned", "whatsapp": "planned",
+    "planner": "built", "dashboard": "built", "whatsapp": "planned",
 }
 W, H = 122.0, 66.0
 TOP, PH = 9.0, 55.0  # panel bottom and height (final mode has no draft key, so it drops the bottom band)
@@ -97,7 +100,7 @@ def main() -> None:
         y0 = TOP + PH - 12.0 - k * 14.0
         fl.arrow(ax, [(x3 + 4.4, y0 - 3.2), (x3 + 4.4, y0 - 14.0 + 3.3)], style.INK, dashed=False, lw=0.6,
                  head=1.2)
-    ax.text(x3 + 1.8, TOP + 3.4, "LOW / MEDIUM / HIGH /\nUNKNOWN, labelled\nexperimental", fontsize=6.3,
+    ax.text(x3 + 1.8, TOP + 3.4, "LOW / MEDIUM / HIGH /\nUNKNOWN with\nreasons", fontsize=6.3,
             color=style.MUTED, va="bottom", linespacing=1.05)
 
     # 4 Use -------------------------------------------------------------------

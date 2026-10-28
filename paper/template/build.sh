@@ -9,6 +9,9 @@ cd "$(dirname "$0")"
 python3 ../figures/src/fig1_architecture.py --final >/dev/null
 python3 ../figures/src/fig2_methodology.py --final >/dev/null
 python3 ../figures/src/fig3_hardware.py --final >/dev/null
+python3 ../figures/src/fig_forecast_protocol.py --final >/dev/null
+python3 ../figures/src/fig_allocation_sensitivity.py >/dev/null
+python3 ../figures/src/fig_app_screens.py >/dev/null
 python3 make_numbers_tex.py
 python3 ../numbers.py --tex >/dev/null
 
