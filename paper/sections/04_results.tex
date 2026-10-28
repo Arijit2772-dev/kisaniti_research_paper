@@ -111,7 +111,7 @@ Before any comparison, the solver was checked against a brute-force enumeration 
 objective with it. On \kn{alloc_oracle_instances} random small instances, three back ends (HiGHS, SCIP, CP-SAT) and two leximin
 methods, \kn{alloc_oracle_agree} of \kn{alloc_oracle_cases} runs reached exactly the enumeration's complete objective. The method was then compared with simple rules on
 \kn{allpol_plans} weekly plans: ten draws of a synthetic 300-member FPO whose lots become ready over six weeks, scored at real 2025
-AGMARKNET prices of Paddy (Common) and real mandi coordinates, every plan re-checked by the independent validator. The rules are the nearest mandi, each farmer's independent best choice, a plan that maximises only total net return (utilitarian) or
+AGMARKNET prices of Paddy (Common) and real mandi coordinates (road distance taken as 1.3 times the straight line), every plan re-checked by the independent validator. The rules are the nearest mandi, each farmer's independent best choice, a plan that maximises only total net return (utilitarian) or
 only the smallest share, a greedy water-filling heuristic, the KisanNiti hierarchy, and the same hierarchy with actual prices (a bound).
 
 \begin{table}[t]

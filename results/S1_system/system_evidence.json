@@ -1,10 +1,10 @@
 {
   "commits": {
-    "product": "f2041c1",
-    "research": "af99ec1"
+    "product": "b4762e0",
+    "research": "0e78a3c"
   },
   "tests_collected": {
-    "backend": 319,
+    "backend": 320,
     "core": 563,
     "ingestion": 49,
     "contracts": 441
@@ -48,7 +48,7 @@
       "isolation"
     ],
     "steps_passed": 14,
-    "product_commit": "f2041c1",
-    "seconds": 35.2
+    "product_commit": "b4762e0",
+    "seconds": 10.9
   }
 }

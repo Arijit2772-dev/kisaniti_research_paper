@@ -1,0 +1,8 @@
+{
+  "signed_off_by": "the project owner (first author), in the Claude Code chat",
+  "date": "2026-10-28",
+  "statement": "all been hand checked pls sign off",
+  "what_was_signed": "the 56-row inspection and its interpretation in layers/L2_cleaning/CLEANING_EVIDENCE.md section 6: 56/56 modal prices agree; 33 rows agree fully; 20 differ in arrivals; 4 show a missing bound as 0.00; blank-date rule is a layout reading (21 of 22 confirmed), no merged cell in the markup; the meaning of exported arrivals is unknown",
+  "not_signed": "an error rate (the sample is purposive); B.2b second-source check (still open)",
+  "effect": "dataset basmati_punjab_release1 set from PENDING_HAND_CHECK to VALIDATED in the product database with the note above"
+}

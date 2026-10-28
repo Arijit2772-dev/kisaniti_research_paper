@@ -15,8 +15,8 @@ consent or language blocks a message with a stated reason instead of being guess
   \includegraphics[width=0.6\textwidth]{fig1_architecture.pdf}
   \caption{KisanNiti architecture. Data sources (1) are cleaned into a daily price panel (2). Decision models (3) turn
   prices, storage readings and lot records into a plan that the FPO manager reviews (4). Farmers receive the approved plan on
-  WhatsApp, and recorded sales update stock for the next plan (5). MILP: mixed-integer linear program; GNN: graph neural
-  network; RH: relative humidity.}
+  WhatsApp, and recorded sales update stock for the next plan (5). MILP: mixed-integer linear program; RH: relative humidity.
+  Dashed grey: not built.}
   \label{fig:architecture}
 \end{figure}
 
@@ -31,8 +31,8 @@ portal shows a variety under the date of the row above, the date is inferred and
 median modal price over the mandis that reported the variety that day (at least three, no filling); it is a market summary, not the price a
 farmer received. Farmer records (members, lots with exact quantity, an append-only stock ledger) are entered by staff, and sensor readings
 are assessed hourly (Sect.~\ref{sec:method-storage}). The cleaned release is imported with an exact row reconciliation and the status
-\texttt{PENDING\_HAND\_CHECK}; it becomes \texttt{VALIDATED} only on the owner's written sign-off after a hand check of \kn{data_handcheck_rows} stratified rows against the
-portal. Software agents inspected them on the live portal (owner entered the CAPTCHAs; sign-off pending): all \kn{hc_modal} modal prices
+\texttt{PENDING\_HAND\_CHECK}; it becomes \texttt{VALIDATED} only on the owner's sign-off after a hand check of \kn{data_handcheck_rows} stratified rows against the
+portal. Software agents inspected them on the live portal (the owner entered the CAPTCHAs and signed off the result): all \kn{hc_modal} modal prices
 agree, \kn{hc_numeric} rows agree fully, \kn{hc_arr_differ} differ in arrivals and \kn{hc_missing_zero} show a missing bound as 0.00; a second agent re-read \kn{hc_repl} rows, \kn{hc_repl_same} identical. The sample is purposive, not an error rate. The page splits a date total over variety rows, equally or not, so the meaning of exported arrivals is left open (the index uses modal prices).
 \kn{hc_inferred_ok} of \kn{hc_inferred} inferred-date rows appear beneath the preceding date with the same prices; no merged cell is in the markup.
 

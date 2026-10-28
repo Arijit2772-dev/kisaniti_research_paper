@@ -3,7 +3,7 @@
 \subsection{Storage Sensing and Risk Rule}
 \label{sec:method-storage}
 
-One protected SHT30 temperature and humidity probe (SHT30) is placed in a bag of grain and read every five minutes by an ESP32
+One protected SHT30 temperature and humidity probe is placed in a bag of grain and read every five minutes by an ESP32
 board; readings are sent by MQTT with TLS, kept in a 24-hour buffer until the server confirms it has stored each one
 once, and assessed hourly. Grain balances its moisture with the air between the kernels, and that air's relative humidity divided by
 100 is its water activity $a_w$. Storage fungi need at least 65\,\% relative humidity~\cite{gwinner1996}, and grain below 65 to 70\,\% degrades slowly~\cite{delucia1994}. The rule takes the median

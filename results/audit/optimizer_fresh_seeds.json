@@ -1,0 +1,8 @@
+{
+  "instances_tried": 120,
+  "instances_too_large_for_oracle": 0,
+  "infeasible": 0,
+  "solver_runs": 360,
+  "agree": 360,
+  "disagreements": []
+}

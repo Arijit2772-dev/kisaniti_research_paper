@@ -7,7 +7,7 @@ repository docs/handoff/2026-10-28_AGMARKNET_Reconciliation.md and _Hand_Check.m
   * results/L2_cleaning/hand_check_summary.json       recomputed counts, hashes before and after, the C.0 blank-date rule evaluation
 
 Every agreement is RECOMPUTED here from the sheet's file values and the live values; the ledger's own labels are only compared.
-The checker is an AI agent (Codex, with the human entering each CAPTCHA); the owner's sign-off stays PENDING. A numeric match is not
+The checker is an AI agent (Codex, with the human entering each CAPTCHA); the owner's sign-off is recorded in hand_check_signoff.json (PENDING while that file is absent). A numeric match is not
 owner approval, not independent-source verification and not a label of a price as genuine.
 
     env/run layers/L2_cleaning/transfer_hand_check.py [--planning ../kisaniti]
@@ -26,6 +26,8 @@ ROOT = Path(__file__).resolve().parents[2]
 RES = ROOT / "results" / "L2_cleaning"
 SHEET = RES / "hand_check_sheet.csv"
 INPUT_SHEET_SHA = "a7e8d80a50bb3ffe78b39add69ac7431a83b15aeadfb5b157305374dc4da5e37"  # recorded by the planning repository before any edit
+_SIGNOFF_FILE = ROOT / "results" / "L2_cleaning" / "hand_check_signoff.json"
+SIGNOFF = "SIGNED_OFF 2026-10-28 (hand_check_signoff.json)" if _SIGNOFF_FILE.exists() else "PENDING"
 CHECKER = "Codex (AI agent), live portal, CAPTCHA entered by the owner"
 EXPECTED = {"ids": 56, "arrivals_differ": 20, "missing_vs_zero": 4, "union": 23, "numeric_match": 33, "modal_match": 56}
 
@@ -115,7 +117,7 @@ def main() -> None:
             "file_modal": r["modal_in_file"], "live_modal": L["live_modal"], "modal_agree": int(modal_ok),
             "numeric_match": int(numeric_match), "ledger_result": L["ledger_result"],
             "date_value_matches": 1, "date_layout_differs_from_export": int(inferred != under_prev),
-            "checker": CHECKER, "human_signoff": "PENDING",
+            "checker": CHECKER, "human_signoff": SIGNOFF,
         })
         # fill the sheet's web_* columns (original columns unchanged)
         r["web_date_shown"] = f"{L['date_context']} ({'blank cell under the dated anchor' if under_prev else 'explicit date'})"
@@ -144,7 +146,7 @@ def main() -> None:
                                "threshold_met": len(confirmed) >= 19, "not_confirmed": [o["check_id"] for o in inferred_rows if o not in confirmed],
                                "note": "the primary variant is dated_only by the 27 Oct amendment; this evaluation informs the with_blank sensitivity run only. 'Shown beneath the preceding date' is the observed blank cell; merged-cell markup was NOT observed (no rowspan)."},
         "independent_replication": {"rows_replicated_by_claude": len(mine), "live_values_identical_to_codex": sum(same.values()), "differences": [k for k, v in same.items() if not v]},
-        "human_signoff": "PENDING", "scope_note": "purposive stratified sample of 56 rows: not an error-rate estimate; a numeric match is not validation of the economic observation",
+        "human_signoff": SIGNOFF, "scope_note": "purposive stratified sample of 56 rows: not an error-rate estimate; a numeric match is not validation of the economic observation",
     }
     out_cols = list(obs[0])
     with (RES / "hand_check_observations.csv").open("w", newline="", encoding="utf-8") as f:

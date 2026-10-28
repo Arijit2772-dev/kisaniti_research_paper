@@ -28,7 +28,7 @@
     "live_values_identical_to_codex": 26,
     "differences": []
   },
-  "human_signoff": "PENDING",
+  "human_signoff": "SIGNED_OFF 2026-10-28 (hand_check_signoff.json)",
   "scope_note": "purposive stratified sample of 56 rows: not an error-rate estimate; a numeric match is not validation of the economic observation",
   "sheet_sha256_after": "26d9242eb4f9760d2205dfd5039beddce7e2882f47614eb861342d32a163eda6"
 }

@@ -37,7 +37,7 @@
 
 Check each repo's `STATUS.md` and `git log` for newer progress; parallel sessions may have pushed since this file was written.
 
-> **Update 28 Oct 2026:** the 56-row hand check is done (agent inspection, owner sign-off pending): see `layers/L2_cleaning/CLEANING_EVIDENCE.md` section 6 and `results/L2_cleaning/hand_check_summary.json`. The merged-cell explanation is NOT supported; arrivals semantics are UNKNOWN.
+> **Update 28 Oct 2026:** the 56-row hand check is done (agent inspection; the owner signed off on 28 Oct 2026): see `layers/L2_cleaning/CLEANING_EVIDENCE.md` section 6 and `results/L2_cleaning/hand_check_summary.json`. The merged-cell explanation is NOT supported; arrivals semantics are UNKNOWN.
 
 ## 4. What to do next, in order
 

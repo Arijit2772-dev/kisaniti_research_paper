@@ -76,7 +76,7 @@ def hand_check_counts() -> Result:
     miss = sum(1 for r in rows if r["missing_vs_zero"] == "1")
     full = sum(1 for r in rows if r["numeric_match"] == "1")
     got = (len(rows), modal, arr, miss, full)
-    return ("VERIFIED" if got == (56, 56, 20, 4, 33) else "FAILED", f"rows, modal agree, arrivals differ, missing-vs-zero, numeric match = {got}; sign-off still pending")
+    return ("VERIFIED" if got == (56, 56, 20, 4, 33) else "FAILED", f"rows, modal agree, arrivals differ, missing-vs-zero, numeric match = {got}; owner sign-off in hand_check_signoff.json")
 
 
 def power_gain() -> Result:
@@ -200,7 +200,7 @@ CLAIMS = [
     ("C06", "Basmati variety index has 433 (1121) and 369 (1509) index days", "protocol 2; THE_ONE_PAPER 3", index_days),
     ("C07", "6,678 basmati rows reconcile with the 29 manifests", "STATUS R3", rows_reconcile),
     ("C08", "The hand-check sheet has 56 rows", "STATUS R3", hand_check_rows),
-    ("C23", "Hand check of 56 rows on the live portal: 56 modal prices agree, 33 rows agree fully, 20 differ in arrivals, 4 show a missing bound as zero (agent inspection; owner sign-off pending)", "paper 3.1", hand_check_counts),
+    ("C23", "Hand check of 56 rows on the live portal: 56 modal prices agree, 33 rows agree fully, 20 differ in arrivals, 4 show a missing bound as zero (agent inspection; owner sign-off recorded 28 Oct)", "paper 3.1", hand_check_counts),
     ("C09", "Smallest detectable gain is 11-13% (1121) and 12-17% (1509)", "protocol 8", power_gain),
     ("C10", "Basmati prices move: median daily change Rs 50 per quintal; same-day gap across mandis about Rs 1,468 (1121)", "THE_ONE_PAPER 1", basmati_movement),
     ("C11", "At least 60 test-season pairs per variety at every primary horizon", "protocol 4", protocol_pair_counts),

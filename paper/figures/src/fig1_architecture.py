@@ -7,7 +7,7 @@ Writes paper/figures/fig1_architecture[_draft].{pdf,svg,png}.
 
 STATUS below is the single place that says what exists. Update it as layers are built
 (see STATUS.md and the master plan); the final export greys out everything not "built".
-Status as of 22 Oct 2026: built = v2 research runs (paddy prices, cleaning, forecasting
+Status as of 28 Oct 2026 (all five stages built and run end to end on fictional data; grain sensor, CO2 sensor, hold-or-sell and the readiness report are not): built = v2 research runs (paddy prices, cleaning, forecasting
 comparison, cooperative allocation MILP on a synthetic FPO); storage risk = STORAGE-DEMO-0.1
 rule in kisaniti_implementation core/storage (31 tests), run on simulated scenarios only.
 """
@@ -23,11 +23,11 @@ C = style.PALETTE
 STATUS = {
     "agmarknet": "built", "fpo_records": "built", "mandi_locations": "built",
     "grain_sensor": "planned", "co2_sensor": "future",
-    "dedup": "built", "daily_panel": "built", "quality_rules": "planned", "readiness": "planned",
+    "dedup": "built", "daily_panel": "built", "quality_rules": "built", "readiness": "planned",
     "forecast": "built", "storage_risk": "built", "hold_sell": "planned", "allocation": "built",
-    "review": "planned", "edit": "planned", "approve": "planned",
-    "whatsapp": "planned", "sale_entry": "planned", "stock_update": "planned",
-    "feedback": "planned",
+    "review": "built", "edit": "built", "approve": "built",
+    "whatsapp": "built", "sale_entry": "built", "stock_update": "built",
+    "feedback": "built",
 }
 W, H = 122.0, 94.0
 
@@ -58,7 +58,7 @@ def main() -> None:
     rows = [
         ("world-download", "AGMARKNET", "mandi prices", "agmarknet"),
         ("users", "FPO lots", "synthetic in tests", "fpo_records"),
-        ("map-pin", "Mandi locations", "road distances", "mandi_locations"),
+        ("map-pin", "Mandi locations", "coordinates", "mandi_locations"),
         ("temperature", "Grain sensor", "ESP32 + SHT30", "grain_sensor"),
         ("gauge", "CO$_2$ sensor", "spoilage sign", "co2_sensor"),
     ]
@@ -70,9 +70,9 @@ def main() -> None:
     x2, w2 = 42.5, 28.0
     fl.panel(ax, x2, top_y, w2, top_h, "Cleaning", C["cleaning"], 2)
     rows = [
-        ("eraser", "De-duplicate", "repair zero\nprices", "dedup"),
-        ("calendar-time", "Daily panel", "price per\nmandi-day", "daily_panel"),
-        ("filter", "Quality rules", "units, outliers", "quality_rules"),
+        ("eraser", "Trace, flag", "every row kept\nand traceable", "dedup"),
+        ("calendar-time", "Daily index", "median modal\nprice per day", "daily_panel"),
+        ("filter", "Quality flags", "none removed", "quality_rules"),
         ("list-check", "Readiness", "report per crop", "readiness"),
     ]
     for k, (ic, lab, note, key) in enumerate(rows):
@@ -87,7 +87,7 @@ def main() -> None:
     cy_top = top_y + top_h - 6.0 - 1.6 - ch
     cy_bot = cy_top - gy - ch
     cards = {
-        "forecast": (cx0, cy_top, "chart-line", "Price forecast", "baselines vs GNN"),
+        "forecast": (cx0, cy_top, "chart-line", "Price forecast", "8 methods,\nranges"),
         "storage_risk": (cx0 + cw + gx, cy_top, "alert-triangle", "Storage risk", "grain T and RH"),
         "hold_sell": (cx0, cy_bot, "scale", "Hold or sell", "per stored lot"),
         "allocation": (cx0 + cw + gx, cy_bot, "truck", "Lot allocation", "MILP, shared\nmandi limits"),
