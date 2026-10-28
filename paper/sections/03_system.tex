@@ -25,8 +25,8 @@ explicit: a missing contact, consent or language blocks a message with a stated 
 \subsection{Stage 1: Data and Cleaning}
 \label{sec:method-data}
 
-Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}~\cite{agmarknet}. The portal asks for a CAPTCHA
-(Completely Automated Public Turing test to tell Computers and Humans Apart), so the files were downloaded by hand, one month at a time,
+Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}~\cite{agmarknet}. The portal asks for a Completely Automated
+Public Turing test to tell Computers and Humans Apart (CAPTCHA), so the files were downloaded by hand, one month at a time,
 and \kn{data_manifests} monthly files of Paddy (Basmati) for Punjab are stored with checksums. The parser records the source file and
 line of every row, so each cleaned row can be traced back to the portal. The files hold \kn{data_rows_total} rows, \kn{data_rows_dated}
 with a date and \kn{data_rows_blank} without one, and every row is accounted for. Automatic checks flag suspicious rows but remove none.
