@@ -1,27 +1,26 @@
-% Section 1 -- Introduction (condensed 28 Oct 2026; the longer version is in git history).
+% Section 1 -- Introduction (readability rewrite 28 Oct 2026; earlier versions are in git history).
 \section{Introduction}
 \label{sec:intro}
 
 A Farmer Producer Organization (FPO) is a registered body of farmers that can pool, market and sell its members' produce~\cite{sfac}.
-For each member lot the FPO must choose a mandi, a day and a quantity, and the choices depend on each other: the best-paying mandi may be
-the farthest, a later date keeps grain in storage longer, and when many members deliver in one week a mandi can receive more than it can
-handle in a day. Post-harvest losses in India are large, about 1.53 trillion Indian Rupees (Rs) of food a year by a 2024 estimate of the Indian Council for Research on International
-Economic Relations that names storage as one cause~\cite{icrier}.
+Selling for the group means choosing a mandi, a day and a quantity for each member's lot, and these choices are linked. The
+best-paying mandi may be the farthest one. Waiting for a better price keeps grain in storage longer. When many members bring grain in
+the same week, a single mandi can receive more than it can handle in a day. Storage is also one of the causes of India's post-harvest
+losses, which a 2024 estimate of the Indian Council for Research on International Economic Relations put at about 1.53 trillion Indian
+Rupees (Rs) of food a year~\cite{icrier}.
 
-Two public sources give an FPO most of the price information it needs. The Agricultural Marketing Information Network
-(AGMARKNET)~\cite{agmarknet} publishes daily arrivals and
-the minimum, maximum and modal price reported by each mandi~\cite{agmarknet}, and the government announces a minimum
-support price (MSP) for paddy and wheat before each season~\cite{msp1}\cite{msp2}. The two cases differ sharply. For Paddy
-(Common) in Punjab, at least \kn{msp_share_min}\% of the reported prices in every season from \kn{season_first} to
-\kn{season_last} were exactly the Grade-A MSP in the \kn{mandis} mandis studied. Basmati paddy has no MSP and is sold at
-market prices that differ by variety, so for basmati the mandi and the day can change what a farmer earns.
+Most of the price information an FPO needs is public. The Agricultural Marketing Information Network (AGMARKNET)~\cite{agmarknet}
+publishes the daily arrivals and the minimum, maximum and modal price reported by each mandi. The government announces a minimum support
+price (MSP) for paddy and wheat before each season~\cite{msp1}\cite{msp2}. How much prices move depends on the crop. In the
+\kn{mandis} Punjab mandis studied here, at least \kn{msp_share_min}\% of the Paddy (Common) prices reported in every season from
+\kn{season_first} to \kn{season_last} were exactly the Grade-A MSP. Basmati paddy has no MSP. It sells at market prices that differ by
+variety, so for a basmati farmer the choice of mandi and day changes what the crop earns.
 
-KisanNiti is a decision-support system for FPO staff in the Patiala area. It reads AGMARKNET prices~\cite{agmarknet}, the FPO's lot
-records and a grain-storage sensor, proposes a selling plan, lets a manager review it, and tells each farmer in their
-language. The paper makes five contributions. A regime test (the share of reports equal to
-the MSP) separates price-bound from market crops (Section~\ref{sec:results-msp}). For basmati, a comparison of eight
-forecasting methods with prediction ranges was fixed in a pre-registered protocol and evaluated once on a held-out season
-(Section~\ref{sec:results-basmati}). An exact allocation model shares mandi limits fairly among members and is compared with
-simpler rules (Section~\ref{sec:results-alloc}). A storage-sensing rule is tested on simulated scenarios
-(Section~\ref{sec:results-storage}). The five stages from data to recorded sales are built and tested as one system
+KisanNiti is a decision-support system for FPO staff around Patiala. It reads AGMARKNET prices~\cite{agmarknet}, the FPO's lot records
+and a grain-storage sensor, proposes a selling plan, lets a manager review it, and tells each farmer in their own language. The paper
+makes five contributions. A simple regime test, the share of reported prices equal to the MSP, separates price-bound crops from market
+crops (Section~\ref{sec:results-msp}). For basmati, eight forecasting methods were compared under a protocol fixed in advance and
+evaluated once on a held-out season (Section~\ref{sec:results-basmati}). An exact allocation model shares the daily mandi limits fairly
+among members and is compared with simpler rules (Section~\ref{sec:results-alloc}). A storage-sensing rule is evaluated on simulated
+scenarios (Section~\ref{sec:results-storage}). Finally, the five stages from data to recorded sales are built and tested as one system
 (Section~\ref{sec:results-system}). Section~\ref{sec:conclusion} concludes the paper and outlines future work.

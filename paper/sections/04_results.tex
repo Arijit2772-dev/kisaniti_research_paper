@@ -1,15 +1,15 @@
-% Section 4 -- Results and discussion (condensed 28 Oct 2026). Every number is a \kn{} macro read from a results file.
+% Section 4 -- Results and discussion (readability rewrite 28 Oct 2026). Every number is a \kn{} macro read from a results file.
 \section{Results and Discussion}
 \label{sec:results}
 
 \subsection{Paddy (Common): Prices Stay at the MSP}
 \label{sec:results-msp}
 
-Table~\ref{tab:msp} describes the AGMARKNET prices~\cite{agmarknet} of the \kn{mandis} Punjab mandis that reported in all six seasons: \kn{observed_mandi_days}
-mandi-days over \kn{trading_dates} trading dates (\kn{observed_share}\% of those possible). In 2024, \kn{msp_share_2024}\% of the
-reported prices were exactly the Grade-A MSP of Rs~\kn{msp_2024} per quintal; the lowest share in any season was
-\kn{msp_share_min}\% in \kn{msp_share_min_season}, and in 2024 the mean daily standard deviation across mandis was only
-Rs~\kn{cross_sd_2024}.
+Table~\ref{tab:msp} describes the AGMARKNET prices~\cite{agmarknet} of the \kn{mandis} Punjab mandis that reported in all six seasons.
+Together they give \kn{observed_mandi_days} mandi-days over \kn{trading_dates} trading dates, or \kn{observed_share}\% of those
+possible. In 2024, \kn{msp_share_2024}\% of the reported prices were exactly the Grade-A MSP of Rs~\kn{msp_2024} per quintal, and the
+mean daily standard deviation across mandis was only Rs~\kn{cross_sd_2024}. Even in the weakest season, \kn{msp_share_min_season}, the
+share was \kn{msp_share_min}\%.
 
 \begin{table}[t]
   \centering
@@ -20,30 +20,38 @@ Rs~\kn{cross_sd_2024}.
   \input{../tables/table_msp_share.tex}
 \end{table}
 
-Seven forecasters were compared on the three latest seasons at horizons of 1 to 7 trading dates: the MSP rule (the announced Grade-A
-MSP), the last reported price, a seven-date average, ridge regression, a GRU, T-GCN and A3T-GCN. The MSP rule had the lowest mean absolute
-error, Rs~\kn{mae_msp_mean} per quintal, ahead of the last price (Rs~\kn{mae_naive_mean}); the best learned model, A3T-GCN, reached
-Rs~\kn{mae_atgcn_mean}, ahead of the GRU (Rs~\kn{mae_gru_mean}) and T-GCN (Rs~\kn{mae_tgcn_mean}). At one trading date A3T-GCN was worse
-than the last price on \kn{paired_atgcn_worse} of \kn{paired_dates} dates: a mandi that stays at the MSP is predicted exactly by the last
-price, and a network almost never predicts a change of exactly zero. The MSP rule and the last price are close (better on
-\kn{paired_msp_better} dates, worse on \kn{paired_msp_worse}, equal on \kn{paired_msp_ties}), and this comparison is reported descriptively, without a significance test. For Paddy (Common) the announced MSP is therefore used as the price and no forecaster is trained.
+Seven forecasters were compared on the three latest seasons, 1 to 7 trading dates ahead. They were the MSP rule, which predicts the
+announced Grade-A MSP, the last reported price, a seven-date average, ridge regression, a GRU, T-GCN and A3T-GCN. The MSP rule had the
+lowest mean absolute error, Rs~\kn{mae_msp_mean} per quintal, followed by the last price at Rs~\kn{mae_naive_mean}. A3T-GCN was the
+best learned model at Rs~\kn{mae_atgcn_mean}, slightly ahead of the GRU (Rs~\kn{mae_gru_mean}) and T-GCN (Rs~\kn{mae_tgcn_mean}).
+
+One trading date ahead, A3T-GCN was worse than the last price on \kn{paired_atgcn_worse} of \kn{paired_dates} dates. The reason is
+simple. When a mandi stays at the MSP, the last price is exactly right, and a neural network almost never predicts a change of exactly
+zero. The MSP rule and the last price were close: the MSP rule was better on \kn{paired_msp_better} dates, worse on
+\kn{paired_msp_worse} and equal on \kn{paired_msp_ties}. This comparison is descriptive and has no significance test. For Paddy
+(Common), KisanNiti therefore uses the announced MSP as the price and trains no forecaster.
 
 \subsection{Basmati Paddy: the Pre-Registered Forecast Comparison}
 \label{sec:results-basmati}
 
-The comparison was run once on the held-out season after the protocol and the configuration were frozen (both freezes are
-timestamped in the public repository's version history), on the dated-only index; the portal inspection (Section~\ref{sec:method-data}) cannot change the primary result. The index has \kn{data_index_days_1121} days for 1121 and
-\kn{data_index_days_1509} for 1509, because index days exist only from September to January. After the rule that an
-origin needs ten index days of its season, the held-out season offers \kn{pairs_1121_h1}, \kn{pairs_1121_h7} and
-\kn{pairs_1121_h14} pairs at 1, 7 and 14 days for 1121 and \kn{pairs_1509_h1}, \kn{pairs_1509_h7} and \kn{pairs_1509_h14} for 1509,
-fewer than the 60 first planned for 1509, and \kn{pairs_1509_h28} at 28 days, below the 40 pairs needed for a coverage claim. An exploratory power check on earlier seasons puts the smallest detectable improvement at 11 to 17\% of the naive error.
+The comparison was run once on the held-out season, after the protocol and its configuration had been frozen. Both freezes are
+timestamped in the version history of the public repository. The run uses the index built from dated rows only, so the portal
+inspection (Section~\ref{sec:method-data}) cannot change the primary result. Index days exist only from September to January, which
+gives \kn{data_index_days_1121} index days for 1121 and \kn{data_index_days_1509} for 1509. With the ten-day rule for origins, the
+held-out season yields \kn{pairs_1121_h1}, \kn{pairs_1121_h7} and \kn{pairs_1121_h14} forecast pairs at 1, 7 and 14 days for 1121, and
+\kn{pairs_1509_h1}, \kn{pairs_1509_h7} and \kn{pairs_1509_h14} for 1509. For 1509 this is fewer than the 60 pairs first planned. At
+28 days only \kn{pairs_1509_h28} pairs remain, below the 40 needed for a coverage claim. An exploratory power check on earlier seasons
+put the smallest detectable improvement at 11 to 17\% of the naive error.
 
-Cleaning choices were measured before any forecast was run. Four outlier screens (past-only median absolute deviation with $k=3$ and
-$k=5$, a Hampel filter, an interquartile rule) flag \kn{scr_madk5_flagged_pct}\% to \kn{scr_madk3_flagged_pct}\% of the dated rows, and excluding
-them would change \kn{scr_madk5_changed_1121} to \kn{scr_madk3_changed_1121} of the \kn{data_index_days_1121} index days of 1121, by up to
-Rs~\kn{scr_iqr15_maxchange_1121} per quintal; the portal inspection cannot decide which are errors. For the inferred dates, \kn{bd_pairs} same-day pairs of 1121 and 1509 in one market (the second row has an inferred date)
-have a median price ratio of \kn{bd_ratio_inf} against \kn{bd_ratio_ctl} for \kn{bd_control} own-dated pairs one day apart (interquartile range \kn{bd_iqr_inf} against \kn{bd_iqr_ctl}); only \kn{bd_dups} of \kn{bd_rows} inferred rows fall
-on a key that already has another row.
+The effect of cleaning was measured before any forecast was run. Four outlier screens were tried: a past-only median absolute
+deviation rule with $k=3$ and with $k=5$, a Hampel filter, and an interquartile rule. They flag between \kn{scr_madk5_flagged_pct}\%
+and \kn{scr_madk3_flagged_pct}\% of the dated rows. Removing the flagged rows would change \kn{scr_madk5_changed_1121} to
+\kn{scr_madk3_changed_1121} of the \kn{data_index_days_1121} index days of 1121, by up to Rs~\kn{scr_iqr15_maxchange_1121} per quintal,
+and the portal inspection cannot tell which flagged rows are real errors. The rows with inferred dates look plausible. For
+\kn{bd_pairs} same-day pairs of 1121 and 1509 in one market, where the second row has an inferred date, the median price ratio is
+\kn{bd_ratio_inf}. For \kn{bd_control} control pairs with their own dates, one day apart, it is \kn{bd_ratio_ctl}, and the
+interquartile ranges are \kn{bd_iqr_inf} and \kn{bd_iqr_ctl}. Only \kn{bd_dups} of the \kn{bd_rows} inferred rows share their key
+with another row.
 
 \begin{table}[t]
   \centering
@@ -78,41 +86,52 @@ on a key that already has another row.
   \end{tabular}
 \end{table}
 
-Table~\ref{tab:forecast} gives the held-out MAE of each method and its change against the naive forecast.
-Under the pre-registered rule, none of the \kn{inf_total} comparisons found a method better than the naive value
-(\kn{inf_better} better). The largest raw improvement was the GRU at one day for 1121, a change in MAE of
-\kn{inf_1121_1_gru_rel}\% (Rs~\kn{fc_1121_1_gru_mae} against Rs~\kn{fc_1121_1_naive_mae}); its bootstrap interval excluded zero, but
-the Holm-adjusted $p$ was \kn{inf_1121_1_gru_p}. The only methods that differed significantly from the naive value were worse:
-the seasonal naive forecast was significantly worse in \kn{inf_worse_sig} comparisons (1509 at one day: change
-\kn{inf_1509_1_seasonal_naive_rel}\%, adjusted $p$ \kn{inf_1509_1_seasonal_naive_p}). The result is not that all methods are equal: in \kn{inf_excl_gain} of the \kn{inf_total} comparisons the interval excludes an improvement as
-large as the smallest detectable gain, but the other \kn{inf_inconclusive} are inconclusive rather than negative, notably all
-\kn{inf_h1_1121_inconclusive} non-seasonal methods at one day for 1121, where improvements of up to about a quarter fit the data (median interval
-width \kn{inf_width_median} points). The naive value is a strong forecast for prices that move this little, so the
-system uses it with ranges and states that the baseline is enough.
+Table~\ref{tab:forecast} gives the held-out MAE of each method and its change against the naive forecast. Under the pre-registered
+rule, \kn{inf_better} of the \kn{inf_total} comparisons found a method better than the naive forecast. The largest raw improvement came from the GRU one
+day ahead for 1121, a change in MAE of \kn{inf_1121_1_gru_rel}\% (Rs~\kn{fc_1121_1_gru_mae} against Rs~\kn{fc_1121_1_naive_mae}). Its
+bootstrap interval excluded zero, but its Holm-adjusted $p$ was \kn{inf_1121_1_gru_p}, so it does not count as better. Where a method
+did differ significantly from the naive forecast, it was worse. The seasonal naive forecast was significantly worse in
+\kn{inf_worse_sig} comparisons; for 1509 one day ahead its MAE changed by \kn{inf_1509_1_seasonal_naive_rel}\% (adjusted $p$
+\kn{inf_1509_1_seasonal_naive_p}).
 
-The same \kn{inf_total} comparisons were repeated, with the configuration already chosen, on all \kn{sens_done} index variants declared in the
-protocol (inferred dates included; sub-yards merged; at least 2 or 4 mandis per day):
-\kn{sens_better} of \kn{sens_comparisons} comparisons found a better method, and only the seasonal naive forecast differed significantly (\kn{sens_other_significant} others).
+This does not mean that all methods are equal. In \kn{inf_excl_gain} of the \kn{inf_total} comparisons, the interval rules out an
+improvement as large as the smallest detectable gain. The other \kn{inf_inconclusive} are inconclusive rather than negative. They
+include all \kn{inf_h1_1121_inconclusive} non-seasonal methods one day ahead for 1121, where improvements of up to about a quarter are
+still consistent with the data (median interval width \kn{inf_width_median} points). For prices that move this little, the naive
+forecast is hard to beat. The system therefore uses it, together with ranges, and states that the baseline is sufficient.
 
-Secondary and descriptive horizons are reported without a test. At 28 days the GRU and LightGBM had a lower MAE than the naive value for
-1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against Rs~\kn{fc_1121_28_naive_mae}); both use the day of the season, so this is a hypothesis, not a finding. The partly observed season 2026--27, run separately, is reported descriptively: \kn{pro_1121_1_pairs} pairs at one day for 1121 and \kn{pro_1509_1_pairs} for 1509, falling to \kn{pro_1509_14_pairs} at 14 days, too few for a test. For 1509 the naive value had the lowest MAE at 7 and 14 days (Rs~\kn{pro_1509_7_naive_mae} and
-Rs~\kn{pro_1509_14_naive_mae}).
+The protocol also declared \kn{sens_done} variants of the index: with inferred dates included, with sub-yards merged, and with at
+least 2 or 4 mandis a day. Repeating the comparisons on all of them, with the configuration already chosen, gave the same picture.
+Across the \kn{sens_comparisons} comparisons, \kn{sens_better} found a better method, and apart from the seasonal naive forecast no
+method differed significantly (\kn{sens_other_significant} cases).
 
-Ranges at 80\% and 95\% were assessed at the three primary horizons. The models' own ranges (ETS, ARIMA, LightGBM quantiles,
-Chronos-2) were calibrated in \kn{rng_native_calibrated} of \kn{rng_native_total} cases, too wide in \kn{rng_native_over} and too
-narrow in \kn{rng_native_under}. The split-conformal ranges, calibrated on the residuals of the single, more volatile validation season, were calibrated in only
-\kn{rng_conf_calibrated} of \kn{rng_conf_total} and too wide in \kn{rng_conf_over}: one season is too little to calibrate a range.
+The secondary and descriptive horizons are reported without tests. At 28 days, the GRU and LightGBM had a lower MAE than the naive
+forecast for 1121 (Rs~\kn{fc_1121_28_gru_mae} for the GRU against Rs~\kn{fc_1121_28_naive_mae}). Both models use the day of the season
+as an input, so this is a hypothesis to test in later seasons, not a finding. The partly observed season 2026--27 was run separately
+and is reported descriptively. It gives only \kn{pro_1121_1_pairs} pairs one day ahead for 1121 and \kn{pro_1509_1_pairs} for 1509,
+falling to \kn{pro_1509_14_pairs} at 14 days, which is too few for a test. For 1509 the naive forecast had the lowest MAE at 7 and 14
+days (Rs~\kn{pro_1509_7_naive_mae} and Rs~\kn{pro_1509_14_naive_mae}).
+
+The 80\% and 95\% ranges were checked at the three primary horizons. The models' own ranges, from ETS, ARIMA, LightGBM quantiles and
+Chronos-2, were well calibrated in \kn{rng_native_calibrated} of \kn{rng_native_total} cases, too wide in \kn{rng_native_over} and too
+narrow in \kn{rng_native_under}. The split-conformal ranges did worse. They were calibrated on the residuals of a single, more volatile
+validation season, and they were well calibrated in only \kn{rng_conf_calibrated} of
+\kn{rng_conf_total} cases and too wide in \kn{rng_conf_over}. One season is not enough to calibrate a range.
 
 \subsection{Allocation: Fair Plans Against Simple Rules}
 \label{sec:results-alloc}
 
-Before any comparison, the solver was checked against a brute-force enumeration that shares only the input types and the exact
-objective with it. On \kn{alloc_oracle_instances} random small instances, three solver back ends (HiGHS~\cite{highs}, the
-Solving Constraint Integer Programs (SCIP) solver and the CP-SAT solver of Google OR-Tools) and two leximin
-methods, \kn{alloc_oracle_agree} of \kn{alloc_oracle_cases} runs reached exactly the enumeration's complete objective. The method was then compared with simple rules on
-\kn{allpol_plans} weekly plans: ten draws of a synthetic 300-member FPO whose lots become ready over six weeks, scored at real 2025
-AGMARKNET prices~\cite{agmarknet} of Paddy (Common) and real mandi coordinates (road distance taken as 1.3 times the straight line), every plan re-checked by the independent validator. The rules are the nearest mandi, each farmer's independent best choice, a plan that maximizes only total net return (utilitarian) or
-only the smallest share, a greedy water-filling heuristic, the KisanNiti hierarchy, and the same hierarchy with actual prices (a bound). Table~\ref{tab:alloc} compares the seven policies.
+Before any comparison, the solver was checked against brute-force enumeration, which shares only the input types and the exact
+objective with it. On \kn{alloc_oracle_instances} random small instances, three solver back ends were run with two leximin methods:
+HiGHS~\cite{highs}, the Solving Constraint Integer Programs (SCIP) solver and the CP-SAT solver of Google OR-Tools. In
+\kn{alloc_oracle_agree} of \kn{alloc_oracle_cases} runs the solver reached exactly the objective found by enumeration.
+
+The method was then compared with simpler rules on \kn{allpol_plans} weekly plans. The plans come from ten draws of a synthetic FPO
+with 300 members whose lots become ready over six weeks. They are scored with real 2025 AGMARKNET prices~\cite{agmarknet} of Paddy
+(Common) and real mandi coordinates, with road distance taken as 1.3 times the straight-line distance. Every plan is re-checked by the
+independent validator. Table~\ref{tab:alloc} compares seven policies: the nearest mandi; each farmer's independent best choice; a plan
+that maximizes only total net return (utilitarian); a plan that maximizes only the smallest share; a greedy water-filling heuristic;
+the KisanNiti hierarchy; and, as a bound, the same hierarchy run with actual instead of forecast prices.
 
 \begin{table}[t]
   \centering
@@ -134,25 +153,30 @@ only the smallest share, a greedy water-filling heuristic, the KisanNiti hierarc
   \end{tabular}
 \end{table}
 
-Independent choices broke a mandi's daily limit in \kn{allpol_p2_independent_runs_with_violation_pct}\% of the plans, so none was a valid plan. The
-nearest-mandi rule respects the limits but left the least-served farmer with \kn{allpol_p1_nearest_min_fulfilment_pct}\% of their lot sold, and
-the utilitarian plan did the same (\kn{allpol_utilitarian_min_fulfilment_pct}\%), because maximizing the total ignores who is left out. The
-KisanNiti hierarchy raised the smallest share to \kn{allpol_kisaniti_min_fulfilment_pct}\%, the most the mandi limits allow, with a Gini
-coefficient of \kn{allpol_kisaniti_gini_fulfilment}, at Rs~\kn{allpol_kisaniti_price_of_fairness_rs_per_q} per quintal against the utilitarian plan.
-The greedy rule reaches the same smallest share but gives up Rs~\kn{allpol_greedy_price_of_fairness_rs_per_q} per quintal. Actual instead of forecast
-prices changed nothing, as expected: prices of Paddy (Common) hardly differ between mandis (Section~\ref{sec:results-msp}), so the plan is
-decided by distance, limits and fairness. Of the \kn{allpol_exact_solves} exact solves, \kn{allpol_exact_proven} were proven optimal. Three weighted-sum alternatives reached the 300-second limit without a proof in a six-plan pilot and are left out of Table~\ref{tab:alloc}.
-The FPO is synthetic: this shows properties of the method, not a gain for any real farmer.
+When each farmer chose independently, a mandi's daily limit was broken in \kn{allpol_p2_independent_runs_with_violation_pct}\% of the
+plans, so none of these plans was valid. The nearest-mandi rule respects the limits, but its least-served farmer sold only
+\kn{allpol_p1_nearest_min_fulfilment_pct}\% of their lot. The utilitarian plan did no better
+(\kn{allpol_utilitarian_min_fulfilment_pct}\%), because maximizing the total ignores who is left out. The KisanNiti hierarchy raised the
+smallest share to \kn{allpol_kisaniti_min_fulfilment_pct}\%, the most that the mandi limits allow, with a Gini coefficient of
+\kn{allpol_kisaniti_gini_fulfilment}. This fairness cost Rs~\kn{allpol_kisaniti_price_of_fairness_rs_per_q} per quintal against the
+utilitarian plan. The greedy rule reached the same smallest share but gave up Rs~\kn{allpol_greedy_price_of_fairness_rs_per_q} per
+quintal.
 
-The transport rate and the daily limit are invented inputs, so the comparison was repeated for \kn{alloc_sens_settings} combinations of three
-rates (Rs 1, 2 and 4 per quintal-km) and three limits (200, 300 and 500 quintals per mandi-day). The KisanNiti plan was valid in every
-setting. The smallest share it secures rises with the limit, from \kn{alloc_sens_kis_min_fulfilment_min}\% to \kn{alloc_sens_kis_min_fulfilment_max}\%, because
-no plan can sell more than the mandis can take; its gain over the nearest-mandi rule is Rs~\kn{alloc_sens_kis_gain_vs_p1_min} to
-Rs~\kn{alloc_sens_kis_gain_vs_p1_max} per quintal and its price of fairness Rs~\kn{alloc_sens_kis_pof_min} to Rs~\kn{alloc_sens_kis_pof_max}. The greedy
-heuristic gave up more than the exact plan in \kn{alloc_sens_greedy_costlier} of \kn{alloc_sens_settings} settings. The nearest-mandi rule left some
-farmer without any sale whenever the limit was 300 quintals or less. Figure~\ref{fig:sensitivity} shows both effects: the smallest share
-of the exact plan rises with the limit and is independent of the rate, while the net return it gives up grows with the transport rate
-and stays below that of the greedy heuristic.
+Using actual instead of forecast prices changed nothing. This was expected, because prices of Paddy (Common) hardly differ between
+mandis (Section~\ref{sec:results-msp}); distance, limits and fairness decide the plan. Of the \kn{allpol_exact_solves} exact solves,
+\kn{allpol_exact_proven} were proven optimal. Three weighted-sum alternatives hit the 300-second limit without proving optimality in a
+six-plan pilot, so they are left out of Table~\ref{tab:alloc}. Because the FPO is synthetic, these results describe how the method
+behaves, not a gain for any real farmer.
+
+The transport rate and the daily limit are assumed values, so the comparison was repeated for \kn{alloc_sens_settings} combinations of
+three rates (Rs 1, 2 and 4 per quintal-km) and three limits (200, 300 and 500 quintals per mandi-day). Figure~\ref{fig:sensitivity}
+shows the results. The KisanNiti plan was valid in every setting. The smallest share it secures rises with the limit, from
+\kn{alloc_sens_kis_min_fulfilment_min}\% to \kn{alloc_sens_kis_min_fulfilment_max}\%, because no plan can sell more than the mandis can
+take, and it does not depend on the rate. Compared with the nearest-mandi rule, the KisanNiti plan gains Rs~\kn{alloc_sens_kis_gain_vs_p1_min}
+to Rs~\kn{alloc_sens_kis_gain_vs_p1_max} per quintal, and its price of fairness ranges from Rs~\kn{alloc_sens_kis_pof_min} to
+Rs~\kn{alloc_sens_kis_pof_max}. The price of fairness grows with the transport rate. The greedy heuristic gave up more net return than
+the exact plan in \kn{alloc_sens_greedy_costlier} of \kn{alloc_sens_settings} settings. The nearest-mandi rule left at least one farmer
+with no sale whenever the limit was 300 quintals or less.
 
 \begin{figure}[t]
   \centering
@@ -163,35 +187,42 @@ and stays below that of the greedy heuristic.
   \label{fig:sensitivity}
 \end{figure}
 
-Solve times were measured on random instances of 10 to 1,000 farmers (5 to 25 mandis, 3 to 14 days, a 60-second limit, three seeds each).
-HiGHS and SCIP proved optimality on every instance up to 100 farmers (median \kn{alloc_scaling_highs_100_median_s} and
-\kn{alloc_scaling_scip_100_median_s} seconds at 100) and reached the limit with a feasible plan at 300 and 1,000. CP-SAT proved optimality only
-at 10 farmers, because its integer scaling becomes too large beyond that, and the greedy heuristic needed under
-\kn{alloc_scaling_greedy_1000_median_s} seconds even at 1,000. Every plan a solver returned was valid. The 300-member synthetic FPO above was solved exactly in a mean of \kn{allpol_kisaniti_seconds_mean} seconds (maximum
-\kn{allpol_kisaniti_seconds_max}); instance structure matters, and larger or less regular FPOs need a time limit and the greedy plan as a fallback.
+Solve times were measured on random instances with 10 to 1,000 farmers, 5 to 25 mandis and 3 to 14 days, with a 60-second limit and
+three seeds each. HiGHS and SCIP proved optimality on every instance with up to 100 farmers; at 100 farmers their median times were
+\kn{alloc_scaling_highs_100_median_s} and \kn{alloc_scaling_scip_100_median_s} seconds. At 300 and 1,000 farmers they reached the time
+limit with a feasible plan. CP-SAT proved optimality only at 10 farmers, because its integer scaling grows too large beyond that. The
+greedy heuristic needed under \kn{alloc_scaling_greedy_1000_median_s} seconds even at 1,000 farmers, and every plan a solver returned
+was valid. The 300-member synthetic FPO above was solved exactly in \kn{allpol_kisaniti_seconds_mean} seconds on average (maximum
+\kn{allpol_kisaniti_seconds_max}). Instance structure clearly matters, so larger or less regular FPOs should be solved with a time limit
+and the greedy plan as a fallback.
 
 \subsection{Checking the Manager's Edits}
 \label{sec:results-edits}
 
-A manager's edit must be accepted exactly when it keeps the plan valid. A second checker written directly from the rules (admissible choice, no
-duplicate line, whole increments, no lot over-allocated or, when the whole lot must be sold, left over, no mandi over its strict limit) gave the
-same verdict as the independent validator on \kn{val_agree} of \kn{val_edits} random edits of \kn{val_instances} solved instances (\kn{val_valid} valid,
-\kn{val_invalid} invalid, from harmless changes to a single broken rule).
+A manager's edit should be accepted exactly when it keeps the plan valid. To test this, a second checker was written directly from
+the rules: choices must be admissible, lines must not repeat, quantities must come in whole increments, no lot may be over-allocated
+(or left over when the whole lot must be sold), and no mandi may exceed its limit. The edits were made at random on
+\kn{val_instances} solved instances and ranged from harmless changes to a single broken rule; \kn{val_valid} were valid and
+\kn{val_invalid} invalid. The second checker gave the same verdict as the independent validator on \kn{val_agree} of the
+\kn{val_edits} edits.
 
 \input{../sections/04_2_storage.tex}
 
 \subsection{The Built System}
 \label{sec:results-system}
 
-The system holds \kn{sys_tests_total} automated tests (including parallel approvals on PostgreSQL, isolation between FPOs, append-only records and
-exact message texts) and \kn{sys_slices} versioned contracts with \kn{sys_examples_valid} valid and \kn{sys_examples_invalid} invalid examples. A
-single command runs \kn{sys_chain_steps} steps on two new fictional FPOs through the interface the website uses (data, stock, a simulated sensor,
-plan, edit, approval, messages, the manager's hand-over to WhatsApp, sales, release, a ledger audit and isolation), checks each against an
-independent recomputation, and stops at the first deviation; it passed all \kn{sys_chain_passed} steps in about \kn{sys_chain_seconds} seconds, and a
-corrupted ledger entry and planted errors (rounding down, a wrong weighted price, a message losing its last character) were each detected. All
-farmers, lots and sales in this run are fictional, and no message was sent to a real farmer. The English, Punjabi and Hindi message texts
-were checked by independent reviewers. Figure~\ref{fig:app} shows three screens of the manager app after this run: the approved
-revision of a plan, the approved plan as a Punjabi message to one farmer, and the planned against the actual sale.
+The system has \kn{sys_tests_total} automated tests. Among other things, they cover parallel approvals on PostgreSQL, isolation
+between FPOs, append-only records and the exact text of every message. The system also has \kn{sys_slices} versioned contracts with
+\kn{sys_examples_valid} valid and \kn{sys_examples_invalid} invalid examples.
+
+A single command runs \kn{sys_chain_steps} steps on two new fictional FPOs through the same interface that the website uses. The steps
+cover data, stock, a simulated sensor, the plan, an edit, approval, messages, the manager's hand-over to WhatsApp, sales, release, a
+ledger audit and isolation. Each step is checked against an independent recomputation, and the run stops at the first deviation. It
+passed all \kn{sys_chain_passed} steps in about \kn{sys_chain_seconds} seconds. Faults planted on purpose were each detected: a corrupted
+ledger entry, rounding down, a wrong weighted price and a message missing its last character. All farmers, lots and sales in this run
+are fictional, and no message went to a real farmer. The English, Punjabi and Hindi message texts were checked by independent
+reviewers. Figure~\ref{fig:app} shows three screens of the manager app after this run: the approved revision of a plan, the approved
+plan as a Punjabi message to one farmer, and the planned against the actual sale.
 
 \begin{figure}[t]
   \centering

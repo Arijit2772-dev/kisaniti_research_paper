@@ -1,22 +1,23 @@
-% Section 5 -- Conclusion, limits and future work (condensed 28 Oct 2026).
+% Section 5 -- Conclusion, scope and future work (readability rewrite 28 Oct 2026).
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
 
-Selling decisions of an FPO depend on whether the crop's price is set by policy or by the market. For Paddy (Common) in Punjab it
-is set by policy: the announced support price was the most accurate forecast, no learned model beat the last price, and the useful
-work is to share mandi limits fairly. The exact allocation raised the smallest share a farmer receives from
-\kn{allpol_p1_nearest_min_fulfilment_pct}\% to \kn{allpol_kisaniti_min_fulfilment_pct}\% in the synthetic experiment and recovered part
-of what a greedy rule gives up. For basmati the forecast comparison was fixed in advance, and its result is negative: on the
-held-out season no method of eight beat the naive value at 1, 7 or 14 days after correcting for multiple comparisons
-(Section~\ref{sec:results-basmati}), so for the system the baseline is enough, although a short-horizon gain for 1121 cannot be excluded. The five stages from data to recorded sales were built as one system and tested end to end.
+Whether an FPO gains from price forecasting depends on who sets the price. For Paddy (Common) in Punjab, the price is set by policy.
+The announced support price was the most accurate forecast, no learned model beat the last price, and the useful work is to share
+mandi limits fairly. In the synthetic experiment, the exact allocation raised the smallest share sold by any farmer from
+\kn{allpol_p1_nearest_min_fulfilment_pct}\% to \kn{allpol_kisaniti_min_fulfilment_pct}\%, and it gave up less net return than a greedy
+rule. Basmati is sold at market prices, and for basmati the forecast comparison was fixed in advance. Its result is negative: on the
+held-out season, none of the eight methods beat the naive forecast at 1, 7 or 14 days once multiple comparisons were accounted for
+(Section~\ref{sec:results-basmati}). The naive forecast is therefore enough for the system, although a short-horizon gain for 1121
+cannot be ruled out. All five stages, from data to recorded sales, were built as one system and tested end to end.
 
-\paragraph{Scope.} The price index is a market summary rather than the price a farmer received, and it covers September to January over
-five seasons, so only large forecast gains are detectable. The portal check covers \kn{hc_rows} stratified rows, and the portal has no
-second source. The allocation experiment uses a synthetic FPO, so it shows properties of the method rather than an income gain, and the storage
-rule was evaluated on simulated scenarios. Wheat held after procurement is outside the scope, because Punjab mandis report too few wheat prices
-outside procurement.
+\paragraph{Scope.} The price index is a market summary rather than the price a farmer received. It covers September to January over
+five seasons, so only large forecast gains can be detected. The portal check covers \kn{hc_rows} stratified rows, and there is no second
+source against which the portal itself could be checked. The allocation experiment uses a synthetic FPO, so it shows how the method
+behaves rather than how much a real farmer would gain, and the storage rule was evaluated on simulated scenarios. Wheat held after
+procurement is outside the scope, because Punjab mandis report too few wheat prices outside the procurement season.
 
-\paragraph{Future work.} The next steps are a one-week sensor run in stored grain; hold-or-sell advice with forecast ranges; the allocation
-comparison with basmati prices and measured transport costs; and a deployment with one FPO after ethics approval, including a comprehension
-test of the messages with farmers, delivery tracking through a messaging-platform account, a review of the off-plan sale rule with FPO staff
-and a legal review of privacy.
+\paragraph{Future work.} The next steps are a one-week sensor run in stored grain, hold-or-sell advice that uses the forecast ranges,
+and the allocation comparison with basmati prices and measured transport costs. A deployment with one FPO will follow ethics approval.
+It will include a comprehension test of the messages with farmers, delivery tracking through a messaging-platform account, a review of
+the off-plan sale rule with FPO staff, and a legal review of privacy.

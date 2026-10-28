@@ -1,14 +1,16 @@
-% Section 3 -- System design and methods, by the five stages of use (condensed 28 Oct 2026).
+% Section 3 -- System design and methods, by the five stages of use (readability rewrite 28 Oct 2026).
 \section{System Design and Methods}
 \label{sec:system}
 
-Figure~\ref{fig:architecture} shows the KisanNiti architecture, which follows the order in which an FPO manager works: (1)~farmer records, mandi prices
-and storage readings are collected and cleaned; (2)~a forecast, a storage assessment and a fair allocation produce a proposed
-plan; (3)~the manager reviews, edits and approves or rejects it; (4)~each farmer is told in their own language; and
-(5)~replies and actual sales are recorded and compared with the plan. Five rules hold throughout: raw facts, derived values, proposals, human decisions and what happened are stored separately; quantities and
-money are exact (grams and paise, never floating point); each FPO sees only its own data, enforced in the query and again in
-the database; every change is an append-only record with its author; and every failure is explicit, so a missing contact,
-consent or language blocks a message with a stated reason instead of being guessed.
+Figure~\ref{fig:architecture} shows the KisanNiti architecture. It follows the order in which an FPO manager works. (1)~Farmer records,
+mandi prices and storage readings are collected and cleaned. (2)~A forecast, a storage assessment and a fair allocation produce a
+proposed plan. (3)~The manager reviews the plan, edits it, and approves or rejects it. (4)~Each farmer is told about the plan in their
+own language. (5)~Replies and actual sales are recorded and compared with the plan.
+
+Five design rules apply at every stage. Raw facts, derived values, proposals, human decisions and actual outcomes are stored separately.
+Quantities and money are kept exact, in grams and paise, and never as floating-point numbers. Each FPO sees only its own data, which is
+enforced both in the queries and in the database. Every change is an append-only record that names its author. Every failure is
+explicit: a missing contact, consent or language blocks a message with a stated reason, and nothing is guessed.
 
 \begin{figure}[t]
   \centering
@@ -23,38 +25,51 @@ consent or language blocks a message with a stated reason instead of being guess
 \subsection{Stage 1: Data and Cleaning}
 \label{sec:method-data}
 
-Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}~\cite{agmarknet}, downloaded by hand each month
-because the portal asks for a CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart). \kn{data_manifests} months of Paddy (Basmati) for Punjab are filed with checksums. A parser keeps every line with its
-source file and position, so each cleaned row traces to its source; the files hold \kn{data_rows_total} rows (\kn{data_rows_dated} dated,
-\kn{data_rows_blank} without a date) and every row is accounted for. Mechanical checks flag suspicious rows but remove none. Where the
-portal shows a variety under the date of the row above, the date is inferred and flagged. Prices of one variety become a daily index, the
-median modal price over the mandis that reported the variety that day (at least three, no filling); it is a market summary, not the price a
-farmer received. Farmer records (members, lots with exact quantity, an append-only stock ledger) are entered by staff, and sensor readings
-are assessed hourly (Section~\ref{sec:method-storage}). The cleaned release is imported with an exact row reconciliation and marked as pending; it is
-marked as validated only after the authors sign off a hand check of \kn{data_handcheck_rows} stratified rows against the
-portal. The rows were read on the live portal by automated browser scripts, with the CAPTCHAs entered and the result signed off by the
-authors: all \kn{hc_modal} modal prices agree, \kn{hc_numeric} rows agree fully, \kn{hc_arr_differ} differ in arrivals and \kn{hc_missing_zero} show a
-missing bound as 0.00; an independent second pass re-read \kn{hc_repl} rows, \kn{hc_repl_same} identical. The sample is purposive, not an error rate. The page splits a date total over variety rows, equally or not, so the meaning of exported arrivals is left open (the index uses modal prices).
-\kn{hc_inferred_ok} of \kn{hc_inferred} inferred-date rows appear beneath the preceding date with the same prices; no merged cell is in the markup.
+Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}~\cite{agmarknet}. The portal asks for a CAPTCHA
+(Completely Automated Public Turing test to tell Computers and Humans Apart), so the files were downloaded by hand, one month at a time,
+and \kn{data_manifests} monthly files of Paddy (Basmati) for Punjab are stored with checksums. The parser records the source file and
+line of every row, so each cleaned row can be traced back to the portal. The files hold \kn{data_rows_total} rows, \kn{data_rows_dated}
+with a date and \kn{data_rows_blank} without one, and every row is accounted for. Automatic checks flag suspicious rows but remove none.
+Where the portal lists a variety under the date of the row above, the date is inferred and flagged.
+
+For each variety, the daily index is the median modal price over the mandis that reported the variety that day. At least three mandis
+are needed, and missing days are not filled in. The index summarizes the market; it is not the price that any one farmer received.
+Farmer records, namely members, lots with exact quantities and an append-only stock ledger, are entered by FPO staff. Sensor readings
+are assessed every hour (Section~\ref{sec:method-storage}).
+
+The cleaned data enter the system marked as pending. They are marked as validated only after the authors sign off a hand check against
+the portal. For this check, \kn{data_handcheck_rows} stratified rows were read on the live portal by automated browser scripts, with the
+CAPTCHAs entered by the authors. All \kn{hc_modal} modal prices agreed. In \kn{hc_numeric} rows every field agreed, \kn{hc_arr_differ}
+rows differed only in arrivals, and \kn{hc_missing_zero} showed a missing bound as 0.00. An independent second pass re-read
+\kn{hc_repl} rows and found \kn{hc_repl_same} of them identical. The sample was chosen on purpose, so it does not estimate an error rate.
+The portal splits the total arrivals of a date over the variety rows, not always equally, which makes exported arrivals hard to
+interpret; for this reason the index uses modal prices only. Of the \kn{hc_inferred} rows with an inferred date, \kn{hc_inferred_ok}
+appear on the portal beneath the preceding date with the same prices, and the page markup contains no merged cells.
 
 \subsection{Stage 2: Forecasting, Storage Risk and Fair Allocation}
 \label{sec:method-forecast}
 
-\paragraph{Regime test.} For each crop and season, the share of reported prices equal to the announced MSP is computed. A high
-share marks a price-bound crop, for which the MSP is used as the price and no forecaster is trained.
+\paragraph{Regime test.} For each crop and season, the share of reported prices equal to the announced MSP is computed. A high share
+marks a price-bound crop. For such a crop the MSP is used as the price, and no forecaster is trained.
 
-\paragraph{Pre-registered forecast comparison.} For the basmati varieties Pusa Basmati 1121 and Pusa Basmati 1509 (called 1121 and
-1509 below) the index is forecast at the primary horizons of 1, 7 and 14 calendar days; 28 days is a secondary horizon and 60 days is
-reported descriptively. Seasons 2021--22 to 2023--24 give the initial training, 2024--25 is used to tune and calibrate, and 2025--26 is held out and
-evaluated once; September and October 2026 are a separate partial check. Each forecast uses only data up to its origin day, and an origin
-needs ten index days of its season. Eight methods were fixed beforehand: the last value, a seasonal naive value, a five-day average, exponential smoothing (ETS), ARIMA,
-the light gradient-boosting machine (LightGBM), a small GRU and the pretrained Chronos-2 model~\cite{ansari2024chronos} used zero-shot, with 80\% and 95\% ranges from analytic intervals, quantile objectives, split-conformal residuals
-or the model's quantiles. Accuracy is the mean absolute error (MAE) in Rs per quintal and the mean absolute scaled error (MASE). Each model is compared with the naive value by a
-Diebold--Mariano test with the Harvey--Leybourne--Newbold correction, Holm-corrected over all 42 comparisons, with a block-bootstrap interval of
-the relative change in MAE. A model counts as better only if the adjusted $p<0.05$, the interval excludes zero and the gain exceeds the smallest
-the sample can detect (13.3\% for 1121, 17.2\% for 1509); otherwise the system keeps the naive value. The protocol and its choices were frozen before the run, the code is tested on synthetic series, and a gate in the runner refuses any run before
-the freeze, on changed code or data, or a second test run. Figure~\ref{fig:protocol} summarizes the protocol from the price files to the
-decision rule.
+\paragraph{Pre-registered forecast comparison.} Basmati is studied through two varieties, Pusa Basmati 1121 and Pusa Basmati 1509
+(called 1121 and 1509 below). Their index is forecast 1, 7 and 14 calendar days ahead. A 28-day horizon is a secondary outcome, and
+60 days is reported only descriptively. The seasons are used in time order: 2021--22 to 2023--24 for initial training, 2024--25 for
+tuning and calibration, and 2025--26 as the held-out season, evaluated once. September and October 2026 form a separate, partial check.
+Each forecast uses only data up to its origin day, and an origin needs ten index days of its season.
+
+The eight methods were fixed beforehand. Three are simple: the last value (the naive forecast), a seasonal naive value and a five-day
+average. The other five are exponential smoothing (ETS), ARIMA, the light gradient-boosting machine (LightGBM), a small GRU, and the
+pretrained Chronos-2 model~\cite{ansari2024chronos} used zero-shot. Every method also gives 80\% and 95\% ranges, taken from analytic
+intervals, quantile objectives, split-conformal residuals or the model's own quantiles.
+
+Accuracy is measured by the mean absolute error (MAE) in Rs per quintal and by the mean absolute scaled error (MASE). Each method is
+compared with the naive forecast by a Diebold--Mariano test with the Harvey--Leybourne--Newbold correction. The $p$-values are
+Holm-corrected over all 42 comparisons, and a block bootstrap gives an interval for the relative change in MAE. A method counts as
+better only if three conditions hold: the adjusted $p<0.05$, the interval excludes zero, and the gain is larger than the smallest gain
+the sample can detect (13.3\% for 1121 and 17.2\% for 1509). Otherwise the system keeps the naive forecast. The protocol was frozen
+before the run, and the code was first tested on synthetic series. The runner refuses to start before the freeze, after any change to
+the code or data, or for a second test run. Figure~\ref{fig:protocol} summarizes the protocol from the price files to the decision rule.
 
 \begin{figure}[t]
   \centering
@@ -66,26 +81,32 @@ decision rule.
   \label{fig:protocol}
 \end{figure}
 
-\paragraph{Fair allocation.} A plan gives each lot a mandi, a day and a quantity, and each mandi has a daily limit shared by all
-members. An exact mixed-integer program with a fixed hierarchy allocates as much as possible, then maximizes the smallest share any
-farmer receives (and so on, lexicographically), then gives lots at risk of spoilage the earliest dates, then maximizes net return,
-then breaks ties deterministically. An independent checker re-validates every plan, and a brute-force reference confirms the solver
-on small cases.
+\paragraph{Fair allocation.} A plan gives each lot a mandi, a day and a quantity. Each mandi has a daily limit that all members share.
+An exact mixed-integer program works through a fixed order of goals. It first sells as much as possible. It then raises the smallest
+share sold by any farmer, then the next smallest, and so on, in leximin order. After that, lots at risk of spoilage get the earliest
+dates, net return is maximized, and any remaining ties are broken deterministically. An independent checker re-validates every plan,
+and on small cases a brute-force search confirms the solver's answer.
 
 \input{../sections/03_4_storage.tex}
 
 \subsection{Stages 3 to 5: Review, Messages, Sales}
 \label{sec:method-approval}
 
-A proposed plan is stored unchanged. A manager's edit becomes a new revision, accepted only if the independent validator finds no violation.
-Approval needs the approve permission and an acknowledgement of every warning, and in one database transaction records the decision and
-reserves exact quantities in the stock ledger; a reservation cannot exceed free stock, approval cannot be given twice, and two plans competing
-for one lot cannot both succeed (tested with parallel requests on PostgreSQL). After approval, one message per farmer is built from a
-versioned template in the farmer's language (Punjabi, Hindi or English) and the approved facts only, with no price and no promise. A message
-needs an active farmer with a phone number and consent to WhatsApp messages, rechecked at sending; a preview channel shows the exact text and
-sends nothing. Without a messaging-platform account, the manager presses ``Send to farmers'', confirms with yes or no, and receives one link
-per farmer that opens the manager's own WhatsApp with the text written; the manager sends it there and reports ``sent'' or ``not sent''. The system cannot see
-delivery, so that report is stored as the manager's statement, never as a delivery. Replies are entered by staff and never read as acceptance. Sales are
-entered from the paper J-form (the sale receipt issued in Punjab mandis) with exact amounts (ties to even), duplicate form numbers refused and mistakes voided by compensating records; a
-sale on plan consumes its reservation, and an off-plan sale needs the person entering it to choose which reservation to give up. The
-system reports planned against actual quantity, price and share per farmer.
+A proposed plan is stored unchanged. When the manager edits it, the edit becomes a new revision, which is accepted only if the
+independent validator finds no violation. Approval needs the approve permission and an acknowledgement of every warning. It runs in a
+single database transaction that records the decision and reserves the exact quantities in the stock ledger. A reservation cannot
+exceed free stock, a plan cannot be approved twice, and when two plans compete for the same lot only one can succeed. These guarantees
+were tested with parallel requests on PostgreSQL.
+
+After approval, one message per farmer is built from a versioned template in the farmer's language (Punjabi, Hindi or English). It
+contains only the approved facts, with no price and no promise. A message is prepared only for an active farmer with a phone number
+and consent to WhatsApp messages, and consent is checked again at sending. A preview channel shows the exact text without sending
+anything. Because the FPO has no messaging-platform account, sending is handed to the manager. The manager presses ``Send to
+farmers'', confirms, and receives one link per farmer. Each link opens the manager's own WhatsApp with the text already written; the
+manager sends it there and reports it as sent or not sent. The system cannot see delivery, so this report is stored as the manager's
+statement and not as a delivery. Farmers' replies are entered by staff and are never read as acceptance.
+
+Sales are entered from the paper J-form, the sale receipt issued in Punjab mandis, with exact amounts rounded half to even. Duplicate
+form numbers are refused, and mistakes are voided by compensating records. A sale that follows the plan consumes its reservation. For
+an off-plan sale, the person entering it must choose which reservation to give up. The system then reports planned against actual
+quantity, price and share for each farmer.

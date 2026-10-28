@@ -1,29 +1,34 @@
-% Section 2 -- Related Work (condensed 28 Oct 2026). Every citation key was opened and logged in literature/verification_log.md.
+% Section 2 -- Related Work (readability rewrite 28 Oct 2026). Every citation key was opened and logged in literature/verification_log.md.
 \section{Related Work}
 \label{sec:related}
 
 \paragraph{Price forecasting.} Most Indian studies take daily or monthly AGMARKNET prices~\cite{agmarknet} and compare one model family
-with autoregressive integrated moving average (ARIMA) models. The largest comparison covers 23 commodities in 165 markets from 2010 to 2024, where long short-term memory (LSTM) and gated recurrent unit (GRU) networks had the
-lowest errors~\cite{manogna}; adding rainfall and temperature helped deep models on tomato, onion and potato~\cite{nayak}.
-Closer to the crops here, Bhoi et al. fitted six time-series models to monthly basmati prices from 74 Punjab markets and
-reported forecasts as probability bands~\cite{bhoi2023}, and Balantrapu et al. asked what it means for a series to be anchored
-to the MSP: for wheat, a naive forecast was almost as good as their best model~\cite{balantrapu2026}. Graph models
-forecast many related series at once~\cite{ozden}\cite{min}, as the temporal graph convolutional network (T-GCN) and its attention-based variant (A3T-GCN) do for traffic~\cite{zhao}\cite{bai}.
+with autoregressive integrated moving average (ARIMA) models. The largest comparison covers 23 commodities in 165 markets from 2010 to
+2024. In it, long short-term memory (LSTM) and gated recurrent unit (GRU) networks had the lowest errors~\cite{manogna}. Adding rainfall
+and temperature helped deep models forecast tomato, onion and potato prices~\cite{nayak}. Two studies are closer to the crops here. Bhoi
+et al. fitted six time-series models to monthly basmati prices from 74 Punjab markets and reported the forecasts as probability
+bands~\cite{bhoi2023}. Balantrapu et al. studied prices anchored to the MSP and found that for wheat a naive forecast was almost as good
+as their best model~\cite{balantrapu2026}. Graph models forecast many related series at once~\cite{ozden}\cite{min}; the temporal graph
+convolutional network (T-GCN) and its attention-based variant (A3T-GCN) were built this way for traffic~\cite{zhao}\cite{bai}.
 
-\paragraph{Storage and sensing.} Measured farm storage losses in North India are small for the first months: 0.39 to
-0.50\% for wheat in Madhya Pradesh and zero for paddy in Punjab, where farmers sell soon after harvest, with losses
-expected to rise after about three months~\cite{gulati2024report}. Low-cost monitors log temperature and humidity and raise
-alarms~\cite{islam}, but none of these systems passes its readings to a selling decision.
+\paragraph{Storage and sensing.} Measured farm storage losses in North India are small in the first months after harvest. They were
+0.39 to 0.50\% for wheat in Madhya Pradesh and zero for paddy in Punjab, where farmers sell soon after harvest, and they are expected to
+rise after about three months~\cite{gulati2024report}. Low-cost monitors log temperature and humidity and raise alarms~\cite{islam}.
+None of these systems passes its readings on to a selling decision.
 
-\paragraph{Allocation and fairness.} Mixed-integer models already plan agricultural logistics for small
-growers, cooperatives and food-grain freight~\cite{urra}\cite{anoop}. They minimize cost or maximize profit, not how gains are shared. Leximin (lexicographic max-min) methods exist for that~\cite{ogryczak2014}\cite{chen2023fairness} and
-have been used to allocate school classrooms with real data~\cite{kurokawa2018}; no agricultural allocation paper read for this
-study used a fairness criterion.
+\paragraph{Allocation and fairness.} Mixed-integer models already plan agricultural logistics for small growers, cooperatives and
+food-grain freight~\cite{urra}\cite{anoop}. They minimize cost or maximize profit and do not consider how the gains are shared.
+Leximin (lexicographic max-min) methods address exactly that~\cite{ogryczak2014}\cite{chen2023fairness}, and they have been used to
+allocate school classrooms with real data~\cite{kurokawa2018}. None of the agricultural allocation papers read for this study used a
+fairness criterion.
 
-\paragraph{Advice to farmers.} Phone advice has a mixed record: Short Message Service (SMS) price and weather messages to farmers in 100 Maharashtra villages produced no
-significant change in prices received~\cite{fafchamps2012}.
+\paragraph{Advice to farmers.} Evidence on phone-based advice is mixed. In 100 Maharashtra villages, Short Message Service (SMS) price
+and weather messages produced no significant change in the prices farmers received~\cite{fafchamps2012}.
 
-Table~\ref{tab:related} lists only what each paper reports. In the 38 studies reviewed, price forecasting, storage monitoring and allocation were studied separately. No study fed a forecast into a plan that shares mandi capacity among the members of an FPO, and none combined such a plan with a fairness rule or a manager's approval before farmers are told. KisanNiti addresses this combination for Punjab, where basmati is the main crop sold at market prices and nearly all reported prices of common paddy equal the MSP.
+Table~\ref{tab:related} lists only what each paper reports. Across the 38 studies reviewed, price forecasting, storage monitoring and
+allocation were studied separately. No study fed a forecast into a plan that shares mandi capacity among the members of an FPO, and none
+combined such a plan with a fairness rule or with a manager's approval before farmers are told. KisanNiti targets this combination in
+Punjab, where basmati is the main crop sold at market prices and nearly all reported prices of common paddy equal the MSP.
 
 \begin{table}[t]
 \centering
