@@ -5,22 +5,23 @@
 A Farmer Producer Organization (FPO) is a registered body of farmers that can pool, market and sell its members' produce~\cite{sfac}.
 For each member lot the FPO must choose a mandi, a day and a quantity, and the choices depend on each other: the best-paying mandi may be
 the farthest, a later date keeps grain in storage longer, and when many members deliver in one week a mandi can receive more than it can
-handle in a day. Post-harvest losses in India are large, about Rs~1.53 trillion of food a year by a 2024 ICRIER estimate that names
-storage as one cause~\cite{icrier}.
+handle in a day. Post-harvest losses in India are large, about 1.53 trillion Indian Rupees (Rs) of food a year by a 2024 estimate of the Indian Council for Research on International
+Economic Relations that names storage as one cause~\cite{icrier}.
 
-Two public sources give an FPO most of the price information it needs. AGMARKNET publishes daily arrivals and
+Two public sources give an FPO most of the price information it needs. The Agricultural Marketing Information Network
+(AGMARKNET)~\cite{agmarknet} publishes daily arrivals and
 the minimum, maximum and modal price reported by each mandi~\cite{agmarknet}, and the government announces a minimum
 support price (MSP) for paddy and wheat before each season~\cite{msp1}\cite{msp2}. The two cases differ sharply. For Paddy
 (Common) in Punjab, at least \kn{msp_share_min}\% of the reported prices in every season from \kn{season_first} to
 \kn{season_last} were exactly the Grade-A MSP in the \kn{mandis} mandis studied. Basmati paddy has no MSP and is sold at
 market prices that differ by variety, so for basmati the mandi and the day can change what a farmer earns.
 
-KisanNiti is a decision-support system for FPO staff in the Patiala area. It reads AGMARKNET prices, the FPO's lot
+KisanNiti is a decision-support system for FPO staff in the Patiala area. It reads AGMARKNET prices~\cite{agmarknet}, the FPO's lot
 records and a grain-storage sensor, proposes a selling plan, lets a manager review it, and tells each farmer in their
-language (Fig.~\ref{fig:architecture}). The paper makes five contributions. A regime test (the share of reports equal to
-the MSP) separates price-bound from market crops (Sect.~\ref{sec:results-msp}). For basmati, a comparison of eight
+language. The paper makes five contributions. A regime test (the share of reports equal to
+the MSP) separates price-bound from market crops (Section~\ref{sec:results-msp}). For basmati, a comparison of eight
 forecasting methods with prediction ranges was fixed in a pre-registered protocol and evaluated once on a held-out season
-(Sect.~\ref{sec:results-basmati}). An exact allocation model shares mandi limits fairly among members and is compared with
-simpler rules (Sect.~\ref{sec:results-alloc}). A storage-sensing rule is tested on simulated scenarios
-(Sect.~\ref{sec:results-storage}; details in the supplement). The five stages from data to recorded sales are built and tested as one system
-(Sect.~\ref{sec:results-system}). Sect.~\ref{sec:conclusion} lists what is not shown.
+(Section~\ref{sec:results-basmati}). An exact allocation model shares mandi limits fairly among members and is compared with
+simpler rules (Section~\ref{sec:results-alloc}). A storage-sensing rule is tested on simulated scenarios
+(Section~\ref{sec:results-storage}). The five stages from data to recorded sales are built and tested as one system
+(Section~\ref{sec:results-system}). Section~\ref{sec:conclusion} concludes the paper and outlines future work.

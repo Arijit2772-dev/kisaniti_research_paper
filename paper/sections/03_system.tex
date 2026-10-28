@@ -2,7 +2,7 @@
 \section{System Design and Methods}
 \label{sec:system}
 
-KisanNiti follows the order in which an FPO manager works (Fig.~\ref{fig:architecture}): (1)~farmer records, mandi prices
+Figure~\ref{fig:architecture} shows the KisanNiti architecture, which follows the order in which an FPO manager works: (1)~farmer records, mandi prices
 and storage readings are collected and cleaned; (2)~a forecast, a storage assessment and a fair allocation produce a proposed
 plan; (3)~the manager reviews, edits and approves or rejects it; (4)~each farmer is told in their own language; and
 (5)~replies and actual sales are recorded and compared with the plan. Five rules hold throughout: raw facts, derived values, proposals, human decisions and what happened are stored separately; quantities and
@@ -12,28 +12,29 @@ consent or language blocks a message with a stated reason instead of being guess
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.6\textwidth]{fig1_architecture.pdf}
+  \includegraphics[width=0.8\textwidth]{fig1_architecture.pdf}
   \caption{KisanNiti architecture. Data sources (1) are cleaned into a daily price panel (2). Decision models (3) turn
   prices, storage readings and lot records into a plan that the FPO manager reviews (4). Farmers receive the approved plan on
   WhatsApp, and recorded sales update stock for the next plan (5). MILP: mixed-integer linear program; RH: relative humidity.
-  Dashed grey: not built.}
+  Dashed grey: components planned for future work.}
   \label{fig:architecture}
 \end{figure}
 
 \subsection{Stage 1: Data and Cleaning}
 \label{sec:method-data}
 
-Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}, downloaded by hand each month because the portal
-asks for a CAPTCHA. \kn{data_manifests} months of Paddy (Basmati) for Punjab are filed with checksums. A parser keeps every line with its
+Prices come from the AGMARKNET report \emph{Date Wise Prices for Specified Commodity}~\cite{agmarknet}, downloaded by hand each month
+because the portal asks for a CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart). \kn{data_manifests} months of Paddy (Basmati) for Punjab are filed with checksums. A parser keeps every line with its
 source file and position, so each cleaned row traces to its source; the files hold \kn{data_rows_total} rows (\kn{data_rows_dated} dated,
 \kn{data_rows_blank} without a date) and every row is accounted for. Mechanical checks flag suspicious rows but remove none. Where the
 portal shows a variety under the date of the row above, the date is inferred and flagged. Prices of one variety become a daily index, the
 median modal price over the mandis that reported the variety that day (at least three, no filling); it is a market summary, not the price a
 farmer received. Farmer records (members, lots with exact quantity, an append-only stock ledger) are entered by staff, and sensor readings
-are assessed hourly (Sect.~\ref{sec:method-storage}). The cleaned release is imported with an exact row reconciliation and the status
-\texttt{PENDING\_HAND\_CHECK}; it becomes \texttt{VALIDATED} only on the owner's sign-off after a hand check of \kn{data_handcheck_rows} stratified rows against the
-portal. Software agents inspected them on the live portal (the owner entered the CAPTCHAs and signed off the result): all \kn{hc_modal} modal prices
-agree, \kn{hc_numeric} rows agree fully, \kn{hc_arr_differ} differ in arrivals and \kn{hc_missing_zero} show a missing bound as 0.00; a second agent re-read \kn{hc_repl} rows, \kn{hc_repl_same} identical. The sample is purposive, not an error rate. The page splits a date total over variety rows, equally or not, so the meaning of exported arrivals is left open (the index uses modal prices).
+are assessed hourly (Section~\ref{sec:method-storage}). The cleaned release is imported with an exact row reconciliation and marked as pending; it is
+marked as validated only after the authors sign off a hand check of \kn{data_handcheck_rows} stratified rows against the
+portal. The rows were read on the live portal by automated browser scripts, with the CAPTCHAs entered and the result signed off by the
+authors: all \kn{hc_modal} modal prices agree, \kn{hc_numeric} rows agree fully, \kn{hc_arr_differ} differ in arrivals and \kn{hc_missing_zero} show a
+missing bound as 0.00; an independent second pass re-read \kn{hc_repl} rows, \kn{hc_repl_same} identical. The sample is purposive, not an error rate. The page splits a date total over variety rows, equally or not, so the meaning of exported arrivals is left open (the index uses modal prices).
 \kn{hc_inferred_ok} of \kn{hc_inferred} inferred-date rows appear beneath the preceding date with the same prices; no merged cell is in the markup.
 
 \subsection{Stage 2: Forecasting, Storage Risk and Fair Allocation}
@@ -42,20 +43,21 @@ agree, \kn{hc_numeric} rows agree fully, \kn{hc_arr_differ} differ in arrivals a
 \paragraph{Regime test.} For each crop and season, the share of reported prices equal to the announced MSP is computed. A high
 share marks a price-bound crop, for which the MSP is used as the price and no forecaster is trained.
 
-\paragraph{Pre-registered forecast comparison.} For basmati (1121 and 1509) the index is forecast at 1, 7 and 14 calendar days (28 secondary,
-60 descriptive). Seasons 2021--22 to 2023--24 give the initial training, 2024--25 is used to tune and calibrate, and 2025--26 is held out and
+\paragraph{Pre-registered forecast comparison.} For the basmati varieties Pusa Basmati 1121 and Pusa Basmati 1509 (called 1121 and
+1509 below) the index is forecast at the primary horizons of 1, 7 and 14 calendar days; 28 days is a secondary horizon and 60 days is
+reported descriptively. Seasons 2021--22 to 2023--24 give the initial training, 2024--25 is used to tune and calibrate, and 2025--26 is held out and
 evaluated once; September and October 2026 are a separate partial check. Each forecast uses only data up to its origin day, and an origin
-needs ten index days of its season. Eight methods were fixed beforehand: the last value, a seasonal naive value, a five-day average, ETS, ARIMA,
-LightGBM, a small GRU and the pretrained Chronos-2 model~\cite{ansari2024chronos} used zero-shot, with 80\% and 95\% ranges from analytic intervals, quantile objectives, split-conformal residuals
-or the model's quantiles. Accuracy is the MAE in rupees per quintal and MASE. Each model is compared with the naive value by a
+needs ten index days of its season. Eight methods were fixed beforehand: the last value, a seasonal naive value, a five-day average, exponential smoothing (ETS), ARIMA,
+the light gradient-boosting machine (LightGBM), a small GRU and the pretrained Chronos-2 model~\cite{ansari2024chronos} used zero-shot, with 80\% and 95\% ranges from analytic intervals, quantile objectives, split-conformal residuals
+or the model's quantiles. Accuracy is the mean absolute error (MAE) in Rs per quintal and the mean absolute scaled error (MASE). Each model is compared with the naive value by a
 Diebold--Mariano test with the Harvey--Leybourne--Newbold correction, Holm-corrected over all 42 comparisons, with a block-bootstrap interval of
 the relative change in MAE. A model counts as better only if the adjusted $p<0.05$, the interval excludes zero and the gain exceeds the smallest
-the sample can detect (13.3\% for 1121, 17.2\% for 1509); otherwise the product keeps the naive value. The protocol and its choices were frozen before the run, the code is tested on synthetic series, and a gate in the runner refuses any run before
+the sample can detect (13.3\% for 1121, 17.2\% for 1509); otherwise the system keeps the naive value. The protocol and its choices were frozen before the run, the code is tested on synthetic series, and a gate in the runner refuses any run before
 the freeze, on changed code or data, or a second test run.
 
 \paragraph{Fair allocation.} A plan gives each lot a mandi, a day and a quantity, and each mandi has a daily limit shared by all
-members. An exact mixed-integer program with a fixed hierarchy allocates as much as possible, then maximises the smallest share any
-farmer receives (and so on, lexicographically), then gives lots at risk of spoilage the earliest dates, then maximises net return,
+members. An exact mixed-integer program with a fixed hierarchy allocates as much as possible, then maximizes the smallest share any
+farmer receives (and so on, lexicographically), then gives lots at risk of spoilage the earliest dates, then maximizes net return,
 then breaks ties deterministically. An independent checker re-validates every plan, and a brute-force reference confirms the solver
 on small cases.
 
@@ -71,8 +73,8 @@ for one lot cannot both succeed (tested with parallel requests on PostgreSQL). A
 versioned template in the farmer's language (Punjabi, Hindi or English) and the approved facts only, with no price and no promise. A message
 needs an active farmer with a phone number and consent to WhatsApp messages, rechecked at sending; a preview channel shows the exact text and
 sends nothing. Without a messaging-platform account, the manager presses ``Send to farmers'', confirms with yes or no, and receives one link
-per farmer that opens his own WhatsApp with the text written; he sends it there and reports ``sent'' or ``not sent''. The system cannot see
-delivery, so that report is stored as his statement, never as a delivery. Replies are entered by staff and never read as acceptance. Sales are
-entered from the paper J-form with exact amounts (ties to even), duplicate form numbers refused and mistakes voided by compensating records; a
-sale on plan consumes its reservation, and an off-plan sale needs the person to choose which reservation to give up (a provisional rule). The
+per farmer that opens the manager's own WhatsApp with the text written; the manager sends it there and reports ``sent'' or ``not sent''. The system cannot see
+delivery, so that report is stored as the manager's statement, never as a delivery. Replies are entered by staff and never read as acceptance. Sales are
+entered from the paper J-form (the sale receipt issued in Punjab mandis) with exact amounts (ties to even), duplicate form numbers refused and mistakes voided by compensating records; a
+sale on plan consumes its reservation, and an off-plan sale needs the person entering it to choose which reservation to give up. The
 system reports planned against actual quantity, price and share per farmer.

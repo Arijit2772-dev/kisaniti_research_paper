@@ -8,11 +8,15 @@ work is to share mandi limits fairly. The exact allocation raised the smallest s
 \kn{allpol_p1_nearest_min_fulfilment_pct}\% to \kn{allpol_kisaniti_min_fulfilment_pct}\% in the synthetic experiment and recovered part
 of what a greedy rule gives up. For basmati the forecast comparison was fixed in advance, and its result is negative: on the
 held-out season no method of eight beat the naive value at 1, 7 or 14 days after correcting for multiple comparisons
-(Sect.~\ref{sec:results-basmati}), so for the product the baseline is enough, although a short-horizon gain for 1121 cannot be excluded. The five stages from data to recorded sales were built as one system and tested end to end.
+(Section~\ref{sec:results-basmati}), so for the system the baseline is enough, although a short-horizon gain for 1121 cannot be excluded. The five stages from data to recorded sales were built as one system and tested end to end.
 
-\paragraph{Limits.} The index is a market summary, not the price a farmer received, and exists only from September to January over five
-seasons, so only large improvements can be detected. The portal check covers \kn{hc_rows} rows, was done by software agents and signed off by the owner; the portal itself has no second source. The FPO in the allocation experiment
-is synthetic, so no income gain is claimed. The storage sensor was tested on simulated scenarios only. Held wheat is not forecast: Punjab mandis report too few wheat prices outside procurement. The WhatsApp hand-over cannot see delivery, the message texts were reviewed but not tested with farmers, off-plan sales follow a provisional rule, and no user study has been done.
+\paragraph{Scope.} The price index is a market summary rather than the price a farmer received, and it covers September to January over
+five seasons, so only large forecast gains are detectable. The portal check covers \kn{hc_rows} stratified rows, and the portal has no
+second source. The allocation experiment uses a synthetic FPO, so it shows properties of the method rather than an income gain, and the storage
+rule was evaluated on simulated scenarios. Wheat held after procurement is outside the scope, because Punjab mandis report too few wheat prices
+outside procurement.
 
-\paragraph{Future work.} A one-week sensor run in grain; a hold-or-sell rule with ranges; the allocation comparison with basmati prices and real
-transport costs; a one-FPO deployment after ethics approval, with a comprehension test of the messages and a legal review of privacy.
+\paragraph{Future work.} The next steps are a one-week sensor run in stored grain; hold-or-sell advice with forecast ranges; the allocation
+comparison with basmati prices and measured transport costs; and a deployment with one FPO after ethics approval, including a comprehension
+test of the messages with farmers, delivery tracking through a messaging-platform account, a review of the off-plan sale rule with FPO staff
+and a legal review of privacy.

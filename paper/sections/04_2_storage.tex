@@ -2,8 +2,8 @@
 \subsection{Storage Rule on Simulated Scenarios}
 \label{sec:results-storage}
 
-The node has not run in real grain, so the rule was tested on \kn{stor_scenarios} simulated scenarios built from the monthly climate
-normals of the IMD station at Patiala~\cite{imd2022}, each with \kn{stor_seeds} noise seeds and sensor biases of $\pm2$\,\%RH. Without
+The rule was evaluated on \kn{stor_scenarios} simulated scenarios built from the monthly climate
+normals of the India Meteorological Department station at Patiala~\cite{imd2022}, each with \kn{stor_seeds} noise seeds and sensor biases of $\pm2$\,\%RH. Without
 bias it agreed with the intended category in \kn{stor_s3_demo_agree}--\kn{stor_s2_demo_agree}\,\% of known hours in the four in-grain
 scenarios and changed category at most \kn{stor_demo_flips_max} times a week; the latest-reading rule changed
 \kn{stor_instant_flips_min}--\kn{stor_instant_flips_max} times, and shed-air humidity was a poor stand-in for the grain. The costs are

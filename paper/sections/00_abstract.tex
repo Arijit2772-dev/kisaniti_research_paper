@@ -1,16 +1,16 @@
 % Abstract and keywords. Every number is a \kn{} macro read from a results file.
 \begin{abstract}
-A Farmer Producer Organization (FPO) must decide where, when and how much of its members' produce is sold, and existing tools treat
+A Farmer Producer Organization must decide where, when and how much of its members' produce is sold, and existing tools treat
 forecasting, storage and logistics separately. KisanNiti connects them in five stages that a manager follows: collecting and cleaning
 prices and farmer records, proposing a plan, reviewing it, telling each farmer in their language, and recording what was sold. A regime
 test separates price-bound from market crops: for Paddy (Common) in Punjab, at least \kn{msp_share_min}\% of reported prices in every season
-from \kn{season_first} to \kn{season_last} equal the minimum support price, and a rule predicting it had the lowest error (Rs~\kn{mae_msp_mean}
+from \kn{season_first} to \kn{season_last} equal the minimum support price, and a rule predicting it had the lowest error (\kn{mae_msp_mean} Indian Rupees
 per quintal). For basmati, eight forecasting methods were compared under a protocol frozen before any test result existed; on the
 held-out season none of \kn{inf_total} comparisons with the naive forecast at 1, 7 and 14 days found a method better after correcting for
 multiple comparisons. An exact fair-allocation model raised the smallest share a farmer sells from \kn{allpol_p1_nearest_min_fulfilment_pct}\% under the
-nearest-mandi rule to \kn{allpol_kisaniti_min_fulfilment_pct}\% in \kn{allpol_plans} synthetic plans at real prices, at Rs~\kn{allpol_kisaniti_price_of_fairness_rs_per_q} per
-quintal. The system was built and tested end to end (\kn{sys_tests_total} automated tests, a \kn{sys_chain_steps}-step run on fictional data); no
-real farmer data or user study is included.
+nearest-mandi rule to \kn{allpol_kisaniti_min_fulfilment_pct}\% in \kn{allpol_plans} synthetic plans at real prices, at a cost of \kn{allpol_kisaniti_price_of_fairness_rs_per_q} Indian Rupees per
+quintal. The complete system was built and tested end to end with \kn{sys_tests_total} automated tests and a \kn{sys_chain_steps}-step run on
+fictional organization data.
 \keywords{Farmer Producer Organizations \and Mandi price forecasting \and Minimum support price \and Fair allocation \and Integer
 programming}
 \end{abstract}

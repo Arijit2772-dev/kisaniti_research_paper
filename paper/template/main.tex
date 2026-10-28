@@ -9,10 +9,12 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \renewcommand\UrlFont{\color{blue}\rmfamily}
 \urlstyle{rm}
 \graphicspath{{../figures/}}
+% Let tall tables share a page with text instead of leaving half-empty pages.
+\renewcommand\topfraction{0.9}\renewcommand\textfraction{0.1}\renewcommand\floatpagefraction{0.8}
 
 \input{numbers_v2.tex}
 \input{numbers.tex}   % v3 numbers from ../numbers.py
@@ -28,11 +30,13 @@
 \title{KisanNiti: Cooperative Post-Harvest Selling for Farmer Producer Organizations
 with Mandi Price Forecasting, Storage Sensing and Fair Allocation}
 \titlerunning{KisanNiti: Cooperative Post-Harvest Selling for FPOs}
-% TODO(authors): confirm order, corresponding author, ORCIDs and the two unconfirmed emails.
-\author{Harkiran Kaur \and Arijit Singh \and Tushar Garg \and Hitesh Mehandiratta \and Namya Gautam}
-\authorrunning{H. Kaur et al.}
+% Author order and emails as supplied by the authors in draft v3 (27 Oct 2026); students first, supervisor last.
+% TODO(authors): corresponding author and ORCIDs.
+\author{Arijit Singh \and Tushar Garg \and Hitesh Mehandiratta \and Namya Gautam \and Harkiran Kaur}
+\authorrunning{A. Singh et al.}
 \institute{Thapar Institute of Engineering and Technology, Patiala, Punjab, India\\
-\email{\{asingh28\_be23,tgarg3\_be23,hhitesh\_be23,ngautam\_23\}@thapar.edu}}
+\email{\{asingh28\_be23,tgarg3\_be23,hhitesh\_be23,ngautam\_23\}@thapar.edu}\\
+\email{harkiran.kaur88@gmail.com}}
 
 \maketitle
 

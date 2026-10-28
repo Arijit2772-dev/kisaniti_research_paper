@@ -4,10 +4,10 @@
 \label{sec:method-storage}
 
 One protected SHT30 temperature and humidity probe is placed in a bag of grain and read every five minutes by an ESP32
-board; readings are sent by MQTT with TLS, kept in a 24-hour buffer until the server confirms it has stored each one
+board; readings are sent by Message Queuing Telemetry Transport (MQTT) with Transport Layer Security (TLS), kept in a 24-hour buffer until the server confirms it has stored each one
 once, and assessed hourly. Grain balances its moisture with the air between the kernels, and that air's relative humidity divided by
-100 is its water activity $a_w$. Storage fungi need at least 65\,\% relative humidity~\cite{gwinner1996}, and grain below 65 to 70\,\% degrades slowly~\cite{delucia1994}. The rule takes the median
+100 is its water activity $a_w$. Storage fungi need at least 65\,\% relative humidity (RH)~\cite{gwinner1996}, and grain below 65 to 70\,\% degrades slowly~\cite{delucia1994}. The rule takes the median
 humidity and temperature of the last 24\,h and returns LOW for $a_w<0.65$, MEDIUM for $0.65\le a_w<0.70$ and HIGH from $0.70$; the
 level rises at once but falls only after 48\,h at least 2 points below the limit; it returns UNKNOWN, with reasons, when the probe
-hangs in shed air, in the first 6\,h, or when readings are old or missing. It says whether the air in a bag favours mould and insects;
+hangs in shed air, in the first 6\,h, or when readings are old or missing. It says whether the air in a bag favors mold and insects;
 it does not measure moisture content or detect spoilage.
