@@ -17,7 +17,7 @@
 
 ## 2. Three repositories (clone side by side)
 
-| Folder | GitHub (private, Arijit2772-dev) | Role | Start file |
+| Folder | GitHub (public, Arijit2772-dev) | Role | Start file |
 |---|---|---|---|
 | `~/Documents/kisaniti` | `kisaniti_plan` | Design and decisions (CHAT-01…32) — the source of truth | `CLAUDE.md`, `docs/MASTER_PLAN.md` |
 | `~/Documents/kisaniti_implementation` | `kisaniti_implementation` | Product: shared `core/` algorithms, FastAPI, PostgreSQL, Next.js, firmware | `CLAUDE.md`, `STATUS.md` |
