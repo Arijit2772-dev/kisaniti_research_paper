@@ -1,0 +1,57 @@
+{
+  "status": "POST-HOC EXPLORATORY: suggests, does not prove; never replaces the primary result",
+  "rows": {
+    "msp_like": 428,
+    "msp_like_1121": 403,
+    "other_1121": 2831
+  },
+  "traced_to_raw_line": 428,
+  "months": {
+    "09": 2,
+    "10": 276,
+    "11": 150
+  },
+  "median_arrivals_t": {
+    "msp_like_1121": 1460.0,
+    "other_1121": 149.0
+  },
+  "min_eq_max_eq_modal_pct": {
+    "msp_like_1121": 85.60794044665012,
+    "other_1121": 10.490992582126458
+  },
+  "same_day_gap_to_other_1121_median": {
+    "rows_compared": 389,
+    "median_rs": 1111.0,
+    "pct_over_500": 92.03084832904884
+  },
+  "mandis_with_1121_only_at_msp": {
+    "count": 9,
+    "rows": 215,
+    "mandis": [
+      "Amloh APMC",
+      "Amloh(Gobind Garh Mandi) APMC",
+      "Bariwala APMC",
+      "Bhikhiwind (Marrimegha) APMC",
+      "Dhanaula APMC",
+      "Garh Shankar APMC",
+      "Mehatpur APMC",
+      "Samana(Gajewas) APMC",
+      "Shakot (Malsian) APMC"
+    ]
+  },
+  "common_paddy_last_date": "2025-11-27",
+  "common_match": {
+    "msp_like_1121": {
+      "rows": 403,
+      "with_common_row": 10,
+      "same_price": 10,
+      "same_arrivals": 8
+    },
+    "other_1121": {
+      "rows": 2626,
+      "with_common_row": 1081,
+      "same_price": 0,
+      "same_arrivals": 0
+    }
+  }
+}
