@@ -1,0 +1,312 @@
+{
+  "status": "POST-HOC EXPLORATORY: not part of the frozen protocol; never replaces the primary result",
+  "rule": "modal within Rs 1 of the season's paddy Grade-A or common MSP",
+  "control_rebuilt_index_equals_primary": true,
+  "dated_rows_in_scope": 5934,
+  "msp_like_rows": 428,
+  "rows_by_season_variety": {
+    "2021-22|1121": {
+      "msp_like": 119,
+      "dated_rows": 617
+    },
+    "2022-23|1121": {
+      "msp_like": 71,
+      "dated_rows": 513
+    },
+    "2023-24|1121": {
+      "msp_like": 114,
+      "dated_rows": 742
+    },
+    "2023-24|Basmati 1509": {
+      "msp_like": 9,
+      "dated_rows": 480
+    },
+    "2024-25|1121": {
+      "msp_like": 52,
+      "dated_rows": 713
+    },
+    "2024-25|Basmati 1509": {
+      "msp_like": 15,
+      "dated_rows": 673
+    },
+    "2025-26|1121": {
+      "msp_like": 47,
+      "dated_rows": 549
+    },
+    "2025-26|Basmati 1509": {
+      "msp_like": 1,
+      "dated_rows": 559
+    }
+  },
+  "markets_top": [
+    [
+      "Bariwala APMC",
+      99
+    ],
+    [
+      "Dasuya APMC",
+      77
+    ],
+    [
+      "Amloh(Gobind Garh Mandi) APMC",
+      63
+    ],
+    [
+      "Kot ise Khan APMC",
+      58
+    ],
+    [
+      "Zira APMC",
+      35
+    ],
+    [
+      "Amloh APMC",
+      26
+    ],
+    [
+      "Samana(Gajewas) APMC",
+      16
+    ],
+    [
+      "Samana(Kakrala) APMC",
+      7
+    ],
+    [
+      "Garh Shankar APMC",
+      7
+    ],
+    [
+      "Dhanaula APMC",
+      5
+    ]
+  ],
+  "min_eq_max_eq_modal": 367,
+  "filters": {
+    "excl_msp_2025_26": {
+      "rows_removed": 48,
+      "effect": {
+        "1121|2021-22": {
+          "index_days": 81,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 17
+        },
+        "1121|2022-23": {
+          "index_days": 65,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 3
+        },
+        "1121|2023-24": {
+          "index_days": 88,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 1
+        },
+        "1121|2024-25": {
+          "index_days": 90,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "1121|2025-26": {
+          "index_days": 88,
+          "days_lost": 1,
+          "days_changed": 27,
+          "median_abs_change_of_changed": 62.5,
+          "max_abs_change": 465.0,
+          "mean_change_all_kept_days": 26.95402298850575,
+          "index_days_at_msp_before": 0
+        },
+        "1121|2026-27": {
+          "index_days": 21,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2021-22": {
+          "index_days": 46,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2022-23": {
+          "index_days": 36,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2023-24": {
+          "index_days": 73,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2024-25": {
+          "index_days": 86,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2025-26": {
+          "index_days": 79,
+          "days_lost": 0,
+          "days_changed": 1,
+          "median_abs_change_of_changed": 17.5,
+          "max_abs_change": 17.5,
+          "mean_change_all_kept_days": 0.22151898734177214,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2026-27": {
+          "index_days": 49,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        }
+      }
+    },
+    "excl_msp_all": {
+      "rows_removed": 428,
+      "effect": {
+        "1121|2021-22": {
+          "index_days": 81,
+          "days_lost": 11,
+          "days_changed": 25,
+          "median_abs_change_of_changed": 617.5,
+          "max_abs_change": 1540.0,
+          "mean_change_all_kept_days": 227.59285714285716,
+          "index_days_at_msp_before": 17
+        },
+        "1121|2022-23": {
+          "index_days": 65,
+          "days_lost": 7,
+          "days_changed": 27,
+          "median_abs_change_of_changed": 50.0,
+          "max_abs_change": 692.5,
+          "mean_change_all_kept_days": 50.39655172413793,
+          "index_days_at_msp_before": 3
+        },
+        "1121|2023-24": {
+          "index_days": 88,
+          "days_lost": 2,
+          "days_changed": 38,
+          "median_abs_change_of_changed": 100.0,
+          "max_abs_change": 450.0,
+          "mean_change_all_kept_days": 61.104651162790695,
+          "index_days_at_msp_before": 1
+        },
+        "1121|2024-25": {
+          "index_days": 90,
+          "days_lost": 2,
+          "days_changed": 35,
+          "median_abs_change_of_changed": 75.0,
+          "max_abs_change": 400.0,
+          "mean_change_all_kept_days": 45.28409090909091,
+          "index_days_at_msp_before": 0
+        },
+        "1121|2025-26": {
+          "index_days": 88,
+          "days_lost": 1,
+          "days_changed": 27,
+          "median_abs_change_of_changed": 62.5,
+          "max_abs_change": 465.0,
+          "mean_change_all_kept_days": 26.95402298850575,
+          "index_days_at_msp_before": 0
+        },
+        "1121|2026-27": {
+          "index_days": 21,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2021-22": {
+          "index_days": 46,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2022-23": {
+          "index_days": 36,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2023-24": {
+          "index_days": 73,
+          "days_lost": 1,
+          "days_changed": 7,
+          "median_abs_change_of_changed": 25.0,
+          "max_abs_change": 125.0,
+          "mean_change_all_kept_days": 4.027777777777778,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2024-25": {
+          "index_days": 86,
+          "days_lost": 1,
+          "days_changed": 8,
+          "median_abs_change_of_changed": 30.0,
+          "max_abs_change": 105.0,
+          "mean_change_all_kept_days": 3.5,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2025-26": {
+          "index_days": 79,
+          "days_lost": 0,
+          "days_changed": 1,
+          "median_abs_change_of_changed": 17.5,
+          "max_abs_change": 17.5,
+          "mean_change_all_kept_days": 0.22151898734177214,
+          "index_days_at_msp_before": 0
+        },
+        "Basmati 1509|2026-27": {
+          "index_days": 49,
+          "days_lost": 0,
+          "days_changed": 0,
+          "median_abs_change_of_changed": 0,
+          "max_abs_change": 0,
+          "mean_change_all_kept_days": 0.0,
+          "index_days_at_msp_before": 0
+        }
+      }
+    }
+  }
+}
